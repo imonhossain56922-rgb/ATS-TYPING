@@ -37,11 +37,6 @@ Hello Mr. Didar, I would like to get more information regarding this service.`;
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-900 text-amber-400 border border-amber-500/25">
-            <Phone className="w-3.5 h-3.5 text-amber-400" />
-            <span>EXECUTIVE DISPATCH & INQUIRY</span>
-          </div>
-
           <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-white font-display">
             {language === 'bn' ? (
               <>যোগাযোগ ও সরাসরি <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500">পরামর্শ সেবা</span></>

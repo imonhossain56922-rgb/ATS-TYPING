@@ -15,11 +15,6 @@ export const AboutAndShop: React.FC<AboutAndShopProps> = ({ language }) => {
     <section id="about" className="py-20 bg-[#080C14] relative border-t border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-900 text-amber-400 border border-amber-500/25">
-            <Store className="w-3.5 h-3.5 text-amber-400" />
-            <span>ALAYAN TYPING SERVICES • SHOP #46</span>
-          </div>
-
           <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-white font-display">
             {language === 'bn' ? (
               <>কেন বেছে নেবেন <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500">আল আয়ান টাইপিং?</span></>
@@ -74,11 +69,6 @@ export const AboutAndShop: React.FC<AboutAndShopProps> = ({ language }) => {
         <div className="bg-gradient-to-br from-[#0F172A] via-[#0B1120] to-[#080C14] rounded-3xl border border-slate-800/90 p-8 sm:p-10 shadow-2xl ring-1 ring-white/5">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 space-y-4">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400 font-mono">
-                <Store className="w-4 h-4 text-amber-400" />
-                <span>PHYSICAL SHOP SPOTLIGHT</span>
-              </div>
-
               <h3 className="text-2xl sm:text-4xl font-light text-white font-display">
                 Alayan Typing Services — <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-400">Shop #46</span>
               </h3>

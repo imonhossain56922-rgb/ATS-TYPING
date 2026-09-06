@@ -21,24 +21,6 @@ export const Hero: React.FC<HeroProps> = ({ language }) => {
       <div className="absolute top-60 -left-20 w-80 h-80 bg-blue-600/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Top Authority Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-8 text-center">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-900/90 text-amber-400 border border-amber-500/25 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>ALAYAN TYPING SERVICES • ATS AJMAN</span>
-          </span>
-
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-950/40 text-emerald-400 border border-emerald-500/30">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>🇧🇩 বাংলাদেশি টাইপিং সেন্টার • আজমান</span>
-          </span>
-
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium uppercase tracking-wider bg-slate-900/90 text-slate-300 border border-slate-700/60">
-            <MapPin className="w-3.5 h-3.5 text-amber-400" />
-            <span>{t.shopBadge}</span>
-          </span>
-        </div>
-
         {/* Main Hero Headline */}
         <div className="text-center max-w-4xl mx-auto space-y-6">
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white leading-[1.15]">
@@ -63,14 +45,9 @@ export const Hero: React.FC<HeroProps> = ({ language }) => {
                 </span>
               </>
             ) : (
-              <>
-                <span className="font-light tracking-wide uppercase text-slate-300 text-sm sm:text-base font-mono block mb-2">
-                  OFFICIAL GOVERNMENT DOCUMENTATION CLEARING
-                </span>
-                <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-amber-400 block font-display">
-                  Fast, Certified Visa & PRO Solutions in Ajman
-                </span>
-              </>
+              <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-amber-400 block font-display">
+                Fast, Certified Visa & PRO Solutions in Ajman
+              </span>
             )}
           </h1>
 
@@ -83,23 +60,12 @@ export const Hero: React.FC<HeroProps> = ({ language }) => {
           {/* Quick Action CTAs */}
           <div className="flex flex-wrap items-center justify-center gap-3.5 pt-2">
             <a
-              id="hero-btn-whatsapp"
-              href={`https://wa.me/971505372999?text=${encodeURIComponent('Hello Mr. Didar! I would like to inquire about Alayan Typing services in Ajman.')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-7 py-3.5 rounded-full font-bold uppercase tracking-wider text-xs sm:text-sm bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 shadow-xl shadow-amber-500/20 flex items-center gap-2.5 transition-all transform hover:-translate-y-0.5 active:scale-95"
-            >
-              <MessageCircle className="w-4 h-4 fill-slate-950 text-amber-500" />
-              <span>{t.whatsappChat} (050 537 2999)</span>
-            </a>
-
-            <a
               id="hero-btn-call"
               href="tel:+971505372999"
-              className="px-6 py-3.5 rounded-full font-bold uppercase tracking-wider text-xs sm:text-sm bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700 shadow-xl flex items-center gap-2 transition-all transform hover:-translate-y-0.5 active:scale-95"
+              className="px-8 py-3.5 rounded-full font-bold uppercase tracking-wider text-xs sm:text-sm bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 shadow-xl shadow-amber-500/20 flex items-center gap-2 transition-all transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
             >
-              <Phone className="w-4 h-4 text-amber-400" />
-              <span>{t.quickCall}</span>
+              <Phone className="w-4 h-4 text-slate-950" />
+              <span>{t.quickCall} (050 537 2999)</span>
             </a>
 
             <a
@@ -107,19 +73,11 @@ export const Hero: React.FC<HeroProps> = ({ language }) => {
               href={contactData.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3.5 rounded-full font-medium text-xs sm:text-sm bg-slate-950/60 hover:bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 flex items-center gap-2 transition-all"
+              className="px-6 py-3.5 rounded-full font-medium text-xs sm:text-sm bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700 hover:border-slate-600 flex items-center gap-2 transition-all cursor-pointer"
             >
               <MapPin className="w-4 h-4 text-amber-400" />
               <span>{t.getDirections}</span>
             </a>
-          </div>
-
-          {/* Notice Banner */}
-          <div className="pt-2">
-            <span className="inline-flex items-center gap-2 text-xs font-medium px-4 py-1.5 rounded-full bg-slate-900/80 text-amber-300 border border-slate-700/60">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
-              <span>{t.specialOffer}</span>
-            </span>
           </div>
         </div>
 

@@ -14,49 +14,7 @@ export const VisitingCardPreview: React.FC<{ language: 'en' | 'bn' | 'ar' }> = (
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto my-10">
-      {/* Selector Tabs */}
-      <div className="flex justify-center items-center gap-2 mb-6 flex-wrap">
-        <button
-          id="btn-card-front"
-          onClick={() => setActiveSide('front')}
-          className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
-            activeSide === 'front'
-              ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-lg shadow-amber-500/25 ring-2 ring-amber-400/40'
-              : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800 border border-slate-700/70'
-          }`}
-        >
-          <span>Executive Card (Front)</span>
-          <span className="text-[10px] opacity-80 font-arabic">الواجهة</span>
-        </button>
-
-        <button
-          id="btn-card-back"
-          onClick={() => setActiveSide('back')}
-          className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
-            activeSide === 'back'
-              ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-lg shadow-amber-500/25 ring-2 ring-amber-400/40'
-              : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800 border border-slate-700/70'
-          }`}
-        >
-          <span>Services Matrix (Back)</span>
-          <span className="text-[10px] opacity-80 font-bengali">সার্ভিস তালিকা</span>
-        </button>
-
-        <button
-          id="btn-shop-sign"
-          onClick={() => setActiveSide('shop')}
-          className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
-            activeSide === 'shop'
-              ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-lg shadow-amber-500/25 ring-2 ring-amber-400/40'
-              : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800 border border-slate-700/70'
-          }`}
-        >
-          <span>Storefront Signboard</span>
-          <span className="text-[10px] opacity-80 font-bengali">দোকানের সাইনবোর্ড</span>
-        </button>
-      </div>
-
+    <div className="w-full max-w-4xl mx-auto my-8">
       {/* Card Body Display */}
       {activeSide === 'front' && (
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0F172A] via-[#0B1120] to-[#080C14] border border-slate-700/80 p-6 sm:p-9 shadow-2xl ring-1 ring-white/5">

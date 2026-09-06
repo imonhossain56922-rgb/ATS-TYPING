@@ -106,11 +106,6 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ language }) =>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-900 text-amber-400 border border-amber-500/25">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>AUTHORITATIVE SERVICES PORTFOLIO • AJMAN</span>
-          </div>
-
           <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-white font-display">
             {language === 'bn' ? (
               <>আমাদের বিশেষায়িত <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500">সরকারি ও টাইপিং সার্ভিসেস</span></>

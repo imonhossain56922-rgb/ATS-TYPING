@@ -24,77 +24,8 @@ export const Header: React.FC<HeaderProps> = ({ currentLanguage, setLanguage }) 
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#080C14]/95 backdrop-blur-xl border-b border-slate-800/80 shadow-2xl">
-      {/* Top Utility Bar */}
-      <div className="bg-[#0B1120] border-b border-slate-800/60 text-xs py-2 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-          {/* Shop Location Badge */}
-          <div className="flex items-center gap-4 flex-wrap">
-            <a
-              href={contactData.googleMapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-slate-400 hover:text-amber-400 flex items-center gap-1.5 transition-colors text-[11px] sm:text-xs font-medium"
-            >
-              <MapPin className="w-3.5 h-3.5 text-amber-400" />
-              <span>{contactData.shopNumber}, Younus Market, Ajman Industrial 1</span>
-            </a>
-          </div>
-
-          {/* Quick contact & Language Switcher */}
-          <div className="flex items-center gap-3">
-            <div className="hidden md:flex items-center gap-3 text-slate-400 text-xs font-mono">
-              <a href="tel:+971505372999" className="hover:text-amber-400 tracking-tight font-semibold flex items-center gap-1.5 transition-colors">
-                <Phone className="w-3 h-3 text-amber-400" />
-                <span>050 537 2999</span>
-              </a>
-              <span className="text-slate-700">|</span>
-              <a href="tel:+97165209420" className="hover:text-amber-400 tracking-tight flex items-center gap-1 transition-colors">
-                <span>Tel: 06-5209420</span>
-              </a>
-            </div>
-
-            {/* Language Switcher */}
-            <div className="flex items-center bg-slate-900/90 rounded-full p-1 border border-slate-700/60 shadow-inner">
-              <button
-                id="lang-btn-en"
-                onClick={() => setLanguage('en')}
-                className={`px-2.5 py-0.5 text-[11px] font-bold rounded-full transition-all ${
-                  currentLanguage === 'en'
-                    ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-sm'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                EN
-              </button>
-              <button
-                id="lang-btn-bn"
-                onClick={() => setLanguage('bn')}
-                className={`px-2.5 py-0.5 text-[11px] font-bold rounded-full transition-all ${
-                  currentLanguage === 'bn'
-                    ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-sm'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                বাংলা
-              </button>
-              <button
-                id="lang-btn-ar"
-                onClick={() => setLanguage('ar')}
-                className={`px-2.5 py-0.5 text-[11px] font-bold rounded-full transition-all ${
-                  currentLanguage === 'ar'
-                    ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-sm'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                العربية
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main Navbar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
         {/* Brand Logo */}
         <a href="#hero" onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }} className="cursor-pointer transition-transform hover:scale-[1.01]">
           <Logo variant="gold" />
@@ -153,8 +84,45 @@ export const Header: React.FC<HeaderProps> = ({ currentLanguage, setLanguage }) 
           </button>
         </nav>
 
-        {/* Action Buttons */}
+        {/* Action Buttons & Language Switcher */}
         <div className="hidden sm:flex items-center gap-3">
+          {/* Language Switcher */}
+          <div className="flex items-center bg-slate-900 rounded-full p-1 border border-slate-700/80 shadow-inner mr-1">
+            <button
+              id="lang-btn-en"
+              onClick={() => setLanguage('en')}
+              className={`px-2.5 py-1 text-[11px] font-bold rounded-full transition-all ${
+                currentLanguage === 'en'
+                  ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-sm'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              EN
+            </button>
+            <button
+              id="lang-btn-bn"
+              onClick={() => setLanguage('bn')}
+              className={`px-2.5 py-1 text-[11px] font-bold rounded-full transition-all ${
+                currentLanguage === 'bn'
+                  ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-sm'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              বাংলা
+            </button>
+            <button
+              id="lang-btn-ar"
+              onClick={() => setLanguage('ar')}
+              className={`px-2.5 py-1 text-[11px] font-bold rounded-full transition-all ${
+                currentLanguage === 'ar'
+                  ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-sm'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              العربية
+            </button>
+          </div>
+
           <a
             id="header-call-btn"
             href="tel:+971505372999"

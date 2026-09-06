@@ -44,11 +44,6 @@ Hello Mr. Didar, please provide guidance for this service.`;
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-900 text-amber-400 border border-amber-500/25">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>INTERACTIVE CLEARANCE ASSISTANT</span>
-          </div>
-
           <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-white font-display">
             {language === 'bn' ? (
               <>সার্ভিস ক্যালকুলেটর ও <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500">প্রয়োজনীয় কাগজপত্র</span></>
