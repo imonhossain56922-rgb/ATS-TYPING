@@ -1,0 +1,6 @@
+{
+  "name": "Alayan Typing Services - ATS Ajman",
+  "description": "Official website for Alayan Typing Services (ATS) in Ajman Industrial 1. Government visa processing, Emirates ID, medical typing, trade license, traffic, and PRO services.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
