@@ -48,14 +48,14 @@ export const AmrkOutletPage: React.FC = () => {
               Your dedicated typing and government documentation center in Ajman Industrial 2. Providing rapid visa typing, MOHRE contracts, company trade licenses, and legal translations.
             </p>
 
-            {/* 5. Direct Contact Buttons */}
-            <div className="pt-2 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+            {/* 5. Direct Contact Buttons - Horizontally in one line on desktop view */}
+            <div className="pt-2 flex flex-wrap lg:flex-nowrap items-center justify-center gap-2 sm:gap-2.5 max-w-full">
               {/* Office Call */}
               <a
                 href={`tel:${outlet.officePhoneIntl}`}
-                className="px-4 py-2.5 rounded-full bg-white hover:bg-slate-50 text-[#0B1B3D] border border-slate-300 text-xs font-semibold flex items-center gap-2 shadow-xs transition-all"
+                className="whitespace-nowrap px-3.5 py-2 rounded-full bg-white hover:bg-slate-50 text-[#0B1B3D] border border-slate-300 text-xs font-semibold flex items-center gap-1.5 shadow-xs transition-all flex-shrink-0"
               >
-                <Phone className="w-4 h-4 text-blue-600" />
+                <Phone className="w-3.5 h-3.5 text-blue-600" />
                 <span>Call Office ({outlet.officePhone})</span>
               </a>
 
@@ -64,50 +64,71 @@ export const AmrkOutletPage: React.FC = () => {
                 href={`https://wa.me/${outlet.officePhoneIntl.replace('+', '')}?text=${encodeURIComponent('Hello AMRK Typing Services, I would like to inquire about typing services.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2.5 rounded-full bg-[#00a859] hover:bg-[#00924d] text-white text-xs font-bold flex items-center gap-2 shadow-xs transition-all"
+                className="whitespace-nowrap px-3.5 py-2 rounded-full bg-[#00a859] hover:bg-[#00924d] text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition-all flex-shrink-0"
               >
-                <MessageCircle className="w-4 h-4 fill-white text-[#00a859]" />
+                <MessageCircle className="w-3.5 h-3.5 fill-white text-[#00a859]" />
                 <span>Office WhatsApp</span>
               </a>
 
-              {/* Owner Call 1 */}
-              <a
-                href={`tel:${outlet.ownerPhoneIntl}`}
-                className="px-4 py-2.5 rounded-full bg-[#0B1B3D] hover:bg-[#15284F] text-white text-xs font-semibold flex items-center gap-2 shadow-xs transition-all"
-              >
-                <Phone className="w-4 h-4 text-amber-400" />
-                <span>Owner ({outlet.ownerPhone})</span>
-              </a>
-
-              {/* Owner Call & WhatsApp 2 */}
-              <div className="inline-flex items-center rounded-full bg-[#0B1B3D] p-0.5 shadow-xs">
-                <a
-                  href="tel:+971555950006"
-                  className="px-3 py-2 rounded-l-full hover:bg-[#15284F] text-white text-xs font-semibold flex items-center gap-1.5 transition-all"
-                  title="Call Owner"
-                >
+              {/* Combined Single Component for AMRK Owners: Call icon - OWNER (0505372999) -whatsapp icon (0555950006) -whatsapp icon */}
+              <div className="inline-flex items-center rounded-full bg-[#0B1B3D] text-white text-xs font-semibold px-3.5 py-1.5 shadow-xs gap-2 flex-shrink-0 whitespace-nowrap border border-[#1e3461]">
+                {/* Call icon - OWNER */}
+                <div className="flex items-center gap-1.5">
                   <Phone className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Owner (0555950006)</span>
-                </a>
-                <span className="w-px h-4 bg-white/20" />
-                <a
-                  href="https://wa.me/971555950006?text=Hello%20AMRK%20Typing%20Services%2C%20I%20would%20like%20to%20inquire%20about%20typing%20services."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-2 rounded-r-full bg-[#00a859] hover:bg-[#00924d] text-white text-xs font-bold flex items-center gap-1.5 transition-all"
-                  title="WhatsApp Owner"
-                >
-                  <MessageCircle className="w-3.5 h-3.5 fill-white text-[#00a859]" />
-                  <span>WhatsApp</span>
-                </a>
+                  <span className="text-amber-400 font-bold uppercase tracking-wider text-[11px]">OWNER</span>
+                </div>
+
+                <span className="w-px h-3.5 bg-white/25" />
+
+                {/* (0505372999) - whatsapp icon */}
+                <div className="flex items-center gap-1">
+                  <a
+                    href="tel:+971505372999"
+                    className="text-white hover:text-amber-300 transition-colors"
+                    title="Call 0505372999"
+                  >
+                    (0505372999)
+                  </a>
+                  <a
+                    href="https://wa.me/971505372999?text=Hello%20AMRK%20Typing%20Services%2C%20I%20would%20like%20to%20inquire%20about%20typing%20services."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1 rounded-full bg-[#00a859] hover:bg-[#00924d] text-white transition-all inline-flex items-center justify-center"
+                    title="WhatsApp 0505372999"
+                  >
+                    <MessageCircle className="w-3 h-3 fill-white text-[#00a859]" />
+                  </a>
+                </div>
+
+                <span className="w-px h-3.5 bg-white/25" />
+
+                {/* (0555950006) - whatsapp icon */}
+                <div className="flex items-center gap-1">
+                  <a
+                    href="tel:+971555950006"
+                    className="text-white hover:text-amber-300 transition-colors"
+                    title="Call 0555950006"
+                  >
+                    (0555950006)
+                  </a>
+                  <a
+                    href="https://wa.me/971555950006?text=Hello%20AMRK%20Typing%20Services%2C%20I%20would%20like%20to%20inquire%20about%20typing%20services."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1 rounded-full bg-[#00a859] hover:bg-[#00924d] text-white transition-all inline-flex items-center justify-center"
+                    title="WhatsApp 0555950006"
+                  >
+                    <MessageCircle className="w-3 h-3 fill-white text-[#00a859]" />
+                  </a>
+                </div>
               </div>
 
               {/* Email */}
               <a
                 href={`mailto:${outlet.email}`}
-                className="px-4 py-2.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs flex items-center gap-2 shadow-xs transition-all"
+                className="whitespace-nowrap px-3.5 py-2 rounded-full bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs flex items-center gap-1.5 shadow-xs transition-all flex-shrink-0"
               >
-                <Mail className="w-4 h-4 text-slate-500" />
+                <Mail className="w-3.5 h-3.5 text-slate-500" />
                 <span>{outlet.email}</span>
               </a>
             </div>
