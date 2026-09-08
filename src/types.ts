@@ -51,6 +51,8 @@ export interface OutletInfo {
   officePhoneIntl: string;
   ownerPhone: string;
   ownerPhoneIntl: string;
+  additionalOwnerPhone?: string;
+  additionalOwnerPhoneIntl?: string;
   email: string;
   logoUrl: string;
   path: string;

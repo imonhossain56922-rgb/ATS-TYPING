@@ -70,7 +70,7 @@ export const AmrkOutletPage: React.FC = () => {
                 <span>Office WhatsApp</span>
               </a>
 
-              {/* Owner Call */}
+              {/* Owner Call 1 */}
               <a
                 href={`tel:${outlet.ownerPhoneIntl}`}
                 className="px-4 py-2.5 rounded-full bg-[#0B1B3D] hover:bg-[#15284F] text-white text-xs font-semibold flex items-center gap-2 shadow-xs transition-all"
@@ -78,6 +78,29 @@ export const AmrkOutletPage: React.FC = () => {
                 <Phone className="w-4 h-4 text-amber-400" />
                 <span>Owner ({outlet.ownerPhone})</span>
               </a>
+
+              {/* Owner Call & WhatsApp 2 */}
+              <div className="inline-flex items-center rounded-full bg-[#0B1B3D] p-0.5 shadow-xs">
+                <a
+                  href="tel:+971555950006"
+                  className="px-3 py-2 rounded-l-full hover:bg-[#15284F] text-white text-xs font-semibold flex items-center gap-1.5 transition-all"
+                  title="Call Owner"
+                >
+                  <Phone className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Owner (0555950006)</span>
+                </a>
+                <span className="w-px h-4 bg-white/20" />
+                <a
+                  href="https://wa.me/971555950006?text=Hello%20AMRK%20Typing%20Services%2C%20I%20would%20like%20to%20inquire%20about%20typing%20services."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-2 rounded-r-full bg-[#00a859] hover:bg-[#00924d] text-white text-xs font-bold flex items-center gap-1.5 transition-all"
+                  title="WhatsApp Owner"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 fill-white text-[#00a859]" />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
 
               {/* Email */}
               <a

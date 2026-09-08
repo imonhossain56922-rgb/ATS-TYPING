@@ -9,6 +9,7 @@ import {
   Zap, 
   Plane, 
   FileText, 
+  Stamp,
   Cog, 
   Star, 
   ArrowRight, 
@@ -32,6 +33,16 @@ export const ServiceGridCards: React.FC<ServiceGridCardsProps> = ({
 
   // Colors & Icons corresponding exactly to reference image
   const categoryConfig: { [key: string]: { bg: string; icon: React.ReactNode; preview: string } } = {
+    'travel-ticketing': {
+      bg: 'bg-[#0D9488]',
+      icon: <Plane className="w-6 h-6 text-white" />,
+      preview: 'Air tickets, hotel booking, travel insurance and more.'
+    },
+    'docs-attestation': {
+      bg: 'bg-[#C2410C]',
+      icon: <Stamp className="w-6 h-6 text-white" />,
+      preview: 'Consulate & UAE MOFA attestation, certificates, and civil defence.'
+    },
     'gov-immigration': {
       bg: 'bg-[#0B1B3D]',
       icon: <Building2 className="w-6 h-6 text-white" />,
@@ -67,20 +78,25 @@ export const ServiceGridCards: React.FC<ServiceGridCardsProps> = ({
       icon: <Zap className="w-6 h-6 text-white" />,
       preview: 'DEWA, water, sewerage, tenancy and more.'
     },
-    'travel-ticketing': {
-      bg: 'bg-[#0D9488]',
-      icon: <Plane className="w-6 h-6 text-white" />,
-      preview: 'Air tickets, hotel booking, travel insurance and more.'
-    },
     'document-services': {
       bg: 'bg-[#D97706]',
       icon: <FileText className="w-6 h-6 text-white" />,
       preview: 'Typing, translation, printing, scanning and more.'
     },
+    'pro-government': {
+      bg: 'bg-[#1E293B]',
+      icon: <Cog className="w-6 h-6 text-white" />,
+      preview: 'PRO services, document clearance, government submission and more.'
+    },
     'pro-processing': {
       bg: 'bg-[#1E293B]',
       icon: <Cog className="w-6 h-6 text-white" />,
       preview: 'PRO services, document clearance, government submission and more.'
+    },
+    'other-popular': {
+      bg: 'bg-[#E11D48]',
+      icon: <Star className="w-6 h-6 text-white" />,
+      preview: 'Police clearance, medical, passport, NOC and more.'
     },
     'other-services': {
       bg: 'bg-[#E11D48]',

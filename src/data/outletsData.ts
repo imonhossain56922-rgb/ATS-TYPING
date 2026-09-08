@@ -19,8 +19,10 @@ export const outletsData: OutletInfo[] = [
     officePhoneIntl: '+971566745493',
     ownerPhone: '0505372999',
     ownerPhoneIntl: '+971505372999',
+    additionalOwnerPhone: '0555950006',
+    additionalOwnerPhoneIntl: '+971555950006',
     email: 'amrktyping2020@gmail.com',
-    logoUrl: '/amrk-logo.svg',
+    logoUrl: '/amrk-logo.jpg',
     path: '/amrk-typing-services',
     description: 'Providing comprehensive visa typing, labour documentation, and government liaison solutions in Ajman Industrial 2.'
   },

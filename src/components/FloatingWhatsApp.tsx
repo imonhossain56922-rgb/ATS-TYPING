@@ -80,6 +80,17 @@ export const FloatingWhatsApp: React.FC = () => {
       whatsappUrl: `https://wa.me/${amrkNumber}?text=${encodeURIComponent('Hello AMRK Typing Services (Ajman Ind. 2), I would like to inquire about typing services.')}`
     },
     {
+      id: 'amrk-owner',
+      title: 'AMRK Owner Mobile',
+      subtitle: 'Direct owner line for AMRK Typing Services',
+      badge: 'Owner AMRK',
+      badgeColor: 'bg-blue-100 text-blue-900 border-blue-300',
+      phoneDisplay: '+971 55 595 0006',
+      icon: UserCheck,
+      iconColor: 'text-blue-600 bg-blue-50 border-blue-200',
+      whatsappUrl: `https://wa.me/971555950006?text=${encodeURIComponent('Hello AMRK Typing Services Owner, I would like to inquire about typing services.')}`
+    },
+    {
       id: 'alayan',
       title: 'ALAYAN TYPING SERVICES',
       subtitle: 'Ajman Industrial 1 • Central Souq (Shop No. 46)',

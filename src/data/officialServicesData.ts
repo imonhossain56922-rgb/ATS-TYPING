@@ -2,8 +2,34 @@ import { ServiceCategoryGroup } from '../types';
 
 export const officialServiceCategories: ServiceCategoryGroup[] = [
   {
-    id: 'gov-immigration',
+    id: 'travel-ticketing',
     letter: 'A',
+    title: 'Travel & Ticketing',
+    iconName: 'Plane',
+    description: 'Worldwide flight bookings, itinerary modifications, international travel visa assistance, and corporate travel reservations.',
+    services: [
+      'Air Ticket Booking',
+      'Flight Cancellation / Changes',
+      'Travel Insurance',
+      'Visa Assistance',
+      'Hotel Booking'
+    ]
+  },
+  {
+    id: 'docs-attestation',
+    letter: 'B',
+    title: 'Docs Attestation In Consulate And UAE mofa',
+    iconName: 'Stamp',
+    description: 'Consulate and UAE Ministry of Foreign Affairs (MOFA) attestation, individual and educational certificates, company invoices, passport renewals, and civil defence certificates.',
+    services: [
+      'Individual Certificate, Education Certificate & Company Invoice',
+      'Passport Renew Appointment',
+      'Civil Defence Certificate Process'
+    ]
+  },
+  {
+    id: 'gov-immigration',
+    letter: 'C',
     title: 'Government & Immigration Services',
     iconName: 'Building2',
     description: 'Comprehensive residence visas, entry permits, family sponsorship, and official ICP & GDRFA processing across the UAE.',
@@ -23,7 +49,7 @@ export const officialServiceCategories: ServiceCategoryGroup[] = [
   },
   {
     id: 'labour-employment',
-    letter: 'B',
+    letter: 'D',
     title: 'Labour & Employment Services',
     iconName: 'Briefcase',
     description: 'MOHRE work permits, labour contracts, job offers, cancellation, and domestic worker sponsorship support.',
@@ -41,7 +67,7 @@ export const officialServiceCategories: ServiceCategoryGroup[] = [
   },
   {
     id: 'business-company',
-    letter: 'C',
+    letter: 'E',
     title: 'Business & Company Services',
     iconName: 'Building',
     description: 'Complete mainland and freezone company formation, trade license renewals, amendments, and corporate documentation.',
@@ -58,7 +84,7 @@ export const officialServiceCategories: ServiceCategoryGroup[] = [
   },
   {
     id: 'tax-accounting',
-    letter: 'D',
+    letter: 'F',
     title: 'Tax & Accounting Services',
     iconName: 'Calculator',
     description: 'Federal Tax Authority (FTA) compliance, VAT registration and returns, Corporate Tax filing, and bookkeeping.',
@@ -74,7 +100,7 @@ export const officialServiceCategories: ServiceCategoryGroup[] = [
   },
   {
     id: 'insurance',
-    letter: 'E',
+    letter: 'G',
     title: 'Insurance Services',
     iconName: 'ShieldCheck',
     description: 'Approved health insurance for visa issuance, mandatory worker coverage, auto insurance, and international travel policies.',
@@ -87,7 +113,7 @@ export const officialServiceCategories: ServiceCategoryGroup[] = [
   },
   {
     id: 'driving-transport',
-    letter: 'F',
+    letter: 'H',
     title: 'Driving & Transport Services',
     iconName: 'Car',
     description: 'Driving license renewals and transfers, mulkiya registration, traffic fine settlements, and RTA transaction clearance.',
@@ -103,7 +129,7 @@ export const officialServiceCategories: ServiceCategoryGroup[] = [
   },
   {
     id: 'government-utility',
-    letter: 'G',
+    letter: 'I',
     title: 'Government Utility Services',
     iconName: 'Zap',
     description: 'Electricity & water connections (DEWA / SEWA / FEWA), Ajman sewerage, Ejari / Tasdeeq tenancy registration, and municipality procedures.',
@@ -117,22 +143,8 @@ export const officialServiceCategories: ServiceCategoryGroup[] = [
     ]
   },
   {
-    id: 'travel-ticketing',
-    letter: 'H',
-    title: 'Travel & Ticketing',
-    iconName: 'Plane',
-    description: 'Worldwide flight bookings, itinerary modifications, international travel visa assistance, and corporate travel reservations.',
-    services: [
-      'Air Ticket Booking',
-      'Flight Cancellation / Changes',
-      'Travel Insurance',
-      'Visa Assistance',
-      'Hotel Booking'
-    ]
-  },
-  {
     id: 'document-services',
-    letter: 'I',
+    letter: 'J',
     title: 'Document Services',
     iconName: 'FileText',
     description: 'Bilingual typing in Arabic & English, certified legal translations, high-speed color printing, scanning, and lamination.',
@@ -153,7 +165,7 @@ export const officialServiceCategories: ServiceCategoryGroup[] = [
   },
   {
     id: 'pro-government',
-    letter: 'J',
+    letter: 'K',
     title: 'PRO & Government Processing',
     iconName: 'Stamp',
     description: 'Dedicated corporate Public Relations Officer (PRO) liaison, ministry submissions, document clearance, and portal management.',
@@ -168,7 +180,7 @@ export const officialServiceCategories: ServiceCategoryGroup[] = [
   },
   {
     id: 'other-popular',
-    letter: 'K',
+    letter: 'L',
     title: 'Other Popular Services',
     iconName: 'Award',
     description: 'Good conduct certificates, medical fitness applications, passport renewals, attestation, and custom declaration letters.',

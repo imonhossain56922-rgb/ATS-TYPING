@@ -22,30 +22,13 @@ export const Header: React.FC = () => {
     setServicesDropdown(false);
   }, [location.pathname]);
 
-  const navLinks = [
+  const navLinks: { name: string; path: string; hasDropdown?: boolean }[] = [
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/about' },
     { name: 'Services', path: '/services', hasDropdown: true },
-    { name: 'Our Outlets', path: '/#outlets', isAnchor: true },
+    { name: 'Our Outlets', path: '/outlets' },
     { name: 'Contact', path: '/contact' },
   ];
-
-  const handleNavClick = (link: { name: string; path: string; isAnchor?: boolean }) => {
-    setIsMenuOpen(false);
-    setServicesDropdown(false);
-    if (link.isAnchor) {
-      if (location.pathname !== '/') {
-        navigate('/');
-        setTimeout(() => {
-          const el = document.getElementById('outlets');
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }, 150);
-      } else {
-        const el = document.getElementById('outlets');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
 
   const isCurrentActive = (path: string) => {
     if (path === '/') return location.pathname === '/';
@@ -128,18 +111,6 @@ export const Header: React.FC = () => {
                 );
               }
 
-              if (link.isAnchor) {
-                return (
-                  <button
-                    key={link.name}
-                    onClick={() => handleNavClick(link)}
-                    className="font-medium text-slate-200 hover:text-white transition-colors cursor-pointer py-2"
-                  >
-                    {link.name}
-                  </button>
-                );
-              }
-
               return (
                 <Link
                   key={link.name}
@@ -179,18 +150,6 @@ export const Header: React.FC = () => {
         <div className="lg:hidden bg-[#0B1528] border-b border-slate-800 px-4 pt-4 pb-6 space-y-3">
           <nav className="flex flex-col space-y-2">
             {navLinks.map((link) => {
-              if (link.isAnchor) {
-                return (
-                  <button
-                    key={link.name}
-                    onClick={() => handleNavClick(link)}
-                    className="text-left py-2 px-3 rounded-lg text-slate-200 hover:bg-slate-800 text-sm font-medium"
-                  >
-                    {link.name}
-                  </button>
-                );
-              }
-
               return (
                 <Link
                   key={link.name}

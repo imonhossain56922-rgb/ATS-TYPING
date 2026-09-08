@@ -163,7 +163,7 @@ export const ContactPage: React.FC = () => {
                       {/* Shared Owner */}
                       <div className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-slate-200">
                         <div>
-                          <span className="text-slate-400 block text-[10px] uppercase">Shared Owner</span>
+                          <span className="text-slate-400 block text-[10px] uppercase">Owner Mobile</span>
                           <span className="font-bold text-[#0B1B3D]">{outlet.ownerPhone}</span>
                         </div>
                         <div className="flex items-center gap-2">
@@ -184,6 +184,33 @@ export const ContactPage: React.FC = () => {
                           </a>
                         </div>
                       </div>
+
+                      {/* Additional Owner Mobile (AMRK) */}
+                      {outlet.additionalOwnerPhone && outlet.additionalOwnerPhoneIntl && (
+                        <div className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-blue-200">
+                          <div>
+                            <span className="text-blue-600 block text-[10px] uppercase font-bold">Owner Mobile (AMRK)</span>
+                            <span className="font-bold text-[#0B1B3D]">{outlet.additionalOwnerPhone}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <a
+                              href={`tel:${outlet.additionalOwnerPhoneIntl}`}
+                              className="px-3 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-semibold"
+                            >
+                              Call
+                            </a>
+                            <a
+                              href={`https://wa.me/${outlet.additionalOwnerPhoneIntl.replace('+', '')}?text=${encodeURIComponent('Hello AMRK Typing Services, I would like to inquire about typing services.')}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-3 py-1 rounded-lg bg-[#00a859] hover:bg-[#00924d] text-white text-xs font-bold flex items-center gap-1"
+                            >
+                              <MessageCircle className="w-3 h-3" />
+                              <span>WhatsApp</span>
+                            </a>
+                          </div>
+                        </div>
+                      )}
 
                       {/* Email */}
                       <div className="p-2.5 rounded-xl bg-white border border-slate-200 flex items-center justify-between text-xs">

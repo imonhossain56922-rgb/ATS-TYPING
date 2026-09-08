@@ -3,11 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { MapPin, ArrowRight } from 'lucide-react';
 import { outletsData } from '../data/outletsData';
 
-export const OurOutletsSection: React.FC = () => {
+interface OurOutletsSectionProps {
+  isStandalonePage?: boolean;
+}
+
+export const OurOutletsSection: React.FC<OurOutletsSectionProps> = ({ isStandalonePage = false }) => {
   const navigate = useNavigate();
 
   return (
-    <section id="outlets" className="py-16 sm:py-20 bg-white relative">
+    <section id="outlets" className={`py-16 sm:py-20 ${isStandalonePage ? 'bg-slate-50' : 'bg-white'} relative`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header with Golden Accent Lines as in Reference Image */}
@@ -40,8 +44,8 @@ export const OurOutletsSection: React.FC = () => {
                     : 'border-emerald-300/80 hover:border-emerald-600 hover:shadow-emerald-500/10'
                 } p-6 sm:p-8 transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-1 cursor-pointer flex flex-col sm:flex-row items-center gap-6 sm:gap-8`}
               >
-                {/* Outlet Logo Container - Crisp white container with accurate ratio */}
-                <div className="w-44 sm:w-48 h-28 sm:h-32 flex-shrink-0 rounded-xl bg-white border border-slate-200/80 flex items-center justify-center p-3 shadow-inner group-hover:scale-105 transition-transform overflow-hidden">
+                {/* Outlet Logo Container - Centered in mobile, left aligned in desktop, clean pure white background */}
+                <div className="w-48 sm:w-48 h-32 sm:h-32 mx-auto sm:mx-0 flex-shrink-0 rounded-xl bg-white border border-slate-200/90 flex items-center justify-center p-3 shadow-inner group-hover:scale-105 transition-transform overflow-hidden">
                   <img
                     src={outlet.logoUrl}
                     alt={`${outlet.name} Logo`}
@@ -49,19 +53,26 @@ export const OurOutletsSection: React.FC = () => {
                   />
                 </div>
 
-                {/* Outlet Details & Button */}
-                <div className="flex-1 text-center sm:text-left space-y-3">
-                  <h3 className="text-xl sm:text-2xl font-extrabold text-[#0B1B3D] font-display tracking-tight">
+                {/* Outlet Details & Button - Centered on Mobile, Left-aligned on Desktop */}
+                <div className="flex-1 w-full text-center sm:text-left space-y-3 flex flex-col items-center sm:items-start">
+                  {/* Name */}
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-[#0B1B3D] font-display tracking-tight text-center sm:text-left">
                     {outlet.name}
                   </h3>
 
-                  <div className="flex items-center justify-center sm:justify-start gap-1.5 text-sm font-semibold text-[#0B1B3D]">
-                    <MapPin className={`w-4 h-4 ${isAmrk ? 'text-blue-600' : 'text-emerald-600'} flex-shrink-0`} />
-                    <span>{outlet.location}</span>
+                  {/* Location & Address */}
+                  <div className="flex flex-col items-center sm:items-start space-y-1 text-center sm:text-left">
+                    <div className="flex items-center justify-center sm:justify-start gap-1.5 text-sm font-bold text-[#0B1B3D]">
+                      <MapPin className={`w-4 h-4 ${isAmrk ? 'text-blue-600' : 'text-emerald-600'} flex-shrink-0`} />
+                      <span>{outlet.location}</span>
+                    </div>
+                    <p className="text-xs text-slate-500 leading-snug">
+                      {outlet.addressLines[0]} • {outlet.addressLines[2] || outlet.addressLines[1]}
+                    </p>
                   </div>
 
-                  {/* View Outlet Button styled as in reference image */}
-                  <div className="pt-2">
+                  {/* View Outlet Button - Centered on Mobile, Left-aligned on Desktop */}
+                  <div className="pt-2 w-full flex justify-center sm:justify-start">
                     <button
                       type="button"
                       className={`px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-sm ${
