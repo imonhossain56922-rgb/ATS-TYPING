@@ -65,8 +65,8 @@ export const LocationMapSection: React.FC<LocationMapSectionProps> = ({ language
             {/* Floating Overlay Badge on Map */}
             <div className="absolute bottom-5 left-5 right-5 sm:right-auto bg-[#080C14]/95 backdrop-blur-md border border-slate-700/80 p-4 rounded-2xl shadow-2xl max-w-sm">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 flex items-center justify-center font-bold text-xs flex-shrink-0 shadow-md">
-                  ATS
+                <div className="w-auto px-2 h-8 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 flex items-center justify-center font-bold text-xs flex-shrink-0 shadow-md">
+                  ALAYAN
                 </div>
                 <div>
                   <h4 className="font-bold text-xs text-white font-display">ALAYAN TYPING - Shop 46</h4>

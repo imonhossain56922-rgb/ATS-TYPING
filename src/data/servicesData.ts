@@ -204,7 +204,7 @@ export const servicesData: ServiceItem[] = [
       bn: ['দ্রুত আইসিপি আবেদন', 'সুবিধাজনক বায়োমেট্রিক সেন্টার নির্বাচন', 'ভিআইপি ট্র্যাকিং'],
       ar: ['تقديم فوري عبر نظام الهيئة', 'حجز مركز البصمة الأقرب', 'متابعة حتى الاستلام']
     },
-    whatsappText: 'Hello! I want to apply for Emirates ID New / Renewal typing at ATS.'
+    whatsappText: 'Hello! I want to apply for Emirates ID New / Renewal typing at ALAYAN.'
   },
   {
     id: 'medical-fitness-typing',
@@ -227,7 +227,7 @@ export const servicesData: ServiceItem[] = [
       bn: 'তাৎক্ষণিক বুকিং',
       ar: 'حجز فوري'
     },
-    whatsappText: 'Hi ATS Typing, I need to type a Medical Fitness Test application for Visa.'
+    whatsappText: 'Hi ALAYAN Typing, I need to type a Medical Fitness Test application for Visa.'
   },
   {
     id: 'iloe-health-insurance',
@@ -403,7 +403,7 @@ export const servicesData: ServiceItem[] = [
       bn: ['মূল এমিরেটস আইডি', 'সক্রিয় ইউএই মোবাইল নম্বর', 'ইমেইল এড্রেস'],
       ar: ['الهوية الإماراتية الأصلية', 'رقم هاتف إماراتي مفعل', 'البريد الإلكتروني']
     },
-    whatsappText: 'Hello ATS! I need assistance with UAE PASS registration / password recovery.'
+    whatsappText: 'Hello ALAYAN / AMRK! I need assistance with UAE PASS registration / password recovery.'
   },
   {
     id: 'bkash-remittance',

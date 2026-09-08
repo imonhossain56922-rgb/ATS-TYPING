@@ -29,7 +29,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose, la
         <div className="p-6 bg-[#0B1120] border-b border-slate-800 flex items-start justify-between gap-4">
           <div>
             <span className="inline-block text-[11px] font-bold px-3 py-1 rounded-full bg-slate-900 text-amber-400 border border-amber-500/25 mb-2.5 uppercase tracking-wider font-mono">
-              ALAYAN TYPING SERVICES • ATS AJMAN
+              ALAYAN TYPING SERVICES • AJMAN
             </span>
             <h3 className="text-xl sm:text-2xl font-black text-white font-display">
               {title}

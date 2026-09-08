@@ -40,6 +40,32 @@ export interface ServiceCategory {
   descriptionAr: string;
 }
 
+export interface OutletInfo {
+  id: 'amrk' | 'ats' | 'alayan';
+  name: string;
+  shortName: string;
+  location: string;
+  addressLines: string[];
+  googleMapsUrl: string;
+  officePhone: string;
+  officePhoneIntl: string;
+  ownerPhone: string;
+  ownerPhoneIntl: string;
+  email: string;
+  logoUrl: string;
+  path: string;
+  description: string;
+}
+
+export interface ServiceCategoryGroup {
+  id: string;
+  letter: string;
+  title: string;
+  iconName: string;
+  description: string;
+  services: string[];
+}
+
 export interface ContactInfo {
   ownerName: string;
   primaryPhone: string;
@@ -60,3 +86,5 @@ export interface ContactInfo {
   workingHoursBn: string;
   workingHoursAr: string;
 }
+
+

@@ -37,7 +37,7 @@ export const FloatingActions: React.FC<{ language: Language }> = ({ language }) 
 
         <a
           id="mobile-dock-whatsapp"
-          href={`https://wa.me/971505372999?text=${encodeURIComponent('Hello Mr. Didar! I am contacting you from the ATS Typing website.')}`}
+          href={`https://wa.me/971505372999?text=${encodeURIComponent('Hello Mr. Didar! I am contacting you from the ALAYAN Typing website.')}`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 py-2.5 px-2 rounded-full bg-slate-900 hover:bg-slate-800 text-amber-400 border border-slate-700 font-bold uppercase tracking-wider text-xs flex items-center justify-center gap-1.5 shadow active:scale-95 transition-all"

@@ -1,6 +1,6 @@
 {
-  "name": "Alayan Typing Services - ATS Ajman",
-  "description": "Official website for Alayan Typing Services (ATS) in Ajman Industrial 1. Government visa processing, Emirates ID, medical typing, trade license, traffic, and PRO services.",
+  "name": "UAE Typing Services | Visa & Government Services in Ajman",
+  "description": "UAE Typing Services provides visa, immigration, Emirates ID, labour, business, tax, insurance, transport, travel and document services in Ajman, UAE.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

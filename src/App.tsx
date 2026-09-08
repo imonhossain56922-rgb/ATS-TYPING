@@ -1,48 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Header } from './components/Header';
-import { Hero } from './components/Hero';
-import { ServicesSection } from './components/ServicesSection';
-import { QuoteCalculator } from './components/QuoteCalculator';
-import { AboutAndShop } from './components/AboutAndShop';
-import { LocationMapSection } from './components/LocationMapSection';
-import { ContactSection } from './components/ContactSection';
-import { FloatingActions } from './components/FloatingActions';
 import { Footer } from './components/Footer';
-import { Language } from './types';
+import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { ScrollToTop } from './components/ScrollToTop';
+import { HomePage } from './pages/HomePage';
+import { AboutPage } from './pages/AboutPage';
+import { ServicesPage } from './pages/ServicesPage';
+import { AmrkOutletPage } from './pages/AmrkOutletPage';
+import { AlayanOutletPage } from './pages/AlayanOutletPage';
+import { ContactPage } from './pages/ContactPage';
 
 export default function App() {
-  const [language, setLanguage] = useState<Language>(() => {
-    const saved = localStorage.getItem('ats_lang');
-    return (saved === 'bn' || saved === 'ar' || saved === 'en') ? saved : 'en';
-  });
-
-  useEffect(() => {
-    localStorage.setItem('ats_lang', language);
-    // Update html dir for Arabic RTL if selected
-    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = language;
-  }, [language]);
-
   return (
-    <div className={`min-h-screen bg-[#080C14] text-slate-200 flex flex-col font-sans selection:bg-amber-500 selection:text-black ${language === 'bn' ? 'font-bengali' : language === 'ar' ? 'font-arabic' : ''}`}>
-      {/* Header with Navigation & Language Switcher */}
-      <Header currentLanguage={language} setLanguage={setLanguage} />
-
-      {/* Main Content Area */}
-      <main className="flex-grow">
-        <Hero language={language} />
-        <ServicesSection language={language} />
-        <QuoteCalculator language={language} />
-        <AboutAndShop language={language} />
-        <LocationMapSection language={language} />
-        <ContactSection language={language} />
-      </main>
-
-      {/* Footer */}
-      <Footer language={language} />
-
-      {/* Sticky Quick Contact & WhatsApp Actions */}
-      <FloatingActions language={language} />
-    </div>
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans selection:bg-amber-500 selection:text-black antialiased">
+        <Header />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/amrk-typing-services" element={<AmrkOutletPage />} />
+            <Route path="/alayan-typing-services" element={<AlayanOutletPage />} />
+            <Route path="/ats-typing-services" element={<Navigate to="/alayan-typing-services" replace />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
+        <Footer />
+        <FloatingWhatsApp />
+      </div>
+    </BrowserRouter>
   );
 }

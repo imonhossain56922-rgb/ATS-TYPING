@@ -18,7 +18,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const text = `*New Customer Inquiry (ATS Website)*
+    const text = `*New Customer Inquiry (ALAYAN Website)*
 • *Name:* ${name || 'N/A'}
 • *Phone:* ${phone || 'N/A'}
 • *Service Required:* ${serviceName || 'General Inquiry'}

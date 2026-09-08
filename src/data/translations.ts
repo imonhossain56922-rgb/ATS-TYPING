@@ -1,7 +1,7 @@
 export const translations = {
   en: {
     brandName: 'ALAYAN TYPING SERVICES',
-    brandSub: 'ATS Typing Services',
+    brandSub: 'Alayan Typing Services',
     arabicName: 'الأيان لخدمات الطباعة',
     bengaliTag: 'বাংলাদেশি টাইপিং সার্ভিস (আজমান)',
     tagline: 'Your Trusted Partner for All UAE Government, Visa, Emirates ID & Business PRO Services',
@@ -51,7 +51,7 @@ export const translations = {
     generateWhatsAppInquiry: 'Send Direct Inquiry to WhatsApp',
 
     // About Section
-    aboutTitle: 'Why UAE Residents & Businesses Trust Alayan Typing (ATS)',
+    aboutTitle: 'Why UAE Residents & Businesses Trust Alayan Typing',
     aboutSubtitle: 'Conveniently situated inside Younus Market (Shop No. 46), opposite Marks & Save Market in Ajman Industrial 1.',
     feature1Title: 'Complete Government Solutions',
     feature1Desc: 'We handle immigration (ICP/GDRFA), MOHRE Tas-heel, Ajman Municipality Tasdeeq, Dubai AMER, and Traffic departments seamlessly under one roof.',
@@ -67,7 +67,7 @@ export const translations = {
     locationSubtitle: 'Easy to find with ample parking nearby. Follow our simple landmark guide below.',
     landmarkTitle: 'How to Reach Inside Shop 46:',
     step1: '1. Arrive at Younus Market in Ajman Industrial 1 (Opposite Marks & Save Market).',
-    step2: '2. Look for the ALAYAN TYPING / ATS signboard near the entrance.',
+    step2: '2. Look for the ALAYAN TYPING signboard near the entrance.',
     step3: '3. Walk inside the corridor: Shop No. 46 is located right behind Easy Way Typing.',
     openInMaps: 'Open in Google Maps',
     copyAddress: 'Copy Address',
@@ -92,7 +92,7 @@ export const translations = {
   },
   bn: {
     brandName: 'আলায়ান টাইপিং সার্ভিসেস',
-    brandSub: 'এটিএস টাইপিং সার্ভিসেস (ATS)',
+    brandSub: 'আলায়ান টাইপিং সার্ভিসেস (ALAYAN)',
     arabicName: 'الأيان لخدمات الطباعة',
     bengaliTag: 'বাংলাদেশি টাইপিং সেন্টার (আজমান)',
     tagline: 'ইউএই সরকার অনুমোদিত ভিসা প্রসেসিং, এমিরেটস আইডি, মেডিকেল, ট্রেড লাইসেন্স ও পিআরও সেবার নির্ভরযোগ্য প্রতিষ্ঠান',
@@ -158,7 +158,7 @@ export const translations = {
     locationSubtitle: 'আজমান ইন্ডাস্ট্রিয়াল ১ এর ইউনুস মার্কেটে আমাদের ৪৬ নং দোকানে সরাসরি চলে আসুন।',
     landmarkTitle: 'দোকান নং ৪৬ এ যেভাবে পৌঁছাবেন:',
     step1: '১. আজমান ইন্ডাস্ট্রিয়াল ১ এ অবস্থিত "ইউনুস মার্কেট" এ আসুন (মার্কস অ্যান্ড সেভ মার্কেটের বিপরীত পাশে)।',
-    step2: '২. মেইন দরজায় "ALAYAN TYPING / ATS" এর সাইনবোর্ড দেখতে পাবেন।',
+    step2: '২. মেইন দরজায় "ALAYAN TYPING" এর সাইনবোর্ড দেখতে পাবেন।',
     step3: '৩. ভেতরে প্রবেশ করে করিডোরের দিকে যান: "ইজি ওয়ে টাইপিং" এর ঠিক পেছনের দোকানটিই আমাদের শপ নং ৪৬।',
     openInMaps: 'গুগল ম্যাপে লোকেশন খুলুন',
     copyAddress: 'ঠিকানা কপি করুন',
@@ -183,7 +183,7 @@ export const translations = {
   },
   ar: {
     brandName: 'الأيان لخدمات الطباعة',
-    brandSub: 'ATS Typing Services',
+    brandSub: 'Alayan Typing Services',
     arabicName: 'الأيان لخدمات الطباعة',
     bengaliTag: 'خدمات الطباعة والمعاملات الحكومية بعجمان',
     tagline: 'وجهتكم المعتمدة لكافة المعاملات الحكومية، الإقامات، الهوية الوطنية وتأسيس الشركات',
@@ -249,7 +249,7 @@ export const translations = {
     locationSubtitle: 'موقع يسهل الوصول إليه مع توفر مواقف سيارات قريبة. اتبع إرشادات الوصول أدناه.',
     landmarkTitle: 'كيفية الوصول إلى داخل محل رقم 46:',
     step1: '1. التوجه إلى سوق يونس في عجمان الصناعية 1 (مقابل ماركس آند سيف ماركت).',
-    step2: '2. ستشاهد لافتة "الأيان لخدمات الطباعة / ATS" عند المدخل.',
+    step2: '2. ستشاهد لافتة "الأيان لخدمات الطباعة" عند المدخل.',
     step3: '3. الدخول إلى الممر الداخلي: محل رقم 46 يقع مباشرة خلف إيزي واي للطباعة.',
     openInMaps: 'فتح الموقع في خرائط Google',
     copyAddress: 'نسخ العنوان',

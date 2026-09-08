@@ -24,7 +24,7 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ language }) =>
 
   const handleWhatsAppSend = (e: React.FormEvent) => {
     e.preventDefault();
-    const formattedText = `*Inquiry from ATS Website:*
+    const formattedText = `*Inquiry from ALAYAN Website:*
 • *Service:* ${selectedService.titleEn} (${title})
 • *Client Name:* ${clientName || 'Valued Customer'}
 • *Contact:* ${clientPhone || 'WhatsApp Direct'}

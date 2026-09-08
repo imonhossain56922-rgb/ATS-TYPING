@@ -1,107 +1,184 @@
 import React from 'react';
-import { MapPin, Phone, Mail, MessageCircle, ExternalLink, ShieldCheck, Heart } from 'lucide-react';
-import { contactData } from '../data/contactData';
-import { translations } from '../data/translations';
-import { Language } from '../types';
-import { Logo } from './Logo';
+import { Link, useNavigate } from 'react-router-dom';
+import { MapPin, ChevronRight } from 'lucide-react';
+import { BrandLogo } from './BrandLogo';
 
-export const Footer: React.FC<{ language: Language }> = ({ language }) => {
-  const t = translations[language];
+export const Footer: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleOutletsClick = () => {
+    navigate('/');
+    setTimeout(() => {
+      const el = document.getElementById('outlets');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 150);
+  };
 
   return (
-    <footer className="bg-[#060910] border-t border-slate-800/90 text-slate-400 text-xs pb-24 sm:pb-10">
-      {/* Main Footer Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 items-start">
-          {/* Brand Info & Owner Details */}
-          <div className="lg:col-span-5 space-y-4">
-            <Logo variant="gold" />
-
-            <p className="text-slate-300 leading-relaxed text-xs sm:text-sm font-light max-w-md">
-              {t.tagline} — <strong className="text-amber-400 font-semibold">Mr. Didar</strong> (Managing Executive). Serving UAE residents, expatriates, and corporate clients with prompt and accredited document clearance.
+    <footer className="bg-[#0B1528] text-slate-300 pt-12 pb-6 border-t border-slate-800 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Main Footer Row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-6 pb-12 border-b border-slate-800 items-start">
+          
+          {/* Brand Col with Dual Logos */}
+          <div className="lg:col-span-4 space-y-4">
+            <BrandLogo size="md" />
+            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+              Your trusted partner for visa, immigration, government, labour, business, tax, insurance, transport, travel and document services across the UAE.
             </p>
-
-            <div className="flex flex-wrap gap-2 pt-2">
-              <span className="px-3 py-1 rounded-full bg-slate-900 border border-amber-500/25 text-[11px] text-amber-300 font-medium">
-                🇧🇩 বাংলাদেশি টাইপিং সার্ভিস
-              </span>
-              <span className="px-3 py-1 rounded-full bg-slate-900 border border-slate-700/80 text-[11px] text-emerald-400 font-arabic">
-                الأيان لخدمات الطباعة
-              </span>
-              <span className="px-3 py-1 rounded-full bg-slate-900 border border-slate-700/80 text-[11px] text-slate-300 font-mono">
-                Shop No. 46 (Ajman)
-              </span>
-            </div>
           </div>
 
-          {/* Quick Contact Lines */}
-          <div className="lg:col-span-4 space-y-3.5">
-            <h4 className="font-bold text-xs text-white uppercase tracking-wider font-mono">
-              Direct Contact & Hotlines
+          {/* Col 2: Quick Links */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider font-display">
+              Quick Links
             </h4>
-            <ul className="space-y-2.5 text-xs text-slate-300 font-mono">
-              <li className="flex items-center gap-2">
-                <span className="text-amber-400 font-bold font-sans">Mr. Didar:</span>
-                <a href="tel:+971505372999" className="hover:text-amber-300 font-semibold transition-colors">
-                  050 537 2999
-                </a>
-                <span className="text-slate-600">/</span>
-                <a href="tel:+971567665022" className="hover:text-amber-300 transition-colors">
-                  056 766 5022
-                </a>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link to="/" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
+                  <span>Home</span>
+                </Link>
               </li>
-              <li className="flex items-center gap-2">
-                <span className="text-emerald-400 font-bold font-sans">Shop WhatsApp:</span>
-                <a href="tel:+971556140043" className="hover:text-amber-300 transition-colors">
-                  055 614 0043
-                </a>
+              <li>
+                <Link to="/about" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
+                  <span>About Us</span>
+                </Link>
               </li>
-              <li className="flex items-center gap-2">
-                <span className="text-slate-400 font-bold font-sans">Office Landline:</span>
-                <a href="tel:+97165209420" className="hover:text-amber-300 transition-colors">
-                  06-5209420
-                </a>
+              <li>
+                <Link to="/services" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
+                  <span>Services</span>
+                </Link>
               </li>
-              <li className="flex items-center gap-2">
-                <span className="text-slate-400 font-bold font-sans">Corporate Email:</span>
-                <a href="mailto:alayantyping@gmail.com" className="hover:text-amber-300 break-all transition-colors font-mono">
-                  alayantyping@gmail.com
-                </a>
+              <li>
+                <button 
+                  onClick={handleOutletsClick} 
+                  className="hover:text-amber-400 transition-colors flex items-center gap-1.5 cursor-pointer text-left"
+                >
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
+                  <span>Our Outlets</span>
+                </button>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
+                  <span>Contact</span>
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Location & Maps Shortcut */}
-          <div className="lg:col-span-3 space-y-3.5">
-            <h4 className="font-bold text-xs text-white uppercase tracking-wider font-mono">
-              Shop Location
+          {/* Col 3: Our Outlets */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider font-display">
+              Our Outlets
             </h4>
-            <p className="text-xs text-slate-400 leading-relaxed font-light">
-              Ajman Industrial 1, Younus Market, <strong className="text-amber-400 font-semibold">Inside Shop #46</strong> (Behind Easy Way Typing, Opposite Marks & Save Market).
+            <ul className="space-y-2.5 text-xs">
+              <li>
+                <Link 
+                  to="/amrk-typing-services" 
+                  className="hover:text-amber-400 transition-colors flex items-start gap-1.5 font-medium text-slate-200"
+                >
+                  <MapPin className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
+                  <span>AMRK TYPING SERVICES</span>
+                </Link>
+                <span className="text-[10px] text-slate-400 pl-5 block">Ajman Industrial 2</span>
+              </li>
+              <li>
+                <Link 
+                  to="/alayan-typing-services" 
+                  className="hover:text-amber-400 transition-colors flex items-start gap-1.5 font-medium text-slate-200"
+                >
+                  <MapPin className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <span>ALAYAN TYPING SERVICES</span>
+                </Link>
+                <span className="text-[10px] text-slate-400 pl-5 block">Ajman Industrial 1</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 4: Popular Services */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider font-display">
+              Popular Services
+            </h4>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link to="/services" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
+                  <span>Visa Services</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
+                  <span>Emirates ID</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
+                  <span>Labour Services</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
+                  <span>Business Services</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
+                  <span>Tax Services</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3 h-3 text-amber-400" />
+                  <span>Document Services</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 5: Golden Skyline Illustration & Cursive Script as in Reference Image */}
+          <div className="lg:col-span-2 flex flex-col items-center lg:items-end justify-center text-center lg:text-right pt-4 lg:pt-0">
+            {/* Golden Skyline Vector Silhouette */}
+            <div className="w-full max-w-[200px] mb-2 opacity-90">
+              <svg viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
+                <path
+                  d="M10 75 H230 M20 75 V60 H30 V75 M35 75 V50 H45 V75 M50 75 V65 H60 V75 M65 75 V45 H75 V75 M80 75 V30 H90 V75 M95 75 V55 H105 V75 M115 75 V15 L118 5 L121 15 V75 M130 75 V35 H140 V75 M145 75 V48 H155 V75 M160 75 V28 H170 V75 M175 75 V62 H185 V75 M190 75 V42 H200 V75 M205 75 V58 H215 V75"
+                  stroke="#F59E0B"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+
+            {/* Golden Cursive Signature Text */}
+            <p className="text-amber-400 font-serif italic text-base sm:text-lg leading-tight tracking-wide drop-shadow-sm">
+              Your Trusted<br />Service Partner in UAE
             </p>
-
-            <a
-              href={contactData.googleMapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#0E1422] text-amber-300 border border-slate-700/80 text-xs font-bold uppercase tracking-wider hover:bg-amber-400 hover:text-slate-950 hover:border-amber-400 transition-all cursor-pointer shadow-md"
-            >
-              <MapPin className="w-3.5 h-3.5 text-amber-400 group-hover:text-slate-950" />
-              <span>Google Maps Direction</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
           </div>
+
         </div>
 
-        {/* Bottom Copyright & Disclaimer */}
-        <div className="mt-12 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left text-[11px] text-slate-500 font-light">
-          <div>
-            © {new Date().getFullYear()} ALAYAN TYPING SERVICES (ATS) - Ajman, UAE. {t.footerRights}
-          </div>
-          <div className="text-slate-400">
-            {t.emergencyNotice}
-          </div>
+        {/* Bottom Bar: Copyright & Disclaimer */}
+        <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
+          <p>
+            © 2026 UAE TYPING SERVICES. All Rights Reserved.
+          </p>
+
+          <p className="max-w-2xl text-center md:text-right text-slate-400 font-light leading-relaxed">
+            <strong className="text-slate-300">UAE TYPING SERVICES</strong> is an independent typing and document assistance service provider. Government applications and approvals are subject to the rules and decisions of the relevant UAE authorities.
+          </p>
         </div>
+
       </div>
     </footer>
   );
