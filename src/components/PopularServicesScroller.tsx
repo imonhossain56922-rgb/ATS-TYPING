@@ -14,7 +14,6 @@ import {
   Calculator,
   ChevronLeft, 
   ChevronRight, 
-  Sparkles, 
   MessageCircle,
   Clock,
   CheckCircle2,
@@ -237,23 +236,13 @@ export const PopularServicesScroller: React.FC = () => {
     <div className="w-full mb-10">
       {/* Ticker Header Control Bar */}
       <div className="flex items-center justify-between gap-3 mb-4 px-1">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 flex items-center justify-center flex-shrink-0">
-            <Sparkles className="w-4 h-4 text-amber-500 fill-amber-400" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs sm:text-sm font-extrabold text-[#0B1B3D] uppercase tracking-wider font-display">
-                Popular Services
-              </span>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
-                Horizontally Scrolling
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-500 hidden sm:block">
-              Continuous marquee • Hover to pause • Click to view requirements & instant chat
-            </p>
-          </div>
+        <div>
+          <h3 className="text-xs sm:text-sm font-extrabold text-[#0B1B3D] uppercase tracking-wider font-display">
+            Popular Services
+          </h3>
+          <p className="text-[11px] text-slate-500 hidden sm:block">
+            Continuous marquee • Hover to pause • Click to view requirements & instant chat
+          </p>
         </div>
 
         {/* Scroll Navigation Arrows */}

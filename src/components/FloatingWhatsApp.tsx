@@ -135,7 +135,7 @@ export const FloatingWhatsApp: React.FC = () => {
             </div>
 
             {/* 3 WhatsApp Chat Links */}
-            <div className="p-3 space-y-2.5 bg-slate-50/50">
+            <div className="p-3 space-y-2 bg-slate-50/50">
               {chatOptions.map((opt) => {
                 const Icon = opt.icon;
                 return (
@@ -145,38 +145,25 @@ export const FloatingWhatsApp: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setIsOpen(false)}
-                    className="group block p-3 rounded-2xl bg-white hover:bg-emerald-50/60 border border-slate-200 hover:border-emerald-300 shadow-xs hover:shadow-md transition-all text-left relative"
+                    className="group flex items-center justify-between p-3 rounded-2xl bg-white hover:bg-emerald-50/80 border border-slate-200 hover:border-emerald-300 shadow-xs hover:shadow-md transition-all text-left"
                   >
-                    <div className="flex items-center justify-between gap-2 mb-1">
-                      <div className="flex items-center gap-2">
-                        <div className={`w-8 h-8 rounded-xl border flex items-center justify-center flex-shrink-0 ${opt.iconColor}`}>
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <div className="flex items-center gap-1.5">
-                            <span className="font-bold text-xs sm:text-sm text-[#0B1B3D] group-hover:text-[#008751] transition-colors">
-                              {opt.title}
-                            </span>
-                          </div>
-                          <div className="text-[11px] font-semibold text-slate-700 font-mono">
-                            {opt.phoneDisplay}
-                          </div>
-                        </div>
+                    <div className="flex items-center gap-2.5">
+                      <div className={`w-9 h-9 rounded-xl border flex items-center justify-center flex-shrink-0 ${opt.iconColor}`}>
+                        <Icon className="w-4 h-4" />
                       </div>
-
-                      <div className="flex items-center gap-1">
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${opt.badgeColor}`}>
-                          {opt.badge}
+                      <div>
+                        <span className="font-bold text-xs sm:text-sm text-[#0B1B3D] group-hover:text-[#008751] transition-colors block">
+                          {opt.title}
                         </span>
-                        <div className="w-6 h-6 rounded-full bg-emerald-100 group-hover:bg-[#008751] text-emerald-700 group-hover:text-white flex items-center justify-center transition-colors">
-                          <ArrowUpRight className="w-3.5 h-3.5" />
-                        </div>
+                        <span className="text-[11px] text-slate-500 block leading-tight">
+                          {opt.subtitle}
+                        </span>
                       </div>
                     </div>
 
-                    <p className="text-[11px] text-slate-500 pl-10 leading-tight">
-                      {opt.subtitle}
-                    </p>
+                    <div className="w-7 h-7 rounded-full bg-emerald-100 group-hover:bg-[#008751] text-emerald-700 group-hover:text-white flex items-center justify-center transition-colors flex-shrink-0 ml-2">
+                      <ArrowUpRight className="w-4 h-4" />
+                    </div>
                   </a>
                 );
               })}
