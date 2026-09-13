@@ -137,7 +137,7 @@ export const AlayanOutletPage: React.FC = () => {
               Services Available at ALAYAN TYPING SERVICES
             </h2>
             <p className="text-xs sm:text-sm text-slate-600">
-              All 11 official service categories are processed directly on-site at our Ajman Industrial 1 outlet.
+              All 8 official service categories are processed directly on-site at our Ajman Industrial 1 outlet.
             </p>
           </div>
 

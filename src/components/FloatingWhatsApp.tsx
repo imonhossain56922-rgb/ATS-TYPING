@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   MessageCircle, 
@@ -56,52 +57,65 @@ export const FloatingWhatsApp: React.FC = () => {
     };
   }, []);
 
-  const chatOptions = [
+  const location = useLocation();
+
+  const isAmrkPage = location.pathname.startsWith('/amrk-typing-services');
+  const isAlayanPage = location.pathname.startsWith('/alayan-typing-services') || location.pathname.startsWith('/ats-typing-services');
+
+  const allChatOptions = [
     {
-      id: 'owner',
-      title: 'Owner (Mr. Didar)',
-      subtitle: 'General inquiries, corporate accounts & escalations',
-      badge: 'Management',
-      badgeColor: 'bg-amber-100 text-amber-800 border-amber-300',
+      id: 'owner-didar',
+      type: 'icon' as const,
+      title: 'Mr, Didar (Owner)',
+      subtitle: 'Owner of AMRK Typing & ALAYAN Typing.',
       phoneDisplay: '+971 50 537 2999',
       icon: UserCheck,
       iconColor: 'text-amber-600 bg-amber-50 border-amber-200',
       whatsappUrl: `https://wa.me/${ownerNumber}?text=${encodeURIComponent('Hello Mr. Didar, I would like to inquire about typing services.')}`
     },
     {
-      id: 'amrk',
-      title: 'AMRK TYPING SERVICES',
-      subtitle: 'Ajman Industrial 2 • Near Bengali Market Road',
-      badge: 'Outlet 1',
-      badgeColor: 'bg-blue-100 text-blue-800 border-blue-300',
-      phoneDisplay: '+971 56 674 5493',
-      icon: MapPin,
-      iconColor: 'text-blue-600 bg-blue-50 border-blue-200',
-      whatsappUrl: `https://wa.me/${amrkNumber}?text=${encodeURIComponent('Hello AMRK Typing Services (Ajman Ind. 2), I would like to inquire about typing services.')}`
-    },
-    {
-      id: 'amrk-owner',
-      title: 'AMRK Owner Mobile',
-      subtitle: 'Direct owner line for AMRK Typing Services',
-      badge: 'Owner AMRK',
-      badgeColor: 'bg-blue-100 text-blue-900 border-blue-300',
+      id: 'owner-hamid',
+      type: 'icon' as const,
+      title: 'Mr, Hamid (Owner)',
+      subtitle: 'Owner of AMRK Typing',
       phoneDisplay: '+971 55 595 0006',
       icon: UserCheck,
       iconColor: 'text-blue-600 bg-blue-50 border-blue-200',
-      whatsappUrl: `https://wa.me/971555950006?text=${encodeURIComponent('Hello AMRK Typing Services Owner, I would like to inquire about typing services.')}`
+      whatsappUrl: `https://wa.me/971555950006?text=${encodeURIComponent('Hello Mr. Hamid, I would like to inquire about AMRK typing services.')}`
     },
     {
-      id: 'alayan',
-      title: 'ALAYAN TYPING SERVICES',
+      id: 'amrk-outlet',
+      type: 'logo' as const,
+      logoUrl: '/amrk-logo.jpg',
+      title: 'AMRK Typing Services',
+      subtitle: 'Ajman Industrial 2 • Near Bengali Market Road',
+      phoneDisplay: '+971 56 674 5493',
+      whatsappUrl: `https://wa.me/${amrkNumber}?text=${encodeURIComponent('Hello AMRK Typing Services (Ajman Ind. 2), I would like to inquire about typing services.')}`
+    },
+    {
+      id: 'alayan-outlet',
+      type: 'logo' as const,
+      logoUrl: '/ats-logo.jpg',
+      title: 'ALAYAN Typing Services',
       subtitle: 'Ajman Industrial 1 • Central Souq (Shop No. 46)',
-      badge: 'Outlet 2',
-      badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-300',
       phoneDisplay: '+971 55 614 0043',
-      icon: MapPin,
-      iconColor: 'text-emerald-600 bg-emerald-50 border-emerald-200',
       whatsappUrl: `https://wa.me/${alayanNumber}?text=${encodeURIComponent('Hello ALAYAN Typing Services (Ajman Ind. 1), I would like to inquire about typing services.')}`
     }
   ];
+
+  // Specific requirement:
+  // - On AMRK Typing Services page: Only Mr Didar, Mr Hamid, & AMRK Typing Services (ALAYAN option removed)
+  // - On ALAYAN Typing Services page: Only Mr Didar, & ALAYAN Typing Services (AMRK and Mr Hamid options removed)
+  // - On all other pages: Keep all options as they are
+  const displayedChatOptions = useMemo(() => {
+    if (isAmrkPage) {
+      return allChatOptions.filter(opt => opt.id !== 'alayan-outlet');
+    }
+    if (isAlayanPage) {
+      return allChatOptions.filter(opt => opt.id === 'owner-didar' || opt.id === 'alayan-outlet');
+    }
+    return allChatOptions;
+  }, [isAmrkPage, isAlayanPage, ownerNumber, amrkNumber, alayanNumber]);
 
   return (
     <aside
@@ -117,7 +131,7 @@ export const FloatingWhatsApp: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: 20 }}
             transition={{ type: 'spring', stiffness: 350, damping: 26 }}
-            className="mb-3 w-[330px] sm:w-[360px] bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden ring-1 ring-slate-900/5"
+            className="mb-3 w-[340px] sm:w-[380px] bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden ring-1 ring-slate-900/5"
           >
             {/* Pop-up Header */}
             <div className="bg-gradient-to-r from-[#008751] to-[#00a859] p-4 text-white relative">
@@ -137,7 +151,7 @@ export const FloatingWhatsApp: React.FC = () => {
 
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="w-7 h-7 rounded-full bg-black/15 hover:bg-black/25 flex items-center justify-center text-white transition-colors"
+                  className="w-7 h-7 rounded-full bg-black/15 hover:bg-black/25 flex items-center justify-center text-white transition-colors cursor-pointer"
                   aria-label="Close WhatsApp options"
                 >
                   <X className="w-4 h-4" />
@@ -145,10 +159,9 @@ export const FloatingWhatsApp: React.FC = () => {
               </div>
             </div>
 
-            {/* 3 WhatsApp Chat Links */}
-            <div className="p-3 space-y-2 bg-slate-50/50">
-              {chatOptions.map((opt) => {
-                const Icon = opt.icon;
+            {/* WhatsApp Chat Links List */}
+            <div className="p-3 space-y-2 bg-slate-50/50 max-h-[420px] overflow-y-auto">
+              {displayedChatOptions.map((opt) => {
                 return (
                   <a
                     key={opt.id}
@@ -156,17 +169,31 @@ export const FloatingWhatsApp: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setIsOpen(false)}
-                    className="group flex items-center justify-between p-3 rounded-2xl bg-white hover:bg-emerald-50/80 border border-slate-200 hover:border-emerald-300 shadow-xs hover:shadow-md transition-all text-left"
+                    className="group flex items-center justify-between p-2.5 sm:p-3 rounded-2xl bg-white hover:bg-emerald-50/80 border border-slate-200 hover:border-emerald-300 shadow-xs hover:shadow-md transition-all text-left"
                   >
-                    <div className="flex items-center gap-2.5">
-                      <div className={`w-9 h-9 rounded-xl border flex items-center justify-center flex-shrink-0 ${opt.iconColor}`}>
-                        <Icon className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <span className="font-bold text-xs sm:text-sm text-[#0B1B3D] group-hover:text-[#008751] transition-colors block">
+                    <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                      {opt.type === 'logo' && opt.logoUrl ? (
+                        <div className="w-10 h-10 rounded-xl border border-slate-200 bg-white p-1 flex-shrink-0 flex items-center justify-center overflow-hidden shadow-xs">
+                          <img
+                            src={opt.logoUrl}
+                            alt={opt.title}
+                            className="w-full h-full object-contain"
+                            onError={(e) => {
+                              (e.target as HTMLElement).style.display = 'none';
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <div className={`w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 shadow-xs ${opt.iconColor}`}>
+                          {opt.icon && <opt.icon className="w-5 h-5" />}
+                        </div>
+                      )}
+
+                      <div className="min-w-0 flex-1">
+                        <span className="font-bold text-xs sm:text-[13px] text-[#0B1B3D] group-hover:text-[#008751] transition-colors truncate block">
                           {opt.title}
                         </span>
-                        <span className="text-[11px] text-slate-500 block leading-tight">
+                        <span className="text-[11px] text-slate-500 line-clamp-1 block leading-tight mt-0.5">
                           {opt.subtitle}
                         </span>
                       </div>

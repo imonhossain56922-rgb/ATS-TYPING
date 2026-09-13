@@ -2,197 +2,146 @@ import { ServiceCategoryGroup } from '../types';
 
 export const officialServiceCategories: ServiceCategoryGroup[] = [
   {
-    id: 'travel-ticketing',
-    letter: 'A',
-    title: 'Travel & Ticketing',
-    iconName: 'Plane',
-    description: 'Worldwide flight bookings, itinerary modifications, international travel visa assistance, and corporate travel reservations.',
-    services: [
-      'Air Ticket Booking',
-      'Flight Cancellation / Changes',
-      'Travel Insurance',
-      'Visa Assistance',
-      'Hotel Booking'
-    ]
-  },
-  {
-    id: 'docs-attestation',
-    letter: 'B',
-    title: 'Docs Attestation In Consulate And UAE mofa',
-    iconName: 'Stamp',
-    description: 'Consulate and UAE Ministry of Foreign Affairs (MOFA) attestation, individual and educational certificates, company invoices, passport renewals, and civil defence certificates.',
-    services: [
-      'Individual Certificate, Education Certificate & Company Invoice',
-      'Passport Renew Appointment',
-      'Civil Defence Certificate Process'
-    ]
-  },
-  {
-    id: 'gov-immigration',
-    letter: 'C',
-    title: 'Government & Immigration Services',
+    id: 'immigration-gov',
+    letter: '1',
+    title: 'Immigration Services & Government Online Application',
     iconName: 'Building2',
-    description: 'Comprehensive residence visas, entry permits, family sponsorship, and official ICP & GDRFA processing across the UAE.',
+    description: 'ICP Smart & GDRFA services, 10-year Golden Visa, residence and entry permits, status change, family sponsorship, and establishment applications.',
     services: [
-      'Emirates ID Application / Renewal',
-      'Visa Application / Renewal / Cancellation',
-      'Entry Permit',
-      'Change Status',
-      'Visa Extension',
-      'Family Visa / Sponsorship',
-      'ICP Services',
-      'GDRFA Services',
-      'Establishment Card',
-      'Immigration File Opening / Modification',
-      'GCC / Visa-related applications'
+      'ICP Smart & GDRFA Services related all services.',
+      'UAE Related All of Immigration & Visa related services.',
+      'Golden Visa process for 10years.',
+      'Entry Permit Issue inside & Outside of the UAE',
+      'In out or Change Status for Visa',
+      'Family & Sponsorship related Visa.',
+      'Company and Establishment related all application',
+      'Visit Visa Issue from outside & Extension from Inside.',
+      'Visa cancellation Services Etc.'
     ]
   },
   {
-    id: 'labour-employment',
-    letter: 'D',
-    title: 'Labour & Employment Services',
+    id: 'labour-mohre',
+    letter: '2',
+    title: 'Ministry of Labour (MOHRE) Application',
     iconName: 'Briefcase',
-    description: 'MOHRE work permits, labour contracts, job offers, cancellation, and domestic worker sponsorship support.',
+    description: 'All UAE MOHRE online applications, new job offer approvals, work permits, labour contracts, domestic worker services, and WPS clearance.',
     services: [
-      'MOHRE Services',
-      'Work Permit / Labour Card',
-      'Employment Contract',
-      'Job Offer',
-      'Labour Contract Renewal',
-      'Work Permit Cancellation',
+      'All kind of Mohre online Application in UAE.',
+      'New Job offer approval & Work permit Services',
+      'New Labour Card & Employment contract renew Services.',
       'Domestic Worker Services',
-      'Tawteen / Emiratisation Services',
-      'Unemployment / Labour-related applications'
+      'Labour card/ Employment Contract Cancellation',
+      'WPS Clearance & Labour complaint Services',
+      'Quota & Establishment services.',
+      'Gpssa, Tawteen & UAE Local employment Services',
+      'Labour & Company related all Transection Etc.'
     ]
   },
   {
     id: 'business-company',
-    letter: 'E',
-    title: 'Business & Company Services',
+    letter: '3',
+    title: 'Business Setup & Company Services',
     iconName: 'Building',
-    description: 'Complete mainland and freezone company formation, trade license renewals, amendments, and corporate documentation.',
+    description: 'Complete UAE company setup, trade licenses, Ejari & Tasdeeq, partnership agreements, PRO, corporate banking, FTA corporate tax, and Civil Defense.',
     services: [
-      'Business Setup',
-      'Trade License – New / Renewal / Modification',
-      'License Cancellation',
-      'Company Formation',
-      'Memorandum / Agreements',
-      'Establishment Card',
-      'UBO / Beneficial Owner Services',
-      'Corporate Documents'
+      'All of UAE Company Setup and documents clearing Services.',
+      'Trade License Issue in UAE',
+      'Trade License renew, Modification & Fine payment.',
+      'Trade License Cancellation and fine Payment.',
+      'Ejari & Tasdeeq Services for Tenancy.',
+      'Economic Department and Municipality application.',
+      'Partnership agreement, Beneficiary owner Reg: and Court Application.',
+      'Company Ownership replace & Power of Attorney Services.',
+      'Authorization letter and Company Management online services.',
+      'Partner / Share Transfer, Replace & Amendment Services.',
+      'Corporate Bank Account & P.R.O Services.',
+      'FTA & Corporate Tax De/Registration, Filling & Submission.',
+      'Civil Defense certificate New/renew & Inspection / Re-inspection Request.'
     ]
   },
   {
-    id: 'tax-accounting',
-    letter: 'F',
-    title: 'Tax & Accounting Services',
-    iconName: 'Calculator',
-    description: 'Federal Tax Authority (FTA) compliance, VAT registration and returns, Corporate Tax filing, and bookkeeping.',
-    services: [
-      'VAT Registration',
-      'VAT Return',
-      'VAT Deregistration',
-      'Corporate Tax Registration',
-      'Corporate Tax Return',
-      'Tax-related Applications',
-      'Accounting / Bookkeeping'
-    ]
-  },
-  {
-    id: 'insurance',
-    letter: 'G',
-    title: 'Insurance Services',
+    id: 'medical-insurance',
+    letter: '4',
+    title: 'Medical & Insurance Services',
     iconName: 'ShieldCheck',
-    description: 'Approved health insurance for visa issuance, mandatory worker coverage, auto insurance, and international travel policies.',
+    description: 'Visa purpose medical application, individual and group health insurance, vehicle insurance, travel policies, and ILOE insurance assistance.',
     services: [
-      'Health Insurance',
-      'Car Insurance',
-      'Visa Insurance',
-      'Travel Insurance'
+      'For Visa Purpose Medical Application.',
+      'Health & Car Insurance.',
+      'Travel Insurance.',
+      'Company / Group Health Insurance',
+      'ILOE insurance & Claiming for refund.',
+      'Normal & Full health/Car Insurance provide etc.'
     ]
   },
   {
     id: 'driving-transport',
-    letter: 'H',
+    letter: '5',
     title: 'Driving & Transport Services',
     iconName: 'Car',
-    description: 'Driving license renewals and transfers, mulkiya registration, traffic fine settlements, and RTA transaction clearance.',
+    description: 'Ajman traffic file opening, UAE & international driving licenses, vehicle/mulkiya registration and renewals, MOI/RTA applications, and fine payments.',
     services: [
-      'Driving License – New / Renewal',
-      'Driving License Replacement',
-      'Vehicle Registration / Renewal',
-      'Vehicle Transfer',
-      'Traffic Fine Payment',
-      'Traffic Services',
-      'RTA Applications'
+      'Traffic file Opening in Ajman.',
+      'Driving License New/renew UAE & International Driving license.',
+      'Vehicle/Mulkiya registration new/renew & Transfer.',
+      'MOI & RTA application.',
+      'Driving license & Vehicle fine payment.',
+      'Lost & replace License/mulkiya & Number plate.'
     ]
   },
   {
     id: 'government-utility',
-    letter: 'I',
+    letter: '6',
     title: 'Government Utility Services',
     iconName: 'Zap',
-    description: 'Electricity & water connections (DEWA / SEWA / FEWA), Ajman sewerage, Ejari / Tasdeeq tenancy registration, and municipality procedures.',
+    description: 'DEWA, SEWA & FEWA utility connections, police clearance, consulate & MOFA attestation, Indian passport appointment, and fee payments.',
     services: [
-      'DEWA / SEWA / FEWA Services',
-      'Electricity & Water Connection',
-      'Disconnection / Transfer',
-      'Sewerage Services',
-      'Tenancy Contract Services',
-      'Municipality Services'
+      'DEWA / SEWA / FEWA Active/Deactivate Services.',
+      'Police Clearance apply & Attestation.',
+      'Attestation from Consulate & Mofa.',
+      'Indian Passport renewal Appointment.',
+      'Online transaction fees payment.',
+      'Individual certificate & Company Invoice attestation.',
+      'Account Closure Deposit/Refund Request.'
     ]
   },
   {
-    id: 'document-services',
-    letter: 'J',
-    title: 'Document Services',
+    id: 'travel-ticketing',
+    letter: '7',
+    title: 'Travel & Ticketing',
+    iconName: 'Plane',
+    description: 'Worldwide air ticket bookings, date modifications, visit visas, Umrah packages, outbound tour packages, and hotel reservations.',
+    services: [
+      'Air Ticket Booking',
+      'Ticket Change and cancellation.',
+      'Visit Visa apply & Extension Services.',
+      'Umrah Package Normal & Multiple visa apply.',
+      'Tour package and visit visa out of UAE.',
+      'Hotel booking & Boarding Pass.',
+      'Extra Baggage add & Seat Selection.'
+    ]
+  },
+  {
+    id: 'other-typing-services',
+    letter: '8',
+    title: 'Other Services in our Typing.',
     iconName: 'FileText',
-    description: 'Bilingual typing in Arabic & English, certified legal translations, high-speed color printing, scanning, and lamination.',
+    description: 'Arabic & English letter typing, certified legal translation, CVs, undertakings, declarations, online form submissions, and status checks.',
     services: [
-      'Arabic / English Typing',
-      'Application Forms',
-      'Letter Typing',
-      'CV / Resume',
-      'Translation',
-      'Legal Translation',
-      'Document Printing',
-      'Photocopy',
-      'Scanning',
-      'Lamination',
-      'Colour / B&W Printing',
-      'Email / Online Application Assistance'
-    ]
-  },
-  {
-    id: 'pro-government',
-    letter: 'K',
-    title: 'PRO & Government Processing',
-    iconName: 'Stamp',
-    description: 'Dedicated corporate Public Relations Officer (PRO) liaison, ministry submissions, document clearance, and portal management.',
-    services: [
-      'PRO Services',
-      'Government Application Submission',
-      'Document Clearance',
-      'GPS/SA File Clearance',
-      'Company / Employee File Services',
-      'Government Portal Applications'
-    ]
-  },
-  {
-    id: 'other-popular',
-    letter: 'L',
-    title: 'Other Popular Services',
-    iconName: 'Award',
-    description: 'Good conduct certificates, medical fitness applications, passport renewals, attestation, and custom declaration letters.',
-    services: [
-      'Police Clearance Certificate',
-      'Good Conduct Certificate',
-      'Medical Appointment / Application Assistance',
-      'Emirates ID Printing Assistance',
-      'Passport Renewal Assistance',
-      'Birth / Marriage Certificate Services',
-      'NOC / Declaration Letters',
-      'Authorisation Letters'
+      'Arabic / English letter or file Typing.',
+      'Legal Translation.',
+      'Professional CV, Quotation, Docs scanning and Printing.',
+      'Undertaking / Declaration & all type Authorization letter.',
+      'Online form Fill up, typing and submission.',
+      'Offer letter/ Experience letter& Salary Certificate',
+      'Document Upload / Email Services',
+      'File / Document Arrangement',
+      'Experience Certificate & Offer Letter',
+      'Application / Request Letter',
+      'Government Fee Payment Assistance',
+      'Online Inquiry & Status Check',
+      'Government Application Tracking',
+      'Case Status Inquiry & Travel Ban Check.'
     ]
   }
 ];

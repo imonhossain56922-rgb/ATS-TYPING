@@ -27,7 +27,7 @@ interface ServiceAccordionProps {
 }
 
 export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
-  initialOpenId = 'gov-immigration',
+  initialOpenId = 'immigration-gov',
   className = '',
   outletWhatsApp = '971505372999',
   outletName = 'UAE Typing Services'
@@ -101,8 +101,8 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                 {/* Title & Description */}
                 <div className="min-w-0 space-y-1">
                   <div className="flex items-center gap-2.5 flex-wrap">
-                    <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-md bg-slate-900 text-amber-400 border border-slate-800">
-                      {index + 1}. {category.letter}
+                    <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-md bg-slate-900 text-amber-400 border border-slate-800">
+                      {category.letter}
                     </span>
                     <h3 className="text-base sm:text-lg font-bold text-white tracking-tight font-display">
                       {category.title}

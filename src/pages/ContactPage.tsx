@@ -18,7 +18,7 @@ export const ContactPage: React.FC = () => {
     mobileNumber: '',
     email: '',
     outlet: 'amrk',
-    serviceCategory: 'Government & Immigration Services',
+    serviceCategory: officialServiceCategories[0]?.title || 'Immigration Services & Government Online Application',
     message: ''
   });
 
@@ -185,11 +185,11 @@ export const ContactPage: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Additional Owner Mobile (AMRK) */}
+                      {/* Additional Owner Mobile */}
                       {outlet.additionalOwnerPhone && outlet.additionalOwnerPhoneIntl && (
-                        <div className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-blue-200">
+                        <div className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-slate-200">
                           <div>
-                            <span className="text-blue-600 block text-[10px] uppercase font-bold">Owner Mobile (AMRK)</span>
+                            <span className="text-slate-400 block text-[10px] uppercase font-normal">Owner Mobile</span>
                             <span className="font-bold text-[#0B1B3D]">{outlet.additionalOwnerPhone}</span>
                           </div>
                           <div className="flex items-center gap-2">

@@ -10,6 +10,7 @@ import { ServicesPage } from './pages/ServicesPage';
 import { AmrkOutletPage } from './pages/AmrkOutletPage';
 import { AlayanOutletPage } from './pages/AlayanOutletPage';
 import { OutletsPage } from './pages/OutletsPage';
+import { PaymentPage } from './pages/PaymentPage';
 import { ContactPage } from './pages/ContactPage';
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/outlets" element={<OutletsPage />} />
+            <Route path="/payment" element={<PaymentPage />} />
             <Route path="/amrk-typing-services" element={<AmrkOutletPage />} />
             <Route path="/alayan-typing-services" element={<AlayanOutletPage />} />
             <Route path="/ats-typing-services" element={<Navigate to="/alayan-typing-services" replace />} />

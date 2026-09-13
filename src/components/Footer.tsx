@@ -17,6 +17,11 @@ export const Footer: React.FC = () => {
             <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
               Your trusted partner for visa, immigration, government, labour, business, tax, insurance, transport, travel and document services across the UAE.
             </p>
+            <div className="pt-1 flex items-center gap-4 text-xs font-semibold">
+              <Link to="/payment" className="text-amber-400 hover:text-amber-300 transition-colors inline-flex items-center gap-1">
+                <span>Payment Options (Tabby, Tamara & Bank) →</span>
+              </Link>
+            </div>
           </div>
 
           {/* Outlets Column */}

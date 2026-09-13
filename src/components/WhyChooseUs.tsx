@@ -8,7 +8,11 @@ import {
   UserCheck 
 } from 'lucide-react';
 
-export const WhyChooseUs: React.FC = () => {
+interface WhyChooseUsProps {
+  title?: string;
+}
+
+export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ title = 'Why Choose Our Typing' }) => {
   const features = [
     {
       title: 'Wide Range of Services',
@@ -54,7 +58,7 @@ export const WhyChooseUs: React.FC = () => {
         
         {/* Section Title */}
         <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0B1B3D] font-display text-center mb-8">
-          Why Choose UAE TYPING SERVICES?
+          {title}
         </h2>
 
         {/* 6 Horizontal Pill Cards as shown in reference image */}

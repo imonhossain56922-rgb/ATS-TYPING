@@ -1,32 +1,56 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, ChevronDown, ArrowRight, MessageCircle, ArrowUpRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
-import { SHARED_OWNER_PHONE_INTL, outletsData } from '../data/outletsData';
 
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [servicesDropdown, setServicesDropdown] = useState(false);
+  const [submenuOpen, setSubmenuOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileTypingSubmenuOpen, setMobileTypingSubmenuOpen] = useState(false);
+  const servicesMenuRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
-  const navigate = useNavigate();
 
-  const ownerNumber = SHARED_OWNER_PHONE_INTL.replace('+', '');
-  const amrkOutlet = outletsData.find(o => o.id === 'amrk');
-  const alayanOutlet = outletsData.find(o => o.id === 'alayan' || o.id === 'ats');
-  const amrkNumber = amrkOutlet ? amrkOutlet.officePhoneIntl.replace('+', '') : '971566745493';
-  const alayanNumber = alayanOutlet ? alayanOutlet.officePhoneIntl.replace('+', '') : '971556140043';
+  // Subservices under "Typing Services & Business" matching user's image layout
+  const typingSubservices = [
+    { id: 'immigration-gov', label: '1. Immigration Services & Government Online Application' },
+    { id: 'labour-mohre', label: '2. Ministry of Labour (MOHRE) Application' },
+    { id: 'business-company', label: '3. Business Setup & Company Services' },
+    { id: 'medical-insurance', label: '4. Medical & Insurance Services' },
+    { id: 'driving-transport', label: '5. Driving & Transport Services' },
+    { id: 'government-utility', label: '6. Government Utility Services' },
+    { id: 'other-typing-services', label: '7. Other Services in our Typing.' },
+  ];
 
-  // Close mobile menu on route change
+  // Close menus on route change
   useEffect(() => {
     setIsMenuOpen(false);
     setServicesDropdown(false);
+    setSubmenuOpen(false);
   }, [location.pathname]);
+
+  // Click outside to close desktop Services dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (servicesMenuRef.current && !servicesMenuRef.current.contains(event.target as Node)) {
+        setServicesDropdown(false);
+        setSubmenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const navLinks: { name: string; path: string; hasDropdown?: boolean }[] = [
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/about' },
     { name: 'Services', path: '/services', hasDropdown: true },
     { name: 'Our Outlets', path: '/outlets' },
+    { name: 'Payment', path: '/payment' },
     { name: 'Contact', path: '/contact' },
   ];
 
@@ -41,13 +65,13 @@ export const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* Brand Identity with Dual Logos */}
-          <Link to="/" className="group cursor-pointer">
+          {/* Brand Identity on Left */}
+          <Link to="/" className="group cursor-pointer flex-shrink-0">
             <BrandLogo />
           </Link>
 
-          {/* Desktop Navigation Links (Centered) */}
-          <nav className="hidden lg:flex items-center gap-8 text-sm">
+          {/* Desktop Navigation Links (Right-aligned) */}
+          <nav className="hidden lg:flex items-center gap-7 text-sm">
             {navLinks.map((link) => {
               const active = isCurrentActive(link.path);
 
@@ -55,56 +79,87 @@ export const Header: React.FC = () => {
                 return (
                   <div 
                     key={link.name} 
+                    ref={servicesMenuRef}
                     className="relative"
-                    onMouseEnter={() => setServicesDropdown(true)}
-                    onMouseLeave={() => setServicesDropdown(false)}
                   >
-                    <Link
-                      to={link.path}
-                      className={`flex items-center gap-1 font-medium transition-colors py-2 ${
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setServicesDropdown((prev) => {
+                          const next = !prev;
+                          if (next) {
+                            setSubmenuOpen(false); // Show only 1st sub-component on opening Services
+                          }
+                          return next;
+                        });
+                      }}
+                      className={`flex items-center gap-1 font-medium transition-colors py-2 cursor-pointer ${
                         active 
                           ? 'text-white border-b-2 border-amber-400 pb-1' 
                           : 'text-slate-200 hover:text-white'
                       }`}
                     >
                       <span>{link.name}</span>
-                      <ChevronDown className="w-4 h-4 text-slate-300" />
-                    </Link>
+                      <ChevronDown className={`w-4 h-4 text-slate-300 transition-transform ${servicesDropdown ? 'rotate-180 text-amber-400' : ''}`} />
+                    </button>
 
-                    {/* Dropdown Menu */}
+                    {/* Dropdown Menu Container (Anchored right-0 so flyout flows nicely) */}
                     {servicesDropdown && (
-                      <div className="absolute top-full left-0 w-64 bg-[#0B1528] border border-slate-700 rounded-xl shadow-2xl py-2 z-50 animate-fadeIn">
-                        <Link
-                          to="/services"
-                          className="block px-4 py-2.5 text-xs text-slate-200 hover:text-amber-400 hover:bg-slate-800/80 transition-colors"
-                        >
-                          All 11 Service Categories
-                        </Link>
-                        <div className="h-px bg-slate-800 my-1" />
-                        <Link
-                          to="/services#gov-immigration"
-                          className="block px-4 py-2 text-xs text-slate-300 hover:text-white hover:bg-slate-800/60"
-                        >
-                          Government & Immigration
-                        </Link>
-                        <Link
-                          to="/services#labour-employment"
-                          className="block px-4 py-2 text-xs text-slate-300 hover:text-white hover:bg-slate-800/60"
-                        >
-                          Labour & Employment
-                        </Link>
-                        <Link
-                          to="/services#business-company"
-                          className="block px-4 py-2 text-xs text-slate-300 hover:text-white hover:bg-slate-800/60"
-                        >
-                          Business & Company
-                        </Link>
-                        <Link
-                          to="/services#tax-accounting"
-                          className="block px-4 py-2 text-xs text-slate-300 hover:text-white hover:bg-slate-800/60"
-                        >
-                          Tax & Accounting
-                        </Link>
+                      <div 
+                        className="absolute top-full right-0 pt-2 z-50 flex flex-row-reverse items-start animate-fadeIn"
+                      >
+                        {/* 1st Sub-Component Box: Travel & Ticketing + Typing Services & Business */}
+                        <div className="w-64 bg-[#0B1528] border border-slate-700/90 rounded-2xl shadow-2xl p-2.5 space-y-1.5 flex-shrink-0">
+                          <Link
+                            to="/services#travel-ticketing"
+                            onClick={() => {
+                              setServicesDropdown(false);
+                              setSubmenuOpen(false);
+                            }}
+                            className="block px-4 py-2.5 text-sm font-semibold text-slate-100 hover:text-amber-400 hover:bg-slate-800/80 rounded-xl transition-all"
+                          >
+                            Travel & Ticketing
+                          </Link>
+
+                          {/* Typing Services & Business - Clicking this opens the 2nd sub-component */}
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSubmenuOpen((prev) => !prev);
+                            }}
+                            className={`w-full flex items-center justify-between px-4 py-2.5 text-sm font-semibold rounded-xl cursor-pointer transition-all text-left ${
+                              submenuOpen 
+                                ? 'bg-slate-800 text-amber-400' 
+                                : 'text-slate-100 hover:text-amber-400 hover:bg-slate-800/80'
+                            }`}
+                          >
+                            <ChevronRight className={`w-4 h-4 transition-transform ml-1.5 flex-shrink-0 ${submenuOpen ? 'rotate-90 text-amber-400' : 'text-slate-400'}`} />
+                            <span className="flex-1">Typing Services & Business</span>
+                          </button>
+                        </div>
+
+                        {/* 2nd Sub-Component Box: Flyout to the left when Typing Services & Business is clicked */}
+                        {submenuOpen && (
+                          <div 
+                            className="mr-2 w-[420px] bg-[#0B1528] border border-slate-700/90 rounded-2xl shadow-2xl p-4 sm:p-5 space-y-1.5 animate-fadeIn"
+                          >
+                            {typingSubservices.map((item) => (
+                              <Link
+                                key={item.id}
+                                to={`/services#${item.id}`}
+                                onClick={() => {
+                                  setServicesDropdown(false);
+                                  setSubmenuOpen(false);
+                                }}
+                                className="block px-3.5 py-2 text-[13.5px] font-bold text-white hover:text-amber-400 hover:bg-slate-800/70 rounded-xl transition-colors leading-snug cursor-pointer"
+                              >
+                                {item.label}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
@@ -127,10 +182,6 @@ export const Header: React.FC = () => {
             })}
           </nav>
 
-          {/* Right Action Buttons */}
-          <div className="hidden sm:flex items-center gap-3">
-          </div>
-
           {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center gap-2">
             <button
@@ -147,9 +198,63 @@ export const Header: React.FC = () => {
 
       {/* Mobile Menu Drawer */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-[#0B1528] border-b border-slate-800 px-4 pt-4 pb-6 space-y-3">
-          <nav className="flex flex-col space-y-2">
+        <div className="lg:hidden bg-[#0B1528] border-b border-slate-800 px-4 pt-4 pb-6">
+          <nav className="flex flex-col space-y-1">
             {navLinks.map((link) => {
+              if (link.hasDropdown) {
+                return (
+                  <div key={link.name} className="space-y-1">
+                    <button
+                      onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                      className={`w-full flex items-center justify-between py-2 px-3 rounded-lg text-sm font-medium ${
+                        isCurrentActive(link.path)
+                          ? 'bg-amber-400/10 text-amber-400 font-bold'
+                          : 'text-slate-200 hover:bg-slate-800'
+                      }`}
+                    >
+                      <span>{link.name}</span>
+                      <ChevronDown className={`w-4 h-4 transition-transform ${mobileServicesOpen ? 'rotate-180 text-amber-400' : 'text-slate-400'}`} />
+                    </button>
+
+                    {mobileServicesOpen && (
+                      <div className="pl-3 pr-1 py-1 space-y-1 bg-slate-900/60 rounded-xl border border-slate-800">
+                        <Link
+                          to="/services#travel-ticketing"
+                          onClick={() => setIsMenuOpen(false)}
+                          className="block py-2 px-3 text-xs font-semibold text-slate-200 hover:text-amber-400"
+                        >
+                          Travel & Ticketing
+                        </Link>
+                        
+                        <button
+                          type="button"
+                          onClick={() => setMobileTypingSubmenuOpen(!mobileTypingSubmenuOpen)}
+                          className="w-full flex items-center justify-between py-2 px-3 text-xs font-bold text-amber-400 hover:bg-slate-800/60 rounded-lg text-left cursor-pointer"
+                        >
+                          <span>Typing Services & Business</span>
+                          <ChevronRight className={`w-3.5 h-3.5 transition-transform ${mobileTypingSubmenuOpen ? 'rotate-90 text-amber-400' : 'text-slate-400'}`} />
+                        </button>
+
+                        {mobileTypingSubmenuOpen && (
+                          <div className="pl-2 space-y-1 border-l-2 border-amber-400/40 my-1">
+                            {typingSubservices.map(sub => (
+                              <Link
+                                key={sub.id}
+                                to={`/services#${sub.id}`}
+                                onClick={() => setIsMenuOpen(false)}
+                                className="block py-1.5 px-2 text-[12px] text-slate-300 hover:text-white font-medium"
+                              >
+                                {sub.label}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
               return (
                 <Link
                   key={link.name}
@@ -166,52 +271,6 @@ export const Header: React.FC = () => {
               );
             })}
           </nav>
-
-          <div className="pt-4 border-t border-slate-800 flex flex-col gap-2">
-            <Link
-              to="/contact"
-              onClick={() => setIsMenuOpen(false)}
-              className="w-full py-2.5 rounded-full border border-amber-400 text-white text-center font-bold text-xs"
-            >
-              Get Started →
-            </Link>
-
-            <div className="p-3 bg-slate-900/80 rounded-2xl border border-slate-700/80 space-y-2 text-left">
-              <div className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-400">
-                <MessageCircle className="w-3.5 h-3.5 fill-emerald-400 text-slate-900" />
-                <span>Chat Directly on WhatsApp:</span>
-              </div>
-              <div className="space-y-1.5">
-                <a
-                  href={`https://wa.me/${ownerNumber}?text=${encodeURIComponent('Hello Mr. Didar, I want to inquire about typing services.')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between p-2 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-xs text-slate-200"
-                >
-                  <span className="font-semibold text-amber-300">Owner (Mr. Didar)</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
-                </a>
-                <a
-                  href={`https://wa.me/${amrkNumber}?text=${encodeURIComponent('Hello AMRK Typing Services, I want to inquire about typing services.')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between p-2 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-xs text-slate-200"
-                >
-                  <span className="font-semibold text-blue-300">AMRK Typing (Ind. 2)</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
-                </a>
-                <a
-                  href={`https://wa.me/${alayanNumber}?text=${encodeURIComponent('Hello ALAYAN Typing Services, I want to inquire about typing services.')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between p-2 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-xs text-slate-200"
-                >
-                  <span className="font-semibold text-emerald-300">ALAYAN Typing (Ind. 1)</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       )}
     </header>

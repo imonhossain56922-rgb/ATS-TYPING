@@ -41,7 +41,7 @@ export const ServicesPage: React.FC = () => {
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto font-normal">
-            Explore our 11 official service categories covering visa typing, labour compliance, business setups, corporate tax, and legal document processing.
+            Explore our 8 official service categories covering immigration & visas, labour compliance, business setups, medical, driving, utilities, travel, and legal document typing.
           </p>
 
           {/* Quick Search Filter */}
@@ -74,7 +74,7 @@ export const ServicesPage: React.FC = () => {
           
           <div className="flex items-center justify-between text-xs text-slate-500 border-b border-slate-200 pb-3 flex-wrap gap-2">
             <span>
-              All <strong>11 official categories</strong> processed at our AMRK (Ind. 2) and ALAYAN (Ind. 1) outlets
+              All <strong>8 official categories</strong> processed at our AMRK (Ind. 2) and ALAYAN (Ind. 1) outlets
             </span>
             <span>
               Direct consultation via WhatsApp available on every service

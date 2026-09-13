@@ -183,7 +183,7 @@ export const AmrkOutletPage: React.FC = () => {
               Services Available at AMRK TYPING SERVICES
             </h2>
             <p className="text-xs sm:text-sm text-slate-600">
-              All 11 official service categories are processed directly on-site at our Ajman Industrial 2 outlet.
+              All 8 official service categories are processed directly on-site at our Ajman Industrial 2 outlet.
             </p>
           </div>
 

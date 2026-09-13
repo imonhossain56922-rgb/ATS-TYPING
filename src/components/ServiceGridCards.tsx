@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { 
   Building2, 
   Users, 
@@ -19,6 +20,7 @@ import {
 } from 'lucide-react';
 import { officialServiceCategories } from '../data/officialServicesData';
 import { ServiceCategoryGroup } from '../types';
+import { recordServiceClick } from '../utils/serviceAnalytics';
 
 interface ServiceGridCardsProps {
   outletWhatsApp?: string;
@@ -30,87 +32,80 @@ export const ServiceGridCards: React.FC<ServiceGridCardsProps> = ({
   outletName = 'UAE Typing Services'
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<ServiceCategoryGroup | null>(null);
+  const location = useLocation();
 
-  // Colors & Icons corresponding exactly to reference image
+  // Automatically open the service dialog when URL hash matches any service ID
+  useEffect(() => {
+    const rawHash = location.hash.replace('#', '').trim();
+    if (rawHash) {
+      const match = officialServiceCategories.find(c => c.id === rawHash);
+      if (match) {
+        setSelectedCategory(match);
+      }
+    }
+  }, [location.hash, location.key]);
+
+  const handleCloseModal = () => {
+    setSelectedCategory(null);
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  };
+
+  // Colors & Icons for the 8 official service categories
   const categoryConfig: { [key: string]: { bg: string; icon: React.ReactNode; preview: string } } = {
-    'travel-ticketing': {
-      bg: 'bg-[#0D9488]',
-      icon: <Plane className="w-6 h-6 text-white" />,
-      preview: 'Air tickets, hotel booking, travel insurance and more.'
-    },
-    'docs-attestation': {
-      bg: 'bg-[#C2410C]',
-      icon: <Stamp className="w-6 h-6 text-white" />,
-      preview: 'Consulate & UAE MOFA attestation, certificates, and civil defence.'
-    },
-    'gov-immigration': {
+    'immigration-gov': {
       bg: 'bg-[#0B1B3D]',
       icon: <Building2 className="w-6 h-6 text-white" />,
-      preview: 'Visa, Emirates ID, ICP, GDRFA and more.'
+      preview: 'ICP, GDRFA, Golden Visa, residence permits, and entry visas.'
     },
-    'labour-employment': {
+    'labour-mohre': {
       bg: 'bg-[#008751]',
       icon: <Users className="w-6 h-6 text-white" />,
-      preview: 'MOHRE, work permits, contracts and more.'
+      preview: 'MOHRE, work permits, labour contracts, quota and WPS clearance.'
     },
     'business-company': {
       bg: 'bg-[#6D28D9]',
       icon: <Briefcase className="w-6 h-6 text-white" />,
-      preview: 'Business setup, trade license, company formation and more.'
+      preview: 'Company setup, trade licenses, Ejari, PRO, corporate tax & Civil Defense.'
     },
-    'tax-accounting': {
-      bg: 'bg-[#D97706]',
-      icon: <Coins className="w-6 h-6 text-white" />,
-      preview: 'VAT, corporate tax, accounting and more.'
-    },
-    'insurance': {
+    'medical-insurance': {
       bg: 'bg-[#DC2626]',
       icon: <Shield className="w-6 h-6 text-white" />,
-      preview: 'Health, car, visa and travel insurance.'
+      preview: 'Visa medical, health, car, travel, and ILOE insurance.'
     },
     'driving-transport': {
       bg: 'bg-[#0284C7]',
       icon: <Car className="w-6 h-6 text-white" />,
-      preview: 'Driving license, vehicle registration, traffic services and more.'
+      preview: 'Driving license, vehicle registration, RTA and traffic fine payments.'
     },
     'government-utility': {
       bg: 'bg-[#7C3AED]',
       icon: <Zap className="w-6 h-6 text-white" />,
-      preview: 'DEWA, water, sewerage, tenancy and more.'
+      preview: 'DEWA, SEWA, FEWA, police clearance, consulate & MOFA attestation.'
     },
-    'document-services': {
+    'travel-ticketing': {
+      bg: 'bg-[#0D9488]',
+      icon: <Plane className="w-6 h-6 text-white" />,
+      preview: 'Air tickets, ticket changes, visit visas, Umrah and tour packages.'
+    },
+    'other-typing-services': {
       bg: 'bg-[#D97706]',
       icon: <FileText className="w-6 h-6 text-white" />,
-      preview: 'Typing, translation, printing, scanning and more.'
-    },
-    'pro-government': {
-      bg: 'bg-[#1E293B]',
-      icon: <Cog className="w-6 h-6 text-white" />,
-      preview: 'PRO services, document clearance, government submission and more.'
-    },
-    'pro-processing': {
-      bg: 'bg-[#1E293B]',
-      icon: <Cog className="w-6 h-6 text-white" />,
-      preview: 'PRO services, document clearance, government submission and more.'
-    },
-    'other-popular': {
-      bg: 'bg-[#E11D48]',
-      icon: <Star className="w-6 h-6 text-white" />,
-      preview: 'Police clearance, medical, passport, NOC and more.'
-    },
-    'other-services': {
-      bg: 'bg-[#E11D48]',
-      icon: <Star className="w-6 h-6 text-white" />,
-      preview: 'Police clearance, medical, passport, NOC and more.'
+      preview: 'Arabic/English typing, translation, CVs, undertakings, and status checks.'
     },
   };
 
   const handleCardClick = (category: ServiceCategoryGroup) => {
     setSelectedCategory(category);
+    recordServiceClick(category.id);
   };
 
   const handleWhatsAppInquiry = (serviceName: string, categoryTitle: string, e: React.MouseEvent) => {
     e.stopPropagation();
+    if (selectedCategory) {
+      recordServiceClick(selectedCategory.id);
+    }
     const cleanNumber = outletWhatsApp.replace('+', '').replace(/\s/g, '');
     const message = `Hello ${outletName}, I would like to inquire about "${serviceName}" under ${categoryTitle}.`;
     window.open(`https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`, '_blank');
@@ -118,8 +113,8 @@ export const ServiceGridCards: React.FC<ServiceGridCardsProps> = ({
 
   return (
     <div className="space-y-8">
-      {/* 11 Service Cards in Responsive Grid matching reference image */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5">
+      {/* 8 Service Cards in Responsive 4-Column Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4 sm:gap-5">
         {officialServiceCategories.map((cat, idx) => {
           const config = categoryConfig[cat.id] || {
             bg: 'bg-[#0B1B3D]',
@@ -163,8 +158,14 @@ export const ServiceGridCards: React.FC<ServiceGridCardsProps> = ({
 
       {/* Interactive Modal when clicking any service card */}
       {selectedCategory && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-hidden shadow-2xl border border-slate-200 flex flex-col animate-scaleUp">
+        <div 
+          onClick={handleCloseModal}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm animate-fadeIn"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-hidden shadow-2xl border border-slate-200 flex flex-col animate-scaleUp"
+          >
             
             {/* Modal Header */}
             <div className="p-6 bg-gradient-to-r from-[#0B1B3D] to-[#15284F] text-white flex items-start justify-between">
@@ -186,7 +187,7 @@ export const ServiceGridCards: React.FC<ServiceGridCardsProps> = ({
               </div>
 
               <button
-                onClick={() => setSelectedCategory(null)}
+                onClick={handleCloseModal}
                 className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
                 aria-label="Close modal"
               >
@@ -237,7 +238,7 @@ export const ServiceGridCards: React.FC<ServiceGridCardsProps> = ({
                   <span>Inquire Category on WhatsApp</span>
                 </a>
                 <button
-                  onClick={() => setSelectedCategory(null)}
+                  onClick={handleCloseModal}
                   className="px-4 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium cursor-pointer"
                 >
                   Close
