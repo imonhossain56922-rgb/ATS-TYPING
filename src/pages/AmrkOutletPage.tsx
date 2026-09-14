@@ -2,6 +2,7 @@ import React from 'react';
 import { 
   MapPin, 
   Phone, 
+  PhoneCall,
   MessageCircle, 
   Mail, 
   Navigation, 
@@ -11,9 +12,22 @@ import {
 import { ServiceGridCards } from '../components/ServiceGridCards';
 import { WhyChooseUs } from '../components/WhyChooseUs';
 import { getOutletById } from '../data/outletsData';
+import { useSiteContent } from '../context/SiteContentContext';
 
 export const AmrkOutletPage: React.FC = () => {
-  const outlet = getOutletById('amrk')!;
+  const staticOutlet = getOutletById('amrk')!;
+  const { content } = useSiteContent();
+  const dynamicOutlet = content.outlets.amrk;
+
+  const officePhone = dynamicOutlet?.officePhone || staticOutlet.officePhone;
+  const telephone = dynamicOutlet?.telephone || staticOutlet.telephone || '065207843';
+  const email = dynamicOutlet?.email || staticOutlet.email;
+  const logoUrl = dynamicOutlet?.logoUrl || staticOutlet.logoUrl;
+  const address = dynamicOutlet?.address || staticOutlet.addressLines.join(', ');
+  const googleMapsUrl = dynamicOutlet?.googleMapsUrl || staticOutlet.googleMapsUrl;
+  const additionalPhones = (dynamicOutlet?.additionalPhones || []).filter(p => p.trim().length > 0);
+  const additionalEmails = (dynamicOutlet?.additionalEmails || []).filter(e => e.trim().length > 0);
+  const officePhoneIntl = dynamicOutlet?.officePhone ? dynamicOutlet.officePhone.replace(/[^0-9]/g, '') : staticOutlet.officePhoneIntl;
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
@@ -32,7 +46,7 @@ export const AmrkOutletPage: React.FC = () => {
             {/* 2. Outlet Logo in Crisp White Frame */}
             <div className="w-full max-w-sm mx-auto h-36 sm:h-44 rounded-2xl bg-white border border-slate-200/90 p-4 flex items-center justify-center shadow-md overflow-hidden">
               <img
-                src={outlet.logoUrl}
+                src={logoUrl}
                 alt="AMRK TYPING SERVICES Logo"
                 className="max-h-full max-w-full object-contain"
               />
@@ -49,19 +63,30 @@ export const AmrkOutletPage: React.FC = () => {
             </p>
 
             {/* 5. Direct Contact Buttons - Horizontally in one line on desktop view */}
-            <div className="pt-2 flex flex-wrap lg:flex-nowrap items-center justify-center gap-2 sm:gap-2.5 max-w-full">
-              {/* Office Call */}
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 max-w-full">
+              {/* Telephone (Call Only - No WhatsApp) */}
               <a
-                href={`tel:${outlet.officePhoneIntl}`}
+                href={`tel:${telephone.replace(/\s+/g, '')}`}
+                className="whitespace-nowrap px-3.5 py-2 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-900 border border-blue-300 text-xs font-bold flex items-center gap-1.5 shadow-xs transition-all flex-shrink-0"
+                title="Telephone Number (Call Only, No WhatsApp)"
+              >
+                <PhoneCall className="w-3.5 h-3.5 text-blue-700" />
+                <span>Telephone ({telephone})</span>
+                <span className="text-[10px] bg-blue-200/90 text-blue-950 px-1.5 py-0.5 rounded-full font-bold">Call Only</span>
+              </a>
+
+              {/* Office Mobile Call */}
+              <a
+                href={`tel:${officePhone.replace(/\s+/g, '')}`}
                 className="whitespace-nowrap px-3.5 py-2 rounded-full bg-white hover:bg-slate-50 text-[#0B1B3D] border border-slate-300 text-xs font-semibold flex items-center gap-1.5 shadow-xs transition-all flex-shrink-0"
               >
                 <Phone className="w-3.5 h-3.5 text-blue-600" />
-                <span>Call Office ({outlet.officePhone})</span>
+                <span>Call Office ({officePhone})</span>
               </a>
 
               {/* Office WhatsApp */}
               <a
-                href={`https://wa.me/${outlet.officePhoneIntl.replace('+', '')}?text=${encodeURIComponent('Hello AMRK Typing Services, I would like to inquire about typing services.')}`}
+                href={`https://wa.me/${officePhone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hello AMRK Typing Services, I would like to inquire about typing services.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="whitespace-nowrap px-3.5 py-2 rounded-full bg-[#00a859] hover:bg-[#00924d] text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition-all flex-shrink-0"
@@ -69,6 +94,32 @@ export const AmrkOutletPage: React.FC = () => {
                 <MessageCircle className="w-3.5 h-3.5 fill-white text-[#00a859]" />
                 <span>Office WhatsApp</span>
               </a>
+
+              {/* Additional Phone Numbers (if added from Admin Panel) */}
+              {additionalPhones.map((ph, idx) => {
+                const cleanDigits = ph.replace(/[^0-9]/g, '');
+                return (
+                  <div key={idx} className="inline-flex items-center rounded-full bg-slate-900 text-white text-xs font-semibold px-3 py-1.5 shadow-xs gap-1.5 flex-shrink-0 whitespace-nowrap border border-slate-700">
+                    <Phone className="w-3 h-3 text-amber-400" />
+                    <a
+                      href={`tel:${cleanDigits}`}
+                      className="hover:text-amber-300 transition-colors"
+                      title={`Call ${ph}`}
+                    >
+                      {ph}
+                    </a>
+                    <a
+                      href={`https://wa.me/${cleanDigits}?text=${encodeURIComponent('Hello AMRK Typing Services, I would like to inquire about typing services.')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-1 rounded-full bg-[#00a859] hover:bg-[#00924d] text-white transition-all inline-flex items-center justify-center ml-0.5"
+                      title={`WhatsApp ${ph}`}
+                    >
+                      <MessageCircle className="w-2.5 h-2.5 fill-white text-[#00a859]" />
+                    </a>
+                  </div>
+                );
+              })}
 
               {/* Combined Single Component for AMRK Owners: Call icon - OWNER (0505372999) -whatsapp icon (0555950006) -whatsapp icon */}
               <div className="inline-flex items-center rounded-full bg-[#0B1B3D] text-white text-xs font-semibold px-3.5 py-1.5 shadow-xs gap-2 flex-shrink-0 whitespace-nowrap border border-[#1e3461]">
@@ -123,14 +174,26 @@ export const AmrkOutletPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Email */}
+              {/* Primary Email */}
               <a
-                href={`mailto:${outlet.email}`}
+                href={`mailto:${email}`}
                 className="whitespace-nowrap px-3.5 py-2 rounded-full bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs flex items-center gap-1.5 shadow-xs transition-all flex-shrink-0"
               >
                 <Mail className="w-3.5 h-3.5 text-slate-500" />
-                <span>{outlet.email}</span>
+                <span>{email}</span>
               </a>
+
+              {/* Additional Emails (if added from Admin Panel) */}
+              {additionalEmails.map((em, idx) => (
+                <a
+                  key={idx}
+                  href={`mailto:${em}`}
+                  className="whitespace-nowrap px-3.5 py-2 rounded-full bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs flex items-center gap-1.5 shadow-xs transition-all flex-shrink-0"
+                >
+                  <Mail className="w-3.5 h-3.5 text-amber-500" />
+                  <span>{em}</span>
+                </a>
+              ))}
             </div>
 
           </div>
@@ -149,9 +212,7 @@ export const AmrkOutletPage: React.FC = () => {
                 <span>AMRK OUTLET PHYSICAL ADDRESS</span>
               </div>
               <div className="text-sm text-slate-800 font-medium space-y-0.5">
-                {outlet.addressLines.map((line, i) => (
-                  <p key={i}>{line}</p>
-                ))}
+                <p>{address}</p>
               </div>
               <p className="text-xs text-slate-500">
                 Roadside parking available. Rapid desk service for all walk-in clients.
@@ -161,7 +222,7 @@ export const AmrkOutletPage: React.FC = () => {
             {/* Prominent Google Maps Button */}
             <div className="flex-shrink-0 w-full md:w-auto">
               <a
-                href={outlet.googleMapsUrl}
+                href={googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#0B1B3D] hover:bg-[#15284F] text-white font-bold text-xs uppercase tracking-wider shadow-md hover:scale-105 transition-all flex items-center justify-center gap-2"
@@ -188,7 +249,7 @@ export const AmrkOutletPage: React.FC = () => {
           </div>
 
           <ServiceGridCards 
-            outletWhatsApp={outlet.officePhoneIntl} 
+            outletWhatsApp={officePhoneIntl} 
             outletName="AMRK Typing Services" 
           />
         </div>
@@ -210,13 +271,13 @@ export const AmrkOutletPage: React.FC = () => {
             Send your passport copy, Emirates ID, or fine receipt to get an immediate checklist and price calculation from our team.
           </p>
           <a
-            href={`https://wa.me/${outlet.officePhoneIntl.replace('+', '')}?text=${encodeURIComponent('Hello AMRK Typing Services, I would like to inquire about visa and government typing services.')}`}
+            href={`https://wa.me/${officePhoneIntl.replace('+', '')}?text=${encodeURIComponent('Hello AMRK Typing Services, I would like to inquire about visa and government typing services.')}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#00a859] hover:bg-[#00924d] text-white font-bold text-xs uppercase tracking-wider shadow-md hover:scale-105 transition-all"
           >
             <MessageCircle className="w-4 h-4 fill-white text-[#00a859]" />
-            <span>Chat on WhatsApp (+971 56 674 5493)</span>
+            <span>Chat on WhatsApp ({officePhone})</span>
           </a>
         </div>
       </section>

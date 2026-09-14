@@ -16,7 +16,10 @@ import {
   ExternalLink,
   ChevronRight,
   Info,
-  Megaphone
+  Megaphone,
+  Plus,
+  Trash2,
+  Mail
 } from 'lucide-react';
 import { useSiteContent, initialSiteImages, defaultSiteContent } from '../context/SiteContentContext';
 import { AdminImageCard } from '../components/AdminImageCard';
@@ -436,7 +439,7 @@ export const AdminPanelPage: React.FC = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-slate-300">Office Phone</label>
+                  <label className="text-xs font-bold text-slate-300">Office Mobile Phone (WhatsApp enabled)</label>
                   <input
                     type="text"
                     value={draft.outlets.amrk.officePhone}
@@ -449,7 +452,21 @@ export const AdminPanelPage: React.FC = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-slate-300">Email Address</label>
+                  <label className="text-xs font-bold text-slate-300">Telephone Number (Call Only, No WhatsApp)</label>
+                  <input
+                    type="text"
+                    value={draft.outlets.amrk.telephone || ''}
+                    placeholder="065207843"
+                    onChange={(e) => setDraft({
+                      ...draft,
+                      outlets: { ...draft.outlets, amrk: { ...draft.outlets.amrk, telephone: e.target.value } }
+                    })}
+                    className="w-full bg-slate-950 border border-slate-700 px-3.5 py-2 rounded-xl text-sm text-white"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-300">Email Address (Primary)</label>
                   <input
                     type="text"
                     value={draft.outlets.amrk.email}
@@ -459,6 +476,166 @@ export const AdminPanelPage: React.FC = () => {
                     })}
                     className="w-full bg-slate-950 border border-slate-700 px-3.5 py-2 rounded-xl text-sm text-white"
                   />
+                </div>
+
+                {/* Additional Phone Numbers (AMRK) */}
+                <div className="md:col-span-2 p-4 bg-slate-900/80 rounded-2xl border border-slate-800 space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
+                    <div className="flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-amber-400" />
+                      <span className="text-xs font-bold text-slate-200">Additional Phone Numbers (AMRK)</span>
+                      <span className="text-[10px] bg-slate-800 text-amber-300 px-2 py-0.5 rounded-full font-mono border border-slate-700">
+                        {(draft.outlets.amrk.additionalPhones || []).length} added
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const current = draft.outlets.amrk.additionalPhones || [];
+                        setDraft({
+                          ...draft,
+                          outlets: {
+                            ...draft.outlets,
+                            amrk: {
+                              ...draft.outlets.amrk,
+                              additionalPhones: [...current, '']
+                            }
+                          }
+                        });
+                      }}
+                      className="self-start sm:self-auto px-3 py-1.5 rounded-xl bg-amber-400/15 hover:bg-amber-400/25 text-amber-300 text-xs font-bold flex items-center gap-1.5 transition-colors border border-amber-400/30 cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>Add New Number</span>
+                    </button>
+                  </div>
+
+                  {(draft.outlets.amrk.additionalPhones || []).length === 0 ? (
+                    <p className="text-xs text-slate-500 italic py-1">
+                      No additional phone numbers added yet. Click &quot;Add New Number&quot; to add.
+                    </p>
+                  ) : (
+                    <div className="space-y-2">
+                      {(draft.outlets.amrk.additionalPhones || []).map((phone, idx) => (
+                        <div key={idx} className="flex items-center gap-2">
+                          <input
+                            type="text"
+                            value={phone}
+                            placeholder={`Additional Phone ${idx + 1} (e.g. 055 123 4567)`}
+                            onChange={(e) => {
+                              const updated = [...(draft.outlets.amrk.additionalPhones || [])];
+                              updated[idx] = e.target.value;
+                              setDraft({
+                                ...draft,
+                                outlets: {
+                                  ...draft.outlets,
+                                  amrk: { ...draft.outlets.amrk, additionalPhones: updated }
+                                }
+                              });
+                            }}
+                            className="flex-1 bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2 rounded-xl text-sm text-white"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = (draft.outlets.amrk.additionalPhones || []).filter((_, i) => i !== idx);
+                              setDraft({
+                                ...draft,
+                                outlets: {
+                                  ...draft.outlets,
+                                  amrk: { ...draft.outlets.amrk, additionalPhones: updated }
+                                }
+                              });
+                            }}
+                            className="p-2.5 rounded-xl bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-800/40 transition-colors cursor-pointer"
+                            title="Remove this phone number"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Additional Email Addresses (AMRK) */}
+                <div className="md:col-span-2 p-4 bg-slate-900/80 rounded-2xl border border-slate-800 space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
+                    <div className="flex items-center gap-2">
+                      <Mail className="w-4 h-4 text-amber-400" />
+                      <span className="text-xs font-bold text-slate-200">Additional Email Addresses (AMRK)</span>
+                      <span className="text-[10px] bg-slate-800 text-amber-300 px-2 py-0.5 rounded-full font-mono border border-slate-700">
+                        {(draft.outlets.amrk.additionalEmails || []).length} added
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const current = draft.outlets.amrk.additionalEmails || [];
+                        setDraft({
+                          ...draft,
+                          outlets: {
+                            ...draft.outlets,
+                            amrk: {
+                              ...draft.outlets.amrk,
+                              additionalEmails: [...current, '']
+                            }
+                          }
+                        });
+                      }}
+                      className="self-start sm:self-auto px-3 py-1.5 rounded-xl bg-amber-400/15 hover:bg-amber-400/25 text-amber-300 text-xs font-bold flex items-center gap-1.5 transition-colors border border-amber-400/30 cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>Add New Email</span>
+                    </button>
+                  </div>
+
+                  {(draft.outlets.amrk.additionalEmails || []).length === 0 ? (
+                    <p className="text-xs text-slate-500 italic py-1">
+                      No additional emails added yet. Click &quot;Add New Email&quot; to add.
+                    </p>
+                  ) : (
+                    <div className="space-y-2">
+                      {(draft.outlets.amrk.additionalEmails || []).map((email, idx) => (
+                        <div key={idx} className="flex items-center gap-2">
+                          <input
+                            type="text"
+                            value={email}
+                            placeholder={`Additional Email ${idx + 1} (e.g. branch.inquiry@amrk.ae)`}
+                            onChange={(e) => {
+                              const updated = [...(draft.outlets.amrk.additionalEmails || [])];
+                              updated[idx] = e.target.value;
+                              setDraft({
+                                ...draft,
+                                outlets: {
+                                  ...draft.outlets,
+                                  amrk: { ...draft.outlets.amrk, additionalEmails: updated }
+                                }
+                              });
+                            }}
+                            className="flex-1 bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2 rounded-xl text-sm text-white"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = (draft.outlets.amrk.additionalEmails || []).filter((_, i) => i !== idx);
+                              setDraft({
+                                ...draft,
+                                outlets: {
+                                  ...draft.outlets,
+                                  amrk: { ...draft.outlets.amrk, additionalEmails: updated }
+                                }
+                              });
+                            }}
+                            className="p-2.5 rounded-xl bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-800/40 transition-colors cursor-pointer"
+                            title="Remove this email"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="md:col-span-2 space-y-1.5">
@@ -526,7 +703,21 @@ export const AdminPanelPage: React.FC = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-slate-300">Office / Shop Phone</label>
+                  <label className="text-xs font-bold text-slate-300">Telephone Number (Call Only, No WhatsApp)</label>
+                  <input
+                    type="text"
+                    value={draft.outlets.alayan.telephone || ''}
+                    placeholder="0556140043"
+                    onChange={(e) => setDraft({
+                      ...draft,
+                      outlets: { ...draft.outlets, alayan: { ...draft.outlets.alayan, telephone: e.target.value } }
+                    })}
+                    className="w-full bg-slate-950 border border-slate-700 px-3.5 py-2 rounded-xl text-sm text-white"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-300">Office / Mobile Phone (Secondary)</label>
                   <input
                     type="text"
                     value={draft.outlets.alayan.officePhone}
@@ -539,7 +730,7 @@ export const AdminPanelPage: React.FC = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-slate-300">Email Address</label>
+                  <label className="text-xs font-bold text-slate-300">Email Address (Primary)</label>
                   <input
                     type="text"
                     value={draft.outlets.alayan.email}
@@ -549,6 +740,166 @@ export const AdminPanelPage: React.FC = () => {
                     })}
                     className="w-full bg-slate-950 border border-slate-700 px-3.5 py-2 rounded-xl text-sm text-white"
                   />
+                </div>
+
+                {/* Additional Phone Numbers (ALAYAN) */}
+                <div className="md:col-span-2 p-4 bg-slate-900/80 rounded-2xl border border-slate-800 space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
+                    <div className="flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-emerald-400" />
+                      <span className="text-xs font-bold text-slate-200">Additional Phone Numbers (ALAYAN)</span>
+                      <span className="text-[10px] bg-slate-800 text-emerald-300 px-2 py-0.5 rounded-full font-mono border border-slate-700">
+                        {(draft.outlets.alayan.additionalPhones || []).length} added
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const current = draft.outlets.alayan.additionalPhones || [];
+                        setDraft({
+                          ...draft,
+                          outlets: {
+                            ...draft.outlets,
+                            alayan: {
+                              ...draft.outlets,
+                              additionalPhones: [...current, '']
+                            }
+                          }
+                        });
+                      }}
+                      className="self-start sm:self-auto px-3 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 text-xs font-bold flex items-center gap-1.5 transition-colors border border-emerald-500/30 cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>Add New Number</span>
+                    </button>
+                  </div>
+
+                  {(draft.outlets.alayan.additionalPhones || []).length === 0 ? (
+                    <p className="text-xs text-slate-500 italic py-1">
+                      No additional phone numbers added yet. Click &quot;Add New Number&quot; to add.
+                    </p>
+                  ) : (
+                    <div className="space-y-2">
+                      {(draft.outlets.alayan.additionalPhones || []).map((phone, idx) => (
+                        <div key={idx} className="flex items-center gap-2">
+                          <input
+                            type="text"
+                            value={phone}
+                            placeholder={`Additional Phone ${idx + 1} (e.g. 055 987 6543)`}
+                            onChange={(e) => {
+                              const updated = [...(draft.outlets.alayan.additionalPhones || [])];
+                              updated[idx] = e.target.value;
+                              setDraft({
+                                ...draft,
+                                outlets: {
+                                  ...draft.outlets,
+                                  alayan: { ...draft.outlets.alayan, additionalPhones: updated }
+                                }
+                              });
+                            }}
+                            className="flex-1 bg-slate-950 border border-slate-700 focus:border-emerald-400 px-3.5 py-2 rounded-xl text-sm text-white"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = (draft.outlets.alayan.additionalPhones || []).filter((_, i) => i !== idx);
+                              setDraft({
+                                ...draft,
+                                outlets: {
+                                  ...draft.outlets,
+                                  alayan: { ...draft.outlets.alayan, additionalPhones: updated }
+                                }
+                              });
+                            }}
+                            className="p-2.5 rounded-xl bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-800/40 transition-colors cursor-pointer"
+                            title="Remove this phone number"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Additional Email Addresses (ALAYAN) */}
+                <div className="md:col-span-2 p-4 bg-slate-900/80 rounded-2xl border border-slate-800 space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
+                    <div className="flex items-center gap-2">
+                      <Mail className="w-4 h-4 text-emerald-400" />
+                      <span className="text-xs font-bold text-slate-200">Additional Email Addresses (ALAYAN)</span>
+                      <span className="text-[10px] bg-slate-800 text-emerald-300 px-2 py-0.5 rounded-full font-mono border border-slate-700">
+                        {(draft.outlets.alayan.additionalEmails || []).length} added
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const current = draft.outlets.alayan.additionalEmails || [];
+                        setDraft({
+                          ...draft,
+                          outlets: {
+                            ...draft.outlets,
+                            alayan: {
+                              ...draft.outlets,
+                              additionalEmails: [...current, '']
+                            }
+                          }
+                        });
+                      }}
+                      className="self-start sm:self-auto px-3 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 text-xs font-bold flex items-center gap-1.5 transition-colors border border-emerald-500/30 cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>Add New Email</span>
+                    </button>
+                  </div>
+
+                  {(draft.outlets.alayan.additionalEmails || []).length === 0 ? (
+                    <p className="text-xs text-slate-500 italic py-1">
+                      No additional emails added yet. Click &quot;Add New Email&quot; to add.
+                    </p>
+                  ) : (
+                    <div className="space-y-2">
+                      {(draft.outlets.alayan.additionalEmails || []).map((email, idx) => (
+                        <div key={idx} className="flex items-center gap-2">
+                          <input
+                            type="text"
+                            value={email}
+                            placeholder={`Additional Email ${idx + 1} (e.g. support.alayan@gmail.com)`}
+                            onChange={(e) => {
+                              const updated = [...(draft.outlets.alayan.additionalEmails || [])];
+                              updated[idx] = e.target.value;
+                              setDraft({
+                                ...draft,
+                                outlets: {
+                                  ...draft.outlets,
+                                  alayan: { ...draft.outlets.alayan, additionalEmails: updated }
+                                }
+                              });
+                            }}
+                            className="flex-1 bg-slate-950 border border-slate-700 focus:border-emerald-400 px-3.5 py-2 rounded-xl text-sm text-white"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = (draft.outlets.alayan.additionalEmails || []).filter((_, i) => i !== idx);
+                              setDraft({
+                                ...draft,
+                                outlets: {
+                                  ...draft.outlets,
+                                  alayan: { ...draft.outlets.alayan, additionalEmails: updated }
+                                }
+                              });
+                            }}
+                            className="p-2.5 rounded-xl bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-800/40 transition-colors cursor-pointer"
+                            title="Remove this email"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="md:col-span-2 space-y-1.5">

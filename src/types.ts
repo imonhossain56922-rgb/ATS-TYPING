@@ -47,6 +47,8 @@ export interface OutletInfo {
   location: string;
   addressLines: string[];
   googleMapsUrl: string;
+  telephone?: string; // Telephone number (Call only, no WhatsApp)
+  telephoneIntl?: string;
   officePhone: string;
   officePhoneIntl: string;
   ownerPhone: string;
@@ -113,10 +115,13 @@ export interface SiteOutletItem {
   shortName: string;
   location: string;
   address: string;
+  telephone?: string; // Telephone number (Call only, no WhatsApp)
   officePhone: string;
   ownerPhone: string;
   additionalOwnerPhone?: string;
+  additionalPhones?: string[];
   email: string;
+  additionalEmails?: string[];
   logoUrl: string;
   googleMapsUrl: string;
   description: string;

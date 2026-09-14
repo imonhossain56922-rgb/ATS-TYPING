@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { SiteContent, SiteImageItem, ContactInfo, SiteOutletItem, Advertisement } from '../types';
 import { contactData as defaultContact } from '../data/contactData';
-import { uaeSkylineHero, uaeWavingFlag } from '../assets/images';
+import { uaeSkylineHero, uaeWavingFlag, servicesBgNetwork, outletBgMint, outletBgTeal, outletBgOlive } from '../assets/images';
 
 const STORAGE_KEY = 'uae_typing_site_content_v2';
 const AUTH_KEY = 'uae_typing_admin_auth_status';
@@ -9,11 +9,11 @@ const AUTH_KEY = 'uae_typing_admin_auth_status';
 export const initialSiteImages: SiteImageItem[] = [
   {
     id: 'hero-skyline',
-    name: 'Dubai Skyline Panoramic Hero Banner',
+    name: 'Home Hero Section Background (Olive Cloud Texture)',
     section: 'Home Page - Hero Background',
-    url: uaeSkylineHero,
-    description: 'Header panoramic background showing Dubai architectural skyline',
-    recommendedSize: '1920 × 800 px (Landscape)'
+    url: outletBgOlive,
+    description: 'Olive-green atmospheric cloud vapor texture background on the home hero section',
+    recommendedSize: '1920 × 800 px (Landscape / Blurred Background)'
   },
   {
     id: 'hero-flag',
@@ -62,6 +62,30 @@ export const initialSiteImages: SiteImageItem[] = [
     url: '/uae-typing-ad-720x1280.svg',
     description: 'Fullscreen pop-up advertisement displayed when users touch or click on the public website',
     recommendedSize: '720 × 1280 px (9:16 Vertical Story / Poster)'
+  },
+  {
+    id: 'services-bg',
+    name: 'Our Services Section Background (Glowing Tech Network)',
+    section: 'Home Page - Our Services Section',
+    url: servicesBgNetwork,
+    description: 'Blurred glowing golden digital technology network background on the Our Services section',
+    recommendedSize: '1920 × 1080 px (Landscape / Blurred Background)'
+  },
+  {
+    id: 'outlet-amrk-card-bg',
+    name: 'AMRK Branch Card Background (Mint Watercolor Texture)',
+    section: 'Our Outlets - AMRK Card',
+    url: outletBgMint,
+    description: 'Soft pastel mint and seafoam watercolor texture background on the AMRK outlet card',
+    recommendedSize: '800 × 500 px'
+  },
+  {
+    id: 'outlet-alayan-card-bg',
+    name: 'ALAYAN Branch Card Background (Olive Cloud Texture)',
+    section: 'Our Outlets - ALAYAN Card',
+    url: outletBgOlive,
+    description: 'Olive green and chartreuse cloud vapor texture background on the ALAYAN outlet card',
+    recommendedSize: '800 × 500 px'
   }
 ];
 
@@ -92,10 +116,13 @@ export const defaultSiteContent: SiteContent = {
       shortName: 'AMRK',
       location: 'Ajman Industrial 2',
       address: 'Amman Street - Ajman Industrial - 2, Shop Number 03, Al Madina Supermarket Same Build, Near Emirate Gas Signal & Bengali Market Road.',
+      telephone: '065207843',
       officePhone: '0566745493',
       ownerPhone: '0505372999',
       additionalOwnerPhone: '0555950006',
+      additionalPhones: [],
       email: 'amrktyping2020@gmail.com',
+      additionalEmails: [],
       logoUrl: '/amrk-logo.jpg',
       googleMapsUrl: 'https://maps.app.goo.gl/VesxCTuopxx8rhDq7?g_st=ic',
       description: 'Providing comprehensive visa typing, labour documentation, and government liaison solutions in Ajman Industrial 2.'
@@ -106,9 +133,12 @@ export const defaultSiteContent: SiteContent = {
       shortName: 'ALAYAN',
       location: 'Ajman Industrial 1',
       address: 'Amman Street - Ajman Industrial - 1, Central Souq - Shop Number 46, Opposite Marks & Save Market.',
+      telephone: '0556140043',
       officePhone: '0556140043',
       ownerPhone: '0505372999',
+      additionalPhones: [],
       email: 'infoats1122@gmail.com',
+      additionalEmails: [],
       logoUrl: '/ats-logo.jpg',
       googleMapsUrl: 'https://maps.app.goo.gl/RV4rjfQBcxvuASqR8',
       description: 'Specialized visa typing, Emirates ID processing, corporate licensing, and official clearance services in Ajman Industrial 1.'
@@ -153,8 +183,8 @@ export const SiteContentProvider: React.FC<{ children: React.ReactNode }> = ({ c
           hero: { ...defaultSiteContent.hero, ...parsed.hero },
           contact: { ...defaultSiteContent.contact, ...parsed.contact },
           outlets: {
-            amrk: { ...defaultSiteContent.outlets.amrk, ...parsed?.outlets?.amrk },
-            alayan: { ...defaultSiteContent.outlets.alayan, ...parsed?.outlets?.alayan }
+            amrk: { ...defaultSiteContent.outlets.amrk, ...parsed?.outlets?.amrk, telephone: parsed?.outlets?.amrk?.telephone || '065207843' },
+            alayan: { ...defaultSiteContent.outlets.alayan, ...parsed?.outlets?.alayan, telephone: parsed?.outlets?.alayan?.telephone || '0556140043' }
           },
           payment: { ...defaultSiteContent.payment, ...parsed.payment },
           images: Array.isArray(parsed.images) && parsed.images.length > 0 

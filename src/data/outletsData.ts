@@ -15,6 +15,8 @@ export const outletsData: OutletInfo[] = [
       'Near Emirate Gas Signal & Bengali Market Road.'
     ],
     googleMapsUrl: 'https://maps.app.goo.gl/VesxCTuopxx8rhDq7?g_st=ic',
+    telephone: '065207843',
+    telephoneIntl: '+97165207843',
     officePhone: '0566745493',
     officePhoneIntl: '+971566745493',
     ownerPhone: '0505372999',
@@ -37,6 +39,8 @@ export const outletsData: OutletInfo[] = [
       'Opposite Marks & Save Market.'
     ],
     googleMapsUrl: 'https://maps.app.goo.gl/RV4rjfQBcxvuASqR8',
+    telephone: '0556140043',
+    telephoneIntl: '+971556140043',
     officePhone: '0556140043',
     officePhoneIntl: '+971556140043',
     ownerPhone: '0505372999',

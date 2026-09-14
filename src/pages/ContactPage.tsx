@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Phone, 
+  PhoneCall,
   Mail, 
   MapPin, 
   MessageCircle, 
@@ -53,7 +54,7 @@ export const ContactPage: React.FC = () => {
 
   const handleWhatsAppDirectSend = () => {
     const targetOutlet = outletsData.find(o => o.id === formData.outlet) || outletsData[0];
-    const phoneNum = targetOutlet.officePhoneIntl.replace('+', '');
+    const phoneNum = targetOutlet.id === 'alayan' ? '971505372999' : targetOutlet.officePhoneIntl.replace('+', '');
     const text = `*New Website Inquiry*\n*Name:* ${formData.fullName}\n*Phone:* ${formData.mobileNumber}\n*Outlet:* ${targetOutlet.name}\n*Service:* ${formData.serviceCategory}\n*Message:* ${formData.message}`;
     window.open(`https://wa.me/${phoneNum}?text=${encodeURIComponent(text)}`, '_blank');
   };
@@ -135,30 +136,54 @@ export const ContactPage: React.FC = () => {
 
                     {/* Contact Channels */}
                     <div className="space-y-2 pt-3 border-t border-slate-200 text-xs">
-                      {/* Office Desk */}
-                      <div className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-slate-200">
-                        <div>
-                          <span className="text-slate-400 block text-[10px] uppercase">Office Desk</span>
-                          <span className="font-bold text-[#0B1B3D]">{outlet.officePhone}</span>
+                      {/* Telephone Number (Call Only, No WhatsApp) */}
+                      {outlet.telephone && (
+                        <div className="flex items-center justify-between p-2.5 rounded-xl bg-blue-50/70 border border-blue-200">
+                          <div>
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-blue-900 block text-[10px] uppercase font-bold tracking-wider">Telephone</span>
+                              <span className="text-[9px] bg-blue-200 text-blue-950 px-1.5 py-0.2 rounded font-bold uppercase">Call Only</span>
+                            </div>
+                            <span className="font-bold text-[#0B1B3D]">{outlet.telephone}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <a
+                              href={`tel:${outlet.telephone.replace(/\s+/g, '')}`}
+                              className="px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1 shadow-xs transition-all"
+                            >
+                              <PhoneCall className="w-3 h-3" />
+                              <span>Call</span>
+                            </a>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <a
-                            href={`tel:${outlet.officePhoneIntl}`}
-                            className="px-3 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium"
-                          >
-                            Call
-                          </a>
-                          <a
-                            href={`https://wa.me/${outlet.officePhoneIntl.replace('+', '')}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-3 py-1 rounded-lg bg-[#00a859] hover:bg-[#00924d] text-white text-xs font-bold flex items-center gap-1"
-                          >
-                            <MessageCircle className="w-3 h-3" />
-                            <span>WhatsApp</span>
-                          </a>
+                      )}
+
+                      {/* Office Desk (For AMRK has WhatsApp; for ALAYAN is same as telephone so omit duplicate) */}
+                      {outlet.id !== 'alayan' && (
+                        <div className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-slate-200">
+                          <div>
+                            <span className="text-slate-400 block text-[10px] uppercase">Office Desk (WhatsApp)</span>
+                            <span className="font-bold text-[#0B1B3D]">{outlet.officePhone}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <a
+                              href={`tel:${outlet.officePhoneIntl}`}
+                              className="px-3 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium"
+                            >
+                              Call
+                            </a>
+                            <a
+                              href={`https://wa.me/${outlet.officePhoneIntl.replace('+', '')}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-3 py-1 rounded-lg bg-[#00a859] hover:bg-[#00924d] text-white text-xs font-bold flex items-center gap-1"
+                            >
+                              <MessageCircle className="w-3 h-3" />
+                              <span>WhatsApp</span>
+                            </a>
+                          </div>
                         </div>
-                      </div>
+                      )}
 
                       {/* Shared Owner */}
                       <div className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-slate-200">
