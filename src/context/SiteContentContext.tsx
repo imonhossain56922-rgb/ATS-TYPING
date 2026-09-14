@@ -154,8 +154,6 @@ export const defaultSiteContent: SiteContent = {
   advertisement: null
 };
 
-export type AdminRole = 'superadmin' | 'ad_only';
-
 interface SiteContentContextType {
   content: SiteContent;
   updateContent: (newContent: Partial<SiteContent>) => void;
@@ -165,16 +163,11 @@ interface SiteContentContextType {
   removeAdvertisement: () => void;
   toggleAdvertisementActive: (active: boolean) => void;
   isAdminLoggedIn: boolean;
-  adminRole: AdminRole | null;
-  adminUsername: string | null;
-  login: (username: string, pass: string) => { success: boolean; role?: AdminRole; error?: string };
+  login: (username: string, pass: string) => { success: boolean; error?: string };
   logout: () => void;
 }
 
 const SiteContentContext = createContext<SiteContentContextType | undefined>(undefined);
-
-const AUTH_ROLE_KEY = 'uae_admin_role';
-const AUTH_USER_KEY = 'uae_admin_username';
 
 export const SiteContentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [content, setContent] = useState<SiteContent>(() => {
@@ -214,26 +207,6 @@ export const SiteContentProvider: React.FC<{ children: React.ReactNode }> = ({ c
       return localStorage.getItem(AUTH_KEY) === 'true';
     } catch {
       return false;
-    }
-  });
-
-  const [adminRole, setAdminRole] = useState<AdminRole | null>(() => {
-    try {
-      const savedRole = localStorage.getItem(AUTH_ROLE_KEY) as AdminRole | null;
-      if (savedRole === 'superadmin' || savedRole === 'ad_only') {
-        return savedRole;
-      }
-      return localStorage.getItem(AUTH_KEY) === 'true' ? 'superadmin' : null;
-    } catch {
-      return null;
-    }
-  });
-
-  const [adminUsername, setAdminUsername] = useState<string | null>(() => {
-    try {
-      return localStorage.getItem(AUTH_USER_KEY) || (localStorage.getItem(AUTH_KEY) === 'true' ? 'Admin' : null);
-    } catch {
-      return null;
     }
   });
 
@@ -370,62 +343,27 @@ export const SiteContentProvider: React.FC<{ children: React.ReactNode }> = ({ c
     });
   };
 
-  const login = (username: string, pass: string): { success: boolean; role?: AdminRole; error?: string } => {
-    const cleanUser = username.trim();
-    const cleanPass = pass.trim();
-
-    // 1. New User Requested: username "admin" & password "uae@2026"
-    // Access: Only New Advertisement Option ("akhane only new advertisement option ti thakbe onno kono option thakbe na")
-    if (
-      cleanUser.toLowerCase() === 'admin' && 
-      (cleanPass === 'uae@2026' || cleanPass === 'UAE@2026')
-    ) {
+  const login = (username: string, pass: string) => {
+    // Requirements: User name = “Admin” & password = “UAE@2020”
+    if (username.trim() === 'Admin' && pass === 'UAE@2020') {
       setIsAdminLoggedIn(true);
-      setAdminRole('ad_only');
-      setAdminUsername('admin');
       try {
         localStorage.setItem(AUTH_KEY, 'true');
-        localStorage.setItem(AUTH_ROLE_KEY, 'ad_only');
-        localStorage.setItem(AUTH_USER_KEY, 'admin');
       } catch (err) {
         console.warn('LocalStorage error on login:', err);
       }
-      return { success: true, role: 'ad_only' };
+      return { success: true };
     }
-
-    // 2. Original Super Admin: username "Admin" & password "UAE@2020"
-    // Access: Full CMS (Hero, Outlets, Services, Payments, Media, Advertisements, Defaults)
-    if (
-      cleanUser.toLowerCase() === 'admin' && 
-      (cleanPass === 'UAE@2020' || cleanPass === 'uae@2020')
-    ) {
-      setIsAdminLoggedIn(true);
-      setAdminRole('superadmin');
-      setAdminUsername('Admin');
-      try {
-        localStorage.setItem(AUTH_KEY, 'true');
-        localStorage.setItem(AUTH_ROLE_KEY, 'superadmin');
-        localStorage.setItem(AUTH_USER_KEY, 'Admin');
-      } catch (err) {
-        console.warn('LocalStorage error on login:', err);
-      }
-      return { success: true, role: 'superadmin' };
-    }
-
     return { 
       success: false, 
-      error: 'Invalid username or password. Please enter the correct credentials.' 
+      error: 'Invalid username or password. Please enter the correct Admin credentials.' 
     };
   };
 
   const logout = () => {
     setIsAdminLoggedIn(false);
-    setAdminRole(null);
-    setAdminUsername(null);
     try {
       localStorage.removeItem(AUTH_KEY);
-      localStorage.removeItem(AUTH_ROLE_KEY);
-      localStorage.removeItem(AUTH_USER_KEY);
     } catch (err) {
       console.warn('LocalStorage error on logout:', err);
     }
@@ -442,8 +380,6 @@ export const SiteContentProvider: React.FC<{ children: React.ReactNode }> = ({ c
         removeAdvertisement,
         toggleAdvertisementActive,
         isAdminLoggedIn,
-        adminRole,
-        adminUsername,
         login,
         logout
       }}
