@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
+import { Menu, X, ChevronDown, ChevronRight, Lock, ShieldCheck, LogOut } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
+import { useSiteContent } from '../context/SiteContentContext';
 
 export const Header: React.FC = () => {
+  const { isAdminLoggedIn, logout } = useSiteContent();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [servicesDropdown, setServicesDropdown] = useState(false);
   const [submenuOpen, setSubmenuOpen] = useState(false);
@@ -180,6 +182,36 @@ export const Header: React.FC = () => {
                 </Link>
               );
             })}
+
+            {/* Login / Admin Action Button right after Contact */}
+            {isAdminLoggedIn ? (
+              <div className="flex items-center gap-2 pl-2 border-l border-slate-700/80">
+                <Link
+                  to="/admin"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs shadow-md shadow-amber-400/20 transition-all cursor-pointer"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span>Admin Panel</span>
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => logout()}
+                  title="Logout Admin"
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-slate-800 transition-colors cursor-pointer"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                id="header-login-btn"
+                className="ml-1 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-bold text-xs shadow-md shadow-amber-400/20 transition-all cursor-pointer active:scale-95"
+              >
+                <Lock className="w-3.5 h-3.5 text-slate-950" />
+                <span>Login</span>
+              </Link>
+            )}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -270,6 +302,42 @@ export const Header: React.FC = () => {
                 </Link>
               );
             })}
+
+            {/* Mobile Login / Admin Panel Option */}
+            <div className="pt-2 border-t border-slate-800/80 mt-2">
+              {isAdminLoggedIn ? (
+                <div className="space-y-2">
+                  <Link
+                    to="/admin"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-amber-400 text-slate-950 font-bold text-sm shadow-md"
+                  >
+                    <ShieldCheck className="w-4 h-4" />
+                    <span>Admin Panel</span>
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      logout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-red-950/40 text-red-300 text-xs font-semibold border border-red-800/40"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    <span>Logout Admin</span>
+                  </button>
+                </div>
+              ) : (
+                <Link
+                  to="/login"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold text-sm shadow-md"
+                >
+                  <Lock className="w-4 h-4 text-slate-950" />
+                  <span>Login to Admin</span>
+                </Link>
+              )}
+            </div>
           </nav>
         </div>
       )}

@@ -1,9 +1,9 @@
 import React from 'react';
 import { MessageCircle, Phone, MapPin, Sparkles, ShieldCheck, CheckCircle2, ArrowRight, FileCheck, Award, Clock } from 'lucide-react';
-import { contactData } from '../data/contactData';
 import { translations } from '../data/translations';
 import { Language } from '../types';
 import { VisitingCardPreview } from './VisitingCardPreview';
+import { useSiteContent } from '../context/SiteContentContext';
 
 interface HeroProps {
   language: Language;
@@ -11,6 +11,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ language }) => {
   const t = translations[language];
+  const { content } = useSiteContent();
 
   return (
     <section id="hero" className="relative pt-12 pb-20 overflow-hidden bg-[#080C14]">
@@ -46,31 +47,30 @@ export const Hero: React.FC<HeroProps> = ({ language }) => {
               </>
             ) : (
               <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-amber-400 block font-display">
-                Fast, Certified Visa & PRO Solutions in Ajman
+                {content.hero.eyebrow || 'Fast, Certified Visa & PRO Solutions in Ajman'}
               </span>
             )}
           </h1>
 
           <p className="text-sm sm:text-base text-slate-400 max-w-3xl mx-auto leading-relaxed font-light">
-            {t.tagline} — <strong className="text-amber-300 font-medium">Under the Personal Supervision of Mr. Didar</strong>.
-            Authorized document typist at <span className="text-amber-400 font-semibold">Shop No. 46, Younus Market</span>,
-            Ajman Industrial 1.
+            {t.tagline} — <strong className="text-amber-300 font-medium">{content.hero.supervisionText}</strong>.
+            {' '}{content.hero.shopLocationText}
           </p>
 
           {/* Quick Action CTAs */}
           <div className="flex flex-wrap items-center justify-center gap-3.5 pt-2">
             <a
               id="hero-btn-call"
-              href="tel:+971505372999"
+              href={`tel:${content.contact.primaryPhone.replace(/\s+/g, '')}`}
               className="px-8 py-3.5 rounded-full font-bold uppercase tracking-wider text-xs sm:text-sm bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 shadow-xl shadow-amber-500/20 flex items-center gap-2 transition-all transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
             >
               <Phone className="w-4 h-4 text-slate-950" />
-              <span>{t.quickCall} (050 537 2999)</span>
+              <span>{t.quickCall} ({content.hero.quickCallPhone || '050 537 2999'})</span>
             </a>
 
             <a
               id="hero-btn-maps"
-              href={contactData.googleMapsUrl}
+              href={content.contact.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3.5 rounded-full font-medium text-xs sm:text-sm bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700 hover:border-slate-600 flex items-center gap-2 transition-all cursor-pointer"

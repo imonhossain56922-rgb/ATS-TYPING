@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1280" width="720" height="1280">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070C18" />
+      <stop offset="35%" stop-color="#0B172E" />
+      <stop offset="70%" stop-color="#0E1E3D" />
+      <stop offset="100%" stop-color="#050811" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FCD34D" />
+      <stop offset="50%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#14213D" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#0D1527" stop-opacity="0.95" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="30" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="720" height="1280" fill="url(#bgGrad)" />
+
+  <!-- Subtle Geometric Pattern -->
+  <g opacity="0.06" stroke="#FFFFFF" stroke-width="1.5" fill="none">
+    <circle cx="360" cy="280" r="240" />
+    <circle cx="360" cy="280" r="340" />
+    <circle cx="360" cy="280" r="440" />
+    <line x1="0" y1="280" x2="720" y2="280" />
+    <line x1="360" y1="0" x2="360" y2="1280" />
+  </g>
+
+  <!-- Glowing Ambiance Orbs -->
+  <circle cx="100" cy="200" r="180" fill="#F59E0B" opacity="0.12" filter="url(#glow)" />
+  <circle cx="620" cy="900" r="220" fill="#2563EB" opacity="0.1" filter="url(#glow)" />
+
+  <!-- Outer Border Frame -->
+  <rect x="24" y="24" width="672" height="1232" rx="32" fill="none" stroke="url(#goldGrad)" stroke-width="3" opacity="0.6" />
+  <rect x="32" y="32" width="656" height="1216" rx="26" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.1" />
+
+  <!-- Header Badge: Special Promotion -->
+  <g transform="translate(360, 95)">
+    <rect x="-170" y="-24" width="340" height="48" rx="24" fill="#F59E0B" fill-opacity="0.15" stroke="#F59E0B" stroke-width="1.5" />
+    <text text-anchor="middle" y="7" fill="#FCD34D" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="16" letter-spacing="3">
+      ★ SPECIAL ADVERTISEMENT ★
+    </text>
+  </g>
+
+  <!-- Brand Name -->
+  <text x="360" y="200" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="44" letter-spacing="1">
+    UAE TYPING SERVICES
+  </text>
+  <text x="360" y="245" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="18" letter-spacing="4">
+    AMRK &amp; ALAYAN BRANCHES • AJMAN
+  </text>
+
+  <!-- Center Highlight Feature Banner -->
+  <g transform="translate(60, 280)">
+    <rect width="600" height="460" rx="28" fill="url(#cardGrad)" stroke="#F59E0B" stroke-width="2" stroke-opacity="0.4" />
+    
+    <!-- Gold Header Bar -->
+    <path d="M 0 28 Q 0 0 28 0 L 572 0 Q 600 0 600 28 L 600 90 L 0 90 Z" fill="url(#goldGrad)" />
+    <text x="300" y="45" text-anchor="middle" fill="#0B1324" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="24" letter-spacing="1">
+      FASTEST PRO &amp; VISA CLEARANCE
+    </text>
+    <text x="300" y="74" text-anchor="middle" fill="#0B1324" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="14" letter-spacing="1">
+      SAME DAY SUBMISSION • 100% RELIABLE
+    </text>
+
+    <!-- Services Bullet Items -->
+    <g transform="translate(45, 135)" font-family="system-ui, -apple-system, sans-serif">
+      <!-- Item 1 -->
+      <g transform="translate(0, 0)">
+        <circle cx="16" cy="16" r="14" fill="#10B981" fill-opacity="0.2" stroke="#10B981" stroke-width="2" />
+        <path d="M 11 16 L 15 20 L 22 12" stroke="#10B981" stroke-width="2.5" fill="none" stroke-linecap="round" />
+        <text x="45" y="22" fill="#FFFFFF" font-size="20" font-weight="700">10-Year UAE Golden Visa Assistance</text>
+      </g>
+      
+      <!-- Item 2 -->
+      <g transform="translate(0, 60)">
+        <circle cx="16" cy="16" r="14" fill="#10B981" fill-opacity="0.2" stroke="#10B981" stroke-width="2" />
+        <path d="M 11 16 L 15 20 L 22 12" stroke="#10B981" stroke-width="2.5" fill="none" stroke-linecap="round" />
+        <text x="45" y="22" fill="#FFFFFF" font-size="20" font-weight="700">Emirates ID &amp; Medical Fitness Typing</text>
+      </g>
+
+      <!-- Item 3 -->
+      <g transform="translate(0, 120)">
+        <circle cx="16" cy="16" r="14" fill="#10B981" fill-opacity="0.2" stroke="#10B981" stroke-width="2" />
+        <path d="M 11 16 L 15 20 L 22 12" stroke="#10B981" stroke-width="2.5" fill="none" stroke-linecap="round" />
+        <text x="45" y="22" fill="#FFFFFF" font-size="20" font-weight="700">Family &amp; Employment Residence Visas</text>
+      </g>
+
+      <!-- Item 4 -->
+      <g transform="translate(0, 180)">
+        <circle cx="16" cy="16" r="14" fill="#10B981" fill-opacity="0.2" stroke="#10B981" stroke-width="2" />
+        <path d="M 11 16 L 15 20 L 22 12" stroke="#10B981" stroke-width="2.5" fill="none" stroke-linecap="round" />
+        <text x="45" y="22" fill="#FFFFFF" font-size="20" font-weight="700">Trade License New &amp; Renewal PRO</text>
+      </g>
+
+      <!-- Item 5 -->
+      <g transform="translate(0, 240)">
+        <circle cx="16" cy="16" r="14" fill="#10B981" fill-opacity="0.2" stroke="#10B981" stroke-width="2" />
+        <path d="M 11 16 L 15 20 L 22 12" stroke="#10B981" stroke-width="2.5" fill="none" stroke-linecap="round" />
+        <text x="45" y="22" fill="#FFFFFF" font-size="20" font-weight="700">Pay in 4 Installments via Tabby &amp; Tamara</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Exclusive Supervision Card -->
+  <g transform="translate(60, 770)">
+    <rect width="600" height="150" rx="24" fill="#0B1324" stroke="#334155" stroke-width="1.5" />
+    <text x="30" y="45" fill="#FCD34D" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="15" letter-spacing="2">
+      PERSONAL SUPERVISION
+    </text>
+    <text x="30" y="85" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="30">
+      MR. DIDAR
+    </text>
+    <text x="30" y="118" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-weight="500" font-size="16">
+      Authorized Government Transaction Specialist
+    </text>
+    <rect x="420" y="35" width="150" height="80" rx="16" fill="#F59E0B" fill-opacity="0.1" stroke="#F59E0B" stroke-width="1" />
+    <text x="495" y="68" text-anchor="middle" fill="#FCD34D" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="18">SHOP 46</text>
+    <text x="495" y="94" text-anchor="middle" fill="#CBD5E1" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="13">Central Souq</text>
+  </g>
+
+  <!-- Big Call To Action Button -->
+  <g transform="translate(60, 955)">
+    <rect width="600" height="96" rx="28" fill="url(#goldGrad)" />
+    <text x="300" y="46" text-anchor="middle" fill="#0A0F1D" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="26">
+      CALL / WHATSAPP DIRECTLY
+    </text>
+    <text x="300" y="76" text-anchor="middle" fill="#0A0F1D" font-family="monospace, monospace" font-weight="800" font-size="24" letter-spacing="1">
+      +971 50 537 2999
+    </text>
+  </g>
+
+  <!-- Locations summary at bottom -->
+  <g transform="translate(60, 1085)" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="14" text-anchor="middle">
+    <text x="300" y="20" font-weight="600" fill="#E2E8F0">
+      📍 AMRK Branch: Ajman Industrial 2 | 📍 ALAYAN Branch: Younus Market Shop 46
+    </text>
+    <text x="300" y="50" font-weight="400">
+      Open 6 Days a Week • Professional Multilingual Support (English, Arabic, Bengali, Urdu)
+    </text>
+  </g>
+
+  <!-- Close hint at bottom -->
+  <text x="360" y="1215" text-anchor="middle" fill="#64748B" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="14">
+    Tap anywhere outside this image to close
+  </text>
+</svg>

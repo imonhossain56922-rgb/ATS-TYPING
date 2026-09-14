@@ -10,13 +10,16 @@ import {
   Lock, 
   BadgeCheck, 
   Clock, 
-  FileText 
+  FileText,
+  ExternalLink
 } from 'lucide-react';
 import { SHARED_OWNER_PHONE_INTL, outletsData } from '../data/outletsData';
+import { useSiteContent } from '../context/SiteContentContext';
 
 type PaymentOption = 'tabby-tamara' | 'bank-transfer' | 'link-payment';
 
 export const PaymentPage: React.FC = () => {
+  const { content } = useSiteContent();
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [activeOption, setActiveOption] = useState<PaymentOption>('tabby-tamara');
 
@@ -97,7 +100,7 @@ export const PaymentPage: React.FC = () => {
               }`}
             >
               <span className={`w-2.5 h-2.5 rounded-full ${activeOption === 'tabby-tamara' ? 'bg-slate-950' : 'bg-emerald-400'}`} />
-              <span>Tabby & Tamara (Buy Now Pay Later)</span>
+              <span>Tabby & Tamara</span>
             </button>
 
             <button 
@@ -155,13 +158,13 @@ export const PaymentPage: React.FC = () => {
                   </h2>
                   <div className="pt-1">
                     <a
-                      href={`https://wa.me/${ownerNumber}?text=${encodeURIComponent('Hello Mr. Didar, I want to pay for typing services using Tabby / Tamara installments.')}`}
+                      href={content.payment.nomodUrl || "https://pay.nomodapp.com/c/c96306ea9a854a4a"}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#008751] hover:bg-[#007345] text-white text-xs font-bold shadow-xs transition-all cursor-pointer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#008751] hover:bg-[#007345] text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all cursor-pointer"
                     >
-                      <MessageCircle className="w-3.5 h-3.5 fill-white text-[#008751]" />
-                      <span>Pay with Tabby / Tamara on WhatsApp</span>
+                      <ExternalLink className="w-4 h-4 text-white" />
+                      <span>{content.payment.tabbyTamaraBtnText || "Pay with Tabby/Tamara"}</span>
                     </a>
                   </div>
                 </div>
@@ -178,6 +181,37 @@ export const PaymentPage: React.FC = () => {
                   {/* Tamara Logo Badge */}
                   <div className="bg-[#FF5C00] text-white px-4 py-2.5 rounded-xl flex items-center justify-center font-bold tracking-tight text-base shadow-sm">
                     <span className="font-extrabold lowercase font-sans text-xl tracking-tight">tamara</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tabby & Tamara Attached QR Stand Design Component */}
+              <div className="p-6 sm:p-10 bg-slate-50/60 border-t border-slate-100 flex flex-col items-center justify-center">
+                <div className="w-full max-w-[460px] bg-white rounded-3xl shadow-xl border border-slate-200/80 p-4 sm:p-7 text-center transition-all">
+                  {/* The exact attached design */}
+                  <div className="rounded-2xl overflow-hidden bg-white">
+                    <img 
+                      src={content.payment.qrStandImg || "/tabby-tamara-qr-stand.svg"} 
+                      alt="Nomod Tabby & Tamara QR Payment" 
+                      className="w-full h-auto object-contain select-none mx-auto"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+
+                  {/* Direct button to open payment link */}
+                  <div className="mt-6 pt-4 border-t border-slate-100 flex flex-col items-center gap-2">
+                    <a
+                      href={content.payment.nomodUrl || "https://pay.nomodapp.com/c/c96306ea9a854a4a"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-3.5 px-6 rounded-2xl bg-[#0B1528] hover:bg-slate-900 text-white text-sm font-bold flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all"
+                    >
+                      <ExternalLink className="w-4 h-4 text-emerald-400" />
+                      <span>{content.payment.tabbyTamaraBtnText || "Pay with Tabby/Tamara"}</span>
+                    </a>
+                    <span className="text-[11px] text-slate-500 font-medium">
+                      Scan QR code with your mobile camera or click above to pay directly
+                    </span>
                   </div>
                 </div>
               </div>

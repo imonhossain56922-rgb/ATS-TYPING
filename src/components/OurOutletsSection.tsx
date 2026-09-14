@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, ArrowRight } from 'lucide-react';
 import { outletsData } from '../data/outletsData';
+import { useSiteContent } from '../context/SiteContentContext';
 
 interface OurOutletsSectionProps {
   isStandalonePage?: boolean;
@@ -9,6 +10,7 @@ interface OurOutletsSectionProps {
 
 export const OurOutletsSection: React.FC<OurOutletsSectionProps> = ({ isStandalonePage = false }) => {
   const navigate = useNavigate();
+  const { content } = useSiteContent();
 
   return (
     <section id="outlets" className={`py-16 sm:py-20 ${isStandalonePage ? 'bg-slate-50' : 'bg-white'} relative`}>
@@ -33,6 +35,11 @@ export const OurOutletsSection: React.FC<OurOutletsSectionProps> = ({ isStandalo
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {outletsData.map((outlet) => {
             const isAmrk = outlet.id === 'amrk';
+            const dynamicOutlet = isAmrk ? content.outlets.amrk : content.outlets.alayan;
+            const logoUrl = dynamicOutlet?.logoUrl || outlet.logoUrl;
+            const name = dynamicOutlet?.name || outlet.name;
+            const location = dynamicOutlet?.location || outlet.location;
+            const address = dynamicOutlet?.address || outlet.addressLines.join(' ');
 
             return (
               <div
@@ -47,8 +54,8 @@ export const OurOutletsSection: React.FC<OurOutletsSectionProps> = ({ isStandalo
                 {/* Outlet Logo Container - Centered in mobile, left aligned in desktop, clean pure white background */}
                 <div className="w-48 sm:w-48 h-32 sm:h-32 mx-auto sm:mx-0 flex-shrink-0 rounded-xl bg-white border border-slate-200/90 flex items-center justify-center p-3 shadow-inner group-hover:scale-105 transition-transform overflow-hidden">
                   <img
-                    src={outlet.logoUrl}
-                    alt={`${outlet.name} Logo`}
+                    src={logoUrl}
+                    alt={`${name} Logo`}
                     className="max-h-full max-w-full object-contain"
                   />
                 </div>
@@ -57,17 +64,17 @@ export const OurOutletsSection: React.FC<OurOutletsSectionProps> = ({ isStandalo
                 <div className="flex-1 w-full text-center sm:text-left space-y-3 flex flex-col items-center sm:items-start">
                   {/* Name */}
                   <h3 className="text-xl sm:text-2xl font-extrabold text-[#0B1B3D] font-display tracking-tight text-center sm:text-left">
-                    {outlet.name}
+                    {name}
                   </h3>
 
                   {/* Location & Address */}
                   <div className="flex flex-col items-center sm:items-start space-y-1 text-center sm:text-left">
                     <div className="flex items-center justify-center sm:justify-start gap-1.5 text-sm font-bold text-[#0B1B3D]">
                       <MapPin className={`w-4 h-4 ${isAmrk ? 'text-blue-600' : 'text-emerald-600'} flex-shrink-0`} />
-                      <span>{outlet.location}</span>
+                      <span>{location}</span>
                     </div>
-                    <p className="text-xs text-slate-500 leading-snug">
-                      {outlet.addressLines[0]} • {outlet.addressLines[2] || outlet.addressLines[1]}
+                    <p className="text-xs text-slate-500 leading-snug line-clamp-2">
+                      {address}
                     </p>
                   </div>
 
