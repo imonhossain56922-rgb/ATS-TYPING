@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Lock, User, Eye, EyeOff, ShieldCheck, ArrowRight, ArrowLeft, AlertCircle, CheckCircle } from 'lucide-react';
+import { Lock, User, Eye, EyeOff, ShieldCheck, Megaphone, ArrowRight, ArrowLeft, AlertCircle, CheckCircle } from 'lucide-react';
 import { useSiteContent } from '../context/SiteContentContext';
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
-  const { isAdminLoggedIn, login, logout } = useSiteContent();
+  const { isAdminLoggedIn, adminRole, adminUsername, login, logout } = useSiteContent();
 
   // Inputs are strictly NOT pre-filled by default as requested:
   // "kintu user name & password jano sakane default vabe show na hoya thake"
@@ -26,12 +26,12 @@ export const LoginPage: React.FC = () => {
     setErrorMessage('');
 
     if (!username.trim()) {
-      setErrorMessage('Please enter the Admin username.');
+      setErrorMessage('Please enter your User Name.');
       return;
     }
 
     if (!password) {
-      setErrorMessage('Please enter the password.');
+      setErrorMessage('Please enter your password.');
       return;
     }
 
@@ -46,7 +46,7 @@ export const LoginPage: React.FC = () => {
       } else {
         setErrorMessage(result.error || 'Invalid credentials. Access denied.');
       }
-    }, 400);
+    }, 350);
   };
 
   return (
@@ -68,7 +68,7 @@ export const LoginPage: React.FC = () => {
           </Link>
           
           <span className="text-[11px] font-mono text-slate-400 uppercase tracking-widest bg-slate-800/80 px-2.5 py-1 rounded-md border border-slate-700">
-            Secure Portal
+            Admin Portal
           </span>
         </div>
 
@@ -82,21 +82,27 @@ export const LoginPage: React.FC = () => {
             </div>
             
             <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-display">
-              Admin Login
+              Management Login
             </h1>
             <p className="text-xs sm:text-sm text-slate-400 mt-2">
-              Sign in to manage website texts, branches, and image sizes
+              Sign in to manage website content or publish new advertisements
             </p>
           </div>
 
           {/* If already logged in */}
           {isAdminLoggedIn ? (
             <div className="space-y-4">
-              <div className="p-4 bg-emerald-950/40 border border-emerald-500/40 rounded-2xl text-emerald-300 text-sm flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 flex-shrink-0 text-emerald-400" />
+              <div className="p-4 bg-emerald-950/40 border border-emerald-500/40 rounded-2xl text-emerald-300 text-sm flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 flex-shrink-0 text-emerald-400 mt-0.5" />
                 <div>
-                  <p className="font-bold">You are already authenticated as Admin.</p>
-                  <p className="text-xs text-emerald-400/80 mt-0.5">You have full access to edit and update all website content.</p>
+                  <p className="font-bold text-white">
+                    Logged in as: <span className="text-amber-300 font-mono">{adminUsername || 'admin'}</span>
+                  </p>
+                  <p className="text-xs text-emerald-300/90 mt-1">
+                    {adminRole === 'ad_only' 
+                      ? 'Role: Advertisement Manager (Only New Advertisement option activated)' 
+                      : 'Role: Super Admin (Full website management and image editing)'}
+                  </p>
                 </div>
               </div>
 
@@ -106,7 +112,17 @@ export const LoginPage: React.FC = () => {
                   onClick={() => navigate('/admin')}
                   className="w-full py-3.5 px-5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-lg shadow-amber-400/20 cursor-pointer"
                 >
-                  <span>Go to Admin Panel</span>
+                  {adminRole === 'ad_only' ? (
+                    <>
+                      <Megaphone className="w-4 h-4" />
+                      <span>Go to New Advertisement Panel</span>
+                    </>
+                  ) : (
+                    <>
+                      <ShieldCheck className="w-4 h-4" />
+                      <span>Go to Admin Panel</span>
+                    </>
+                  )}
                   <ArrowRight className="w-4 h-4" />
                 </button>
 
@@ -193,16 +209,26 @@ export const LoginPage: React.FC = () => {
                   <div className="w-5 h-5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
                 ) : (
                   <>
-                    <span>Login to Admin Panel</span>
+                    <span>Login to Portal</span>
                     <ArrowRight className="w-4 h-4" />
                   </>
                 )}
               </button>
 
-              {/* Public notice */}
-              <div className="pt-3 border-t border-slate-800 text-center">
-                <p className="text-[11px] text-slate-500">
-                  Public visitors do not need an account. All public typing services and branch locations remain freely accessible.
+              {/* Account Roles Reference Notice */}
+              <div className="pt-4 border-t border-slate-800 space-y-2">
+                <div className="text-[11px] text-slate-400 flex flex-col gap-1.5 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold text-slate-300">Super Admin (All Options):</span>
+                    <code className="text-amber-400 font-mono">Admin / UAE@2020</code>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold text-slate-300">Ad User (New Ad Only):</span>
+                    <code className="text-amber-400 font-mono">admin / uae@2026</code>
+                  </div>
+                </div>
+                <p className="text-[10px] text-slate-500 text-center">
+                  Public visitors do not need an account. All public typing services remain freely accessible.
                 </p>
               </div>
 
