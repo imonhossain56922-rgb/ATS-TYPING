@@ -110,27 +110,44 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose, la
         </div>
 
         {/* Modal Footer CTAs */}
-        <div className="p-5 bg-[#0B1120] border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+        <div className="p-5 bg-[#0B1120] border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
           <a
             href="tel:+971505372999"
-            className="px-4 py-2.5 rounded-full text-xs font-medium bg-slate-900 text-white hover:bg-slate-800 border border-slate-700 flex items-center gap-2"
+            className="px-4 py-2 rounded-full text-xs font-medium bg-slate-900 text-white hover:bg-slate-800 border border-slate-700 flex items-center gap-2"
           >
             <Phone className="w-3.5 h-3.5 text-amber-400" />
             <span className="font-mono">050 537 2999</span>
           </a>
 
-          <a
-            id="modal-whatsapp-cta"
-            href={`https://wa.me/971505372999?text=${encodeURIComponent(
-              `Hello Mr. Didar! I need assistance with: *${service.titleEn}* (${title}). Please advise on requirements and special rate.`
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 shadow-lg shadow-amber-500/20 flex items-center gap-2 transition-transform transform active:scale-95 cursor-pointer"
-          >
-            <MessageCircle className="w-4 h-4 fill-slate-950 text-amber-500" />
-            <span>{t.directWhatsApp}</span>
-          </a>
+          <div className="flex flex-wrap items-center justify-center gap-2 w-full sm:w-auto">
+            <a
+              id="modal-amrk-whatsapp"
+              href={`https://wa.me/971566745493?text=${encodeURIComponent(
+                `Hello AMRK Typing Services! I need assistance with: *${service.titleEn}* (${title}). Please advise on requirements and rate.`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2.5 rounded-full text-xs font-bold bg-[#2F3091] hover:bg-[#252677] text-white shadow-md flex items-center gap-1.5 transition-transform transform active:scale-95 cursor-pointer"
+              title="AMRK WhatsApp (+971 56 674 5493)"
+            >
+              <MessageCircle className="w-4 h-4 fill-white text-[#2F3091]" />
+              <span>AMRK (056 6745493)</span>
+            </a>
+
+            <a
+              id="modal-alayan-whatsapp"
+              href={`https://wa.me/971556140043?text=${encodeURIComponent(
+                `Hello ALAYAN Typing Services! I need assistance with: *${service.titleEn}* (${title}). Please advise on requirements and rate.`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2.5 rounded-full text-xs font-bold bg-[#006038] hover:bg-[#004d2d] text-white shadow-md flex items-center gap-1.5 transition-transform transform active:scale-95 cursor-pointer"
+              title="ALAYAN WhatsApp (+971 55 614 0043)"
+            >
+              <MessageCircle className="w-4 h-4 fill-white text-[#006038]" />
+              <span>ALAYAN (055 6140043)</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>

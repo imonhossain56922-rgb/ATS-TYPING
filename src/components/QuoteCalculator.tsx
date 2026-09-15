@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { FileCheck, MessageCircle, Send, CheckCircle2, AlertCircle, Clock, Sparkles } from 'lucide-react';
+import { FileCheck, MessageCircle, Send, CheckCircle2, AlertCircle, Clock, Sparkles, Phone } from 'lucide-react';
 import { servicesData } from '../data/servicesData';
 import { translations } from '../data/translations';
 import { Language } from '../types';
-import { contactData } from '../data/contactData';
+import { contactData, SHARED_OWNER_PHONE } from '../data/contactData';
 
 interface QuoteCalculatorProps {
   language: Language;
@@ -22,17 +22,28 @@ export const QuoteCalculator: React.FC<QuoteCalculatorProps> = ({ language }) =>
   const docs = selectedService.requiredDocuments[language] || selectedService.requiredDocuments.en;
   const procTime = selectedService.processingTime ? selectedService.processingTime[language] || selectedService.processingTime.en : 'Same Day';
 
-  const handleWhatsAppSend = (e: React.FormEvent) => {
-    e.preventDefault();
-    const formattedText = `*Inquiry from ALAYAN Website:*
+  const handleWhatsAppSend = (outlet: 'amrk' | 'alayan' | 'owner') => {
+    const targetNumber = outlet === 'amrk' 
+      ? '971566745493' 
+      : outlet === 'alayan' 
+      ? '971556140043' 
+      : '971505372999';
+
+    const outletLabel = outlet === 'amrk' 
+      ? 'AMRK Typing Services (Ajman Ind. 2)' 
+      : outlet === 'alayan' 
+      ? 'ALAYAN Typing Services (Ajman Ind. 1)' 
+      : 'Management / Owner';
+
+    const formattedText = `*Inquiry for ${outletLabel}:*
 • *Service:* ${selectedService.titleEn} (${title})
 • *Client Name:* ${clientName || 'Valued Customer'}
 • *Contact:* ${clientPhone || 'WhatsApp Direct'}
 • *Notes/Timeline:* ${clientNotes || 'Requesting requirements & quote'}
 
-Hello Mr. Didar, please provide guidance for this service.`;
+Hello, please provide guidance and checklist for this service.`;
 
-    const url = `https://wa.me/971505372999?text=${encodeURIComponent(formattedText)}`;
+    const url = `https://wa.me/${targetNumber}?text=${encodeURIComponent(formattedText)}`;
     window.open(url, '_blank');
   };
 
@@ -123,14 +134,41 @@ Hello Mr. Didar, please provide guidance for this service.`;
                 />
               </div>
 
-              <button
-                id="calc-btn-submit"
-                type="submit"
-                className="w-full py-3.5 rounded-full font-bold uppercase tracking-wider text-xs sm:text-sm bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-400 text-slate-950 shadow-xl shadow-amber-500/20 flex items-center justify-center gap-2 transition-all transform active:scale-95 cursor-pointer mt-2"
-              >
-                <MessageCircle className="w-4 h-4 fill-slate-950 text-amber-500" />
-                <span>{t.generateWhatsAppInquiry}</span>
-              </button>
+              <div className="space-y-2 pt-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  <button
+                    id="calc-btn-amrk"
+                    type="button"
+                    onClick={() => handleWhatsAppSend('amrk')}
+                    className="w-full py-3 px-3 rounded-full font-bold text-xs bg-[#2F3091] hover:bg-[#252677] text-white shadow-lg flex items-center justify-center gap-1.5 transition-all transform active:scale-95 cursor-pointer"
+                    title="Send to AMRK Typing (+971 56 674 5493)"
+                  >
+                    <MessageCircle className="w-4 h-4 fill-white text-[#2F3091]" />
+                    <span>Inquire AMRK (056 6745493)</span>
+                  </button>
+
+                  <button
+                    id="calc-btn-alayan"
+                    type="button"
+                    onClick={() => handleWhatsAppSend('alayan')}
+                    className="w-full py-3 px-3 rounded-full font-bold text-xs bg-[#006038] hover:bg-[#004d2d] text-white shadow-lg flex items-center justify-center gap-1.5 transition-all transform active:scale-95 cursor-pointer"
+                    title="Send to ALAYAN Typing (+971 55 614 0043)"
+                  >
+                    <MessageCircle className="w-4 h-4 fill-white text-[#006038]" />
+                    <span>Inquire ALAYAN (055 6140043)</span>
+                  </button>
+                </div>
+
+                <button
+                  id="calc-btn-owner"
+                  type="button"
+                  onClick={() => handleWhatsAppSend('owner')}
+                  className="w-full py-2 px-3 rounded-full font-semibold text-xs bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                >
+                  <Phone className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Send to Central Management ({SHARED_OWNER_PHONE})</span>
+                </button>
+              </div>
             </form>
           </div>
 

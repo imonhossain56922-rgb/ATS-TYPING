@@ -26,11 +26,14 @@ interface ServiceAccordionProps {
   outletName?: string;
 }
 
+const AMRK_WHATSAPP = '971566745493';
+const ALAYAN_WHATSAPP = '971556140043';
+
 export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
   initialOpenId = 'immigration-gov',
   className = '',
-  outletWhatsApp = '971505372999',
-  outletName = 'UAE Typing Services'
+  outletWhatsApp,
+  outletName
 }) => {
   const [openCategoryId, setOpenCategoryId] = useState<string | null>(initialOpenId);
 
@@ -56,11 +59,26 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
     }
   };
 
-  const handleWhatsAppInquiry = (serviceName: string, categoryTitle: string, e: React.MouseEvent) => {
+  const handleWhatsAppInquiry = (
+    serviceName: string, 
+    categoryTitle: string, 
+    target: 'amrk' | 'alayan' | 'default',
+    e: React.MouseEvent
+  ) => {
     e.stopPropagation();
-    const message = `Hello ${outletName}, I would like to inquire about *${serviceName}* under *${categoryTitle}*. Please guide me with requirements and processing time.`;
-    const cleanNumber = outletWhatsApp.replace(/[^0-9]/g, '');
-    window.open(`https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`, '_blank');
+    let targetNumber = outletWhatsApp ? outletWhatsApp.replace(/[^0-9]/g, '') : AMRK_WHATSAPP;
+    let targetName = outletName || 'AMRK Typing Services';
+
+    if (target === 'amrk') {
+      targetNumber = AMRK_WHATSAPP;
+      targetName = 'AMRK Typing Services';
+    } else if (target === 'alayan') {
+      targetNumber = ALAYAN_WHATSAPP;
+      targetName = 'ALAYAN Typing Services';
+    }
+
+    const message = `Hello ${targetName}, I would like to inquire about *${serviceName}* under *${categoryTitle}*. Please guide me with requirements and processing time.`;
+    window.open(`https://wa.me/${targetNumber}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   return (
@@ -143,14 +161,26 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                   <div className="text-xs font-semibold uppercase tracking-wider text-amber-400/90 font-mono">
                     Official Services Included ({category.services.length})
                   </div>
-                  <button
-                    type="button"
-                    onClick={(e) => handleWhatsAppInquiry(category.title, category.title, e)}
-                    className="inline-flex items-center gap-1.5 text-xs text-emerald-400 hover:text-emerald-300 font-semibold transition-colors"
-                  >
-                    <MessageCircle className="w-3.5 h-3.5" />
-                    <span>Inquire this category via WhatsApp</span>
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={(e) => handleWhatsAppInquiry(category.title, category.title, 'amrk', e)}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] bg-[#2F3091]/20 text-indigo-300 hover:bg-[#2F3091] hover:text-white border border-[#2F3091]/40 font-semibold transition-all"
+                      title="Inquire at AMRK (+971 56 674 5493)"
+                    >
+                      <MessageCircle className="w-3 h-3" />
+                      <span>AMRK (056 6745493)</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) => handleWhatsAppInquiry(category.title, category.title, 'alayan', e)}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] bg-[#006038]/20 text-emerald-300 hover:bg-[#006038] hover:text-white border border-[#006038]/40 font-semibold transition-all"
+                      title="Inquire at ALAYAN (+971 55 614 0043)"
+                    >
+                      <MessageCircle className="w-3 h-3" />
+                      <span>ALAYAN (055 6140043)</span>
+                    </button>
+                  </div>
                 </div>
 
                 {/* Sub-services Grid */}
@@ -158,16 +188,34 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                   {category.services.map((serviceName: string) => (
                     <div
                       key={serviceName}
-                      onClick={(e) => handleWhatsAppInquiry(serviceName, category.title, e)}
-                      className="group/item flex items-start gap-2.5 p-3 rounded-xl bg-slate-900/80 border border-slate-800/90 hover:border-amber-400/40 hover:bg-slate-900 transition-all cursor-pointer shadow-sm"
+                      className="group/item flex items-center justify-between gap-2.5 p-3 rounded-xl bg-slate-900/80 border border-slate-800/90 hover:border-amber-400/40 hover:bg-slate-900 transition-all shadow-sm"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5 group-hover/item:text-amber-400 transition-colors" />
-                      <div className="flex-1 min-w-0">
-                        <span className="text-xs sm:text-sm font-medium text-slate-200 group-hover/item:text-white transition-colors block">
+                      <div className="flex items-start gap-2 min-w-0 flex-1">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5 group-hover/item:text-amber-400 transition-colors" />
+                        <span className="text-xs sm:text-sm font-medium text-slate-200 group-hover/item:text-white transition-colors">
                           {serviceName}
                         </span>
                       </div>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-slate-600 group-hover/item:text-amber-400 opacity-0 group-hover/item:opacity-100 transition-all" />
+                      <div className="flex items-center gap-1 flex-shrink-0">
+                        <button
+                          type="button"
+                          onClick={(e) => handleWhatsAppInquiry(serviceName, category.title, 'amrk', e)}
+                          className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#2F3091]/20 text-indigo-300 hover:bg-[#2F3091] hover:text-white transition-all border border-[#2F3091]/30 flex items-center gap-0.5"
+                          title="Inquire at AMRK (+971 56 674 5493)"
+                        >
+                          <MessageCircle className="w-2.5 h-2.5" />
+                          <span>AMRK</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={(e) => handleWhatsAppInquiry(serviceName, category.title, 'alayan', e)}
+                          className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#006038]/20 text-emerald-300 hover:bg-[#006038] hover:text-white transition-all border border-[#006038]/30 flex items-center gap-0.5"
+                          title="Inquire at ALAYAN (+971 55 614 0043)"
+                        >
+                          <MessageCircle className="w-2.5 h-2.5" />
+                          <span>ALAYAN</span>
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>

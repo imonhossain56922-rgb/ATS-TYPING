@@ -3,12 +3,12 @@ import { OurOutletsSection } from '../components/OurOutletsSection';
 import { ServiceGridCards } from '../components/ServiceGridCards';
 import { PopularServicesScroller } from '../components/PopularServicesScroller';
 import { WhyChooseUs } from '../components/WhyChooseUs';
-import { uaeSkylineHero, uaeWavingFlag, servicesBgNetwork, outletBgOlive } from '../assets/images';
+import { uaeSkylineHero, uaeWavingFlag, servicesBgNetwork } from '../assets/images';
 import { useSiteContent } from '../context/SiteContentContext';
 
 export const HomePage: React.FC = () => {
   const { content } = useSiteContent();
-  const heroBgImage = content.images.find(img => img.id === 'hero-skyline')?.url || outletBgOlive;
+  const heroBgImage = content.images.find(img => img.id === 'hero-skyline')?.url || uaeSkylineHero;
   const servicesBgImage = content.images.find(img => img.id === 'services-bg')?.url || servicesBgNetwork;
 
   return (
@@ -17,15 +17,15 @@ export const HomePage: React.FC = () => {
       {/* 1. Hero Section */}
       <section className="relative pt-12 pb-16 sm:pt-16 sm:pb-24 overflow-hidden bg-slate-100 border-b border-slate-200">
         
-        {/* Blurry Olive Cloud Background Texture */}
+        {/* UAE Skyline Background */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
           <img
             src={heroBgImage}
-            alt="Hero Background Texture"
+            alt="UAE Skyline Hero Background"
             referrerPolicy="no-referrer"
-            className="w-full h-full object-cover object-center scale-105 filter blur-[3.5px] opacity-85"
+            className="w-full h-full object-cover object-center scale-105 filter blur-[1.5px] opacity-75"
           />
-          <div className="absolute inset-0 bg-white/20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-100/90 via-slate-100/75 to-slate-100/50" />
         </div>
 
         {/* Waving UAE Flag on Right Side */}

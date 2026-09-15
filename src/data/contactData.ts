@@ -1,5 +1,7 @@
 import { ContactInfo } from '../types';
 
+export const SHARED_OWNER_PHONE = '050 537 2999';
+
 export const contactData: ContactInfo = {
   ownerName: 'Mr. Didar',
   primaryPhone: '+971505372999', // 050 5372999 (Call & WhatsApp)

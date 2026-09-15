@@ -97,11 +97,35 @@ export const ServicesPage: React.FC = () => {
                   <div key={cat.id} className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
                     <h3 className="text-lg font-bold text-[#0B1B3D]">{cat.title}</h3>
                     <p className="text-xs text-slate-500">{cat.description}</p>
-                    <div className="space-y-1 pt-2">
+                    <div className="space-y-1.5 pt-2">
                       {cat.services.map((s, i) => (
-                        <div key={i} className="text-xs text-slate-700 flex items-center gap-2">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                          <span>{s}</span>
+                        <div key={i} className="text-xs text-slate-700 flex items-center justify-between gap-2 p-2 bg-white rounded-xl border border-slate-200/80 shadow-xs">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+                            <span className="truncate">{s}</span>
+                          </div>
+                          <div className="flex items-center gap-1.5 flex-shrink-0">
+                            <a
+                              href={`https://wa.me/971566745493?text=${encodeURIComponent(`Hello AMRK Typing Services, I would like to inquire about "${s}" under ${cat.title}.`)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-2 py-1 rounded text-[10px] font-bold bg-[#2F3091]/10 text-[#2F3091] hover:bg-[#2F3091] hover:text-white transition-all border border-[#2F3091]/20 flex items-center gap-1"
+                              title="Inquire at AMRK (+971 56 674 5493)"
+                            >
+                              <MessageCircle className="w-3 h-3" />
+                              <span>AMRK</span>
+                            </a>
+                            <a
+                              href={`https://wa.me/971556140043?text=${encodeURIComponent(`Hello ALAYAN Typing Services, I would like to inquire about "${s}" under ${cat.title}.`)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-2 py-1 rounded text-[10px] font-bold bg-[#006038]/10 text-[#006038] hover:bg-[#006038] hover:text-white transition-all border border-[#006038]/20 flex items-center gap-1"
+                              title="Inquire at ALAYAN (+971 55 614 0043)"
+                            >
+                              <MessageCircle className="w-3 h-3" />
+                              <span>ALAYAN</span>
+                            </a>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -121,20 +145,31 @@ export const ServicesPage: React.FC = () => {
             </p>
             <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
               <a
-                href="https://wa.me/971505372999"
+                href="https://wa.me/971566745493?text=Hello%20AMRK%20Typing%20Services%2C%20I%20would%20like%20to%20inquire%20about%20your%20services."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 rounded-full bg-[#00a859] hover:bg-[#00924d] text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-md"
+                className="px-5 py-3 rounded-full bg-[#2F3091] hover:bg-[#252677] text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-md transition-all"
+                title="Chat with AMRK (+971 56 674 5493)"
               >
-                <MessageCircle className="w-4 h-4 fill-white text-[#00a859]" />
-                <span>Message on WhatsApp</span>
+                <MessageCircle className="w-4 h-4 fill-white text-[#2F3091]" />
+                <span>AMRK WhatsApp (056 6745493)</span>
+              </a>
+              <a
+                href="https://wa.me/971556140043?text=Hello%20ALAYAN%20Typing%20Services%2C%20I%20would%20like%20to%20inquire%20about%20your%20services."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-3 rounded-full bg-[#006038] hover:bg-[#004d2d] text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-md transition-all"
+                title="Chat with ALAYAN (+971 55 614 0043)"
+              >
+                <MessageCircle className="w-4 h-4 fill-white text-[#006038]" />
+                <span>ALAYAN WhatsApp (055 6140043)</span>
               </a>
               <a
                 href="tel:+971505372999"
-                className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/30 text-xs font-semibold flex items-center gap-2"
+                className="px-5 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/30 text-xs font-semibold flex items-center gap-2 transition-all"
               >
-                <Phone className="w-4 h-4" />
-                <span>Call Owner ({SHARED_OWNER_PHONE})</span>
+                <Phone className="w-4 h-4 text-amber-400" />
+                <span>Owner ({SHARED_OWNER_PHONE})</span>
               </a>
             </div>
           </div>

@@ -9,11 +9,11 @@ const AUTH_KEY = 'uae_typing_admin_auth_status';
 export const initialSiteImages: SiteImageItem[] = [
   {
     id: 'hero-skyline',
-    name: 'Home Hero Section Background (Olive Cloud Texture)',
+    name: 'Home Hero Section Background (UAE Skyline)',
     section: 'Home Page - Hero Background',
-    url: outletBgOlive,
-    description: 'Olive-green atmospheric cloud vapor texture background on the home hero section',
-    recommendedSize: '1920 × 800 px (Landscape / Blurred Background)'
+    url: uaeSkylineHero,
+    description: 'UAE modern skyline and architectural background on the home hero section',
+    recommendedSize: '1920 × 800 px (Landscape / Background)'
   },
   {
     id: 'hero-flag',
@@ -180,7 +180,11 @@ export const SiteContentProvider: React.FC<{ children: React.ReactNode }> = ({ c
           ...defaultSiteContent,
           ...parsed,
           brand: { ...defaultSiteContent.brand, ...parsed.brand },
-          hero: { ...defaultSiteContent.hero, ...parsed.hero },
+          hero: {
+            ...defaultSiteContent.hero,
+            ...parsed.hero,
+            skylineImg: parsed.hero?.skylineImg === outletBgOlive ? uaeSkylineHero : (parsed.hero?.skylineImg || uaeSkylineHero)
+          },
           contact: { ...defaultSiteContent.contact, ...parsed.contact },
           outlets: {
             amrk: { ...defaultSiteContent.outlets.amrk, ...parsed?.outlets?.amrk, telephone: parsed?.outlets?.amrk?.telephone || '065207843' },
@@ -190,6 +194,9 @@ export const SiteContentProvider: React.FC<{ children: React.ReactNode }> = ({ c
           images: Array.isArray(parsed.images) && parsed.images.length > 0 
             ? parsed.images.map((img: SiteImageItem) => {
                 const def = initialSiteImages.find(d => d.id === img.id);
+                if (img.id === 'hero-skyline' && img.url === outletBgOlive) {
+                  return { ...(def || img), url: uaeSkylineHero };
+                }
                 return def ? { ...def, ...img } : img;
               })
             : initialSiteImages,

@@ -27,9 +27,13 @@ interface ServiceGridCardsProps {
   outletName?: string;
 }
 
+const AMRK_WHATSAPP = '971566745493';
+const ALAYAN_WHATSAPP = '971556140043';
+const cleanNumber = (num?: string) => (num || '').replace(/[^0-9]/g, '');
+
 export const ServiceGridCards: React.FC<ServiceGridCardsProps> = ({
-  outletWhatsApp = '971505372999',
-  outletName = 'UAE Typing Services'
+  outletWhatsApp,
+  outletName
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<ServiceCategoryGroup | null>(null);
   const location = useLocation();
@@ -101,13 +105,33 @@ export const ServiceGridCards: React.FC<ServiceGridCardsProps> = ({
     recordServiceClick(category.id);
   };
 
+  const handleSpecificWhatsAppInquiry = (
+    target: 'amrk' | 'alayan',
+    serviceName: string,
+    categoryTitle: string,
+    e: React.MouseEvent
+  ) => {
+    e.stopPropagation();
+    if (selectedCategory) {
+      recordServiceClick(selectedCategory.id);
+    }
+    if (target === 'amrk') {
+      const message = `Hello AMRK Typing Services, I would like to inquire about "${serviceName}" under ${categoryTitle}.`;
+      window.open(`https://wa.me/${AMRK_WHATSAPP}?text=${encodeURIComponent(message)}`, '_blank');
+    } else {
+      const message = `Hello ALAYAN Typing Services, I would like to inquire about "${serviceName}" under ${categoryTitle}.`;
+      window.open(`https://wa.me/${ALAYAN_WHATSAPP}?text=${encodeURIComponent(message)}`, '_blank');
+    }
+  };
+
   const handleWhatsAppInquiry = (serviceName: string, categoryTitle: string, e: React.MouseEvent) => {
     e.stopPropagation();
     if (selectedCategory) {
       recordServiceClick(selectedCategory.id);
     }
-    const cleanNumber = outletWhatsApp.replace('+', '').replace(/\s/g, '');
-    const message = `Hello ${outletName}, I would like to inquire about "${serviceName}" under ${categoryTitle}.`;
+    const cleanNumber = (outletWhatsApp || AMRK_WHATSAPP).replace('+', '').replace(/\s/g, '');
+    const currentOutletName = outletName || (cleanNumber === ALAYAN_WHATSAPP ? 'ALAYAN Typing Services' : 'AMRK Typing Services');
+    const message = `Hello ${currentOutletName}, I would like to inquire about "${serviceName}" under ${categoryTitle}.`;
     window.open(`https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
@@ -197,26 +221,66 @@ export const ServiceGridCards: React.FC<ServiceGridCardsProps> = ({
 
             {/* Modal Subservices List */}
             <div className="p-6 overflow-y-auto space-y-3 flex-1 bg-slate-50">
-              <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
-                Available Procedures & Typing Services:
-              </p>
+              <div className="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                  Available Procedures & Typing Services:
+                </p>
+                <div className="flex items-center gap-2 text-[11px] text-slate-500">
+                  <span className="inline-flex items-center gap-1 font-semibold text-[#2F3091]">
+                    <span className="w-2 h-2 rounded-full bg-[#2F3091]" /> AMRK (Ind. 2)
+                  </span>
+                  <span className="text-slate-300">•</span>
+                  <span className="inline-flex items-center gap-1 font-semibold text-[#006038]">
+                    <span className="w-2 h-2 rounded-full bg-[#006038]" /> ALAYAN (Ind. 1)
+                  </span>
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {selectedCategory.services.map((service, sIdx) => (
                   <div
                     key={sIdx}
-                    className="p-3 rounded-xl bg-white border border-slate-200/80 hover:border-blue-400 flex items-center justify-between gap-3 text-xs transition-colors shadow-xs group"
+                    className="p-3 rounded-xl bg-white border border-slate-200/80 hover:border-blue-400 flex items-center justify-between gap-2.5 text-xs transition-colors shadow-xs group"
                   >
-                    <div className="flex items-center gap-2 text-slate-800 font-medium">
+                    <div className="flex items-center gap-2 text-slate-800 font-medium min-w-0 flex-1">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                      <span>{service}</span>
+                      <span className="line-clamp-2">{service}</span>
                     </div>
-                    <button
-                      onClick={(e) => handleWhatsAppInquiry(service, selectedCategory.title, e)}
-                      title="Inquire on WhatsApp"
-                      className="p-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-colors flex-shrink-0"
-                    >
-                      <MessageCircle className="w-3.5 h-3.5" />
-                    </button>
+
+                    {/* WhatsApp Action Buttons */}
+                    {outletWhatsApp ? (
+                      <button
+                        onClick={(e) => handleWhatsAppInquiry(service, selectedCategory.title, e)}
+                        title={`Inquire on WhatsApp with ${outletName || 'Typist'}`}
+                        className={`px-2.5 py-1.5 rounded-lg text-white font-bold text-[11px] flex items-center gap-1.5 shadow-xs transition-colors flex-shrink-0 ${
+                          cleanNumber(outletWhatsApp) === ALAYAN_WHATSAPP
+                            ? 'bg-[#006038] hover:bg-[#004d2d]'
+                            : 'bg-[#2F3091] hover:bg-[#252677]'
+                        }`}
+                      >
+                        <MessageCircle className="w-3.5 h-3.5" />
+                        <span>Inquire</span>
+                      </button>
+                    ) : (
+                      <div className="flex items-center gap-1 flex-shrink-0">
+                        <button
+                          onClick={(e) => handleSpecificWhatsAppInquiry('amrk', service, selectedCategory.title, e)}
+                          title="Inquire at AMRK Typing Services (+971 56 674 5493)"
+                          className="px-2 py-1 rounded-md text-[10px] font-bold bg-[#2F3091]/10 text-[#2F3091] hover:bg-[#2F3091] hover:text-white transition-all flex items-center gap-1 border border-[#2F3091]/25"
+                        >
+                          <MessageCircle className="w-3 h-3" />
+                          <span>AMRK</span>
+                        </button>
+                        <button
+                          onClick={(e) => handleSpecificWhatsAppInquiry('alayan', service, selectedCategory.title, e)}
+                          title="Inquire at ALAYAN Typing Services (+971 55 614 0043)"
+                          className="px-2 py-1 rounded-md text-[10px] font-bold bg-[#006038]/10 text-[#006038] hover:bg-[#006038] hover:text-white transition-all flex items-center gap-1 border border-[#006038]/25"
+                        >
+                          <MessageCircle className="w-3 h-3" />
+                          <span>ALAYAN</span>
+                        </button>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -224,22 +288,33 @@ export const ServiceGridCards: React.FC<ServiceGridCardsProps> = ({
 
             {/* Modal Footer */}
             <div className="p-4 bg-white border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-              <span className="text-slate-500">
-                Processed at AMRK (Ind. 2) & ALAYAN (Ind. 1) outlets.
+              <span className="text-slate-500 text-center sm:text-left">
+                Select an outlet to send documents and inquiries on WhatsApp:
               </span>
-              <div className="flex items-center gap-2 w-full sm:w-auto">
+              <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 w-full sm:w-auto">
                 <a
-                  href={`https://wa.me/${outletWhatsApp.replace('+', '').replace(/\s/g, '')}?text=${encodeURIComponent(`Hello ${outletName}, I want to inquire about ${selectedCategory.title}.`)}`}
+                  href={`https://wa.me/${AMRK_WHATSAPP}?text=${encodeURIComponent(`Hello AMRK Typing Services, I want to inquire about ${selectedCategory.title}.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-[#00a859] hover:bg-[#00924d] text-white font-bold flex items-center justify-center gap-2 shadow-sm"
+                  className="px-3.5 py-2 rounded-full bg-[#2F3091] hover:bg-[#252677] text-white font-bold flex items-center justify-center gap-1.5 shadow-sm text-xs transition-all"
+                  title="AMRK WhatsApp (+971 56 674 5493)"
                 >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>Inquire Category on WhatsApp</span>
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>AMRK (056 6745493)</span>
+                </a>
+                <a
+                  href={`https://wa.me/${ALAYAN_WHATSAPP}?text=${encodeURIComponent(`Hello ALAYAN Typing Services, I want to inquire about ${selectedCategory.title}.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-2 rounded-full bg-[#006038] hover:bg-[#004d2d] text-white font-bold flex items-center justify-center gap-1.5 shadow-sm text-xs transition-all"
+                  title="ALAYAN WhatsApp (+971 55 614 0043)"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>ALAYAN (055 6140043)</span>
                 </a>
                 <button
                   onClick={handleCloseModal}
-                  className="px-4 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium cursor-pointer"
+                  className="px-3.5 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium cursor-pointer"
                 >
                   Close
                 </button>

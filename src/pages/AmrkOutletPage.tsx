@@ -19,7 +19,7 @@ export const AmrkOutletPage: React.FC = () => {
   const { content } = useSiteContent();
   const dynamicOutlet = content.outlets.amrk;
 
-  const officePhone = dynamicOutlet?.officePhone || staticOutlet.officePhone;
+  const officePhone = dynamicOutlet?.officePhone || staticOutlet.officePhone || '056 674 5493';
   const telephone = dynamicOutlet?.telephone || staticOutlet.telephone || '065207843';
   const email = dynamicOutlet?.email || staticOutlet.email;
   const logoUrl = dynamicOutlet?.logoUrl || staticOutlet.logoUrl;
@@ -27,7 +27,10 @@ export const AmrkOutletPage: React.FC = () => {
   const googleMapsUrl = dynamicOutlet?.googleMapsUrl || staticOutlet.googleMapsUrl;
   const additionalPhones = (dynamicOutlet?.additionalPhones || []).filter(p => p.trim().length > 0);
   const additionalEmails = (dynamicOutlet?.additionalEmails || []).filter(e => e.trim().length > 0);
-  const officePhoneIntl = dynamicOutlet?.officePhone ? dynamicOutlet.officePhone.replace(/[^0-9]/g, '') : staticOutlet.officePhoneIntl;
+
+  const rawOfficePhone = dynamicOutlet?.officePhone || staticOutlet.officePhone || '0566745493';
+  const cleanOfficeDigits = rawOfficePhone.replace(/[^0-9]/g, '');
+  const officePhoneIntl = cleanOfficeDigits.startsWith('971') ? cleanOfficeDigits : '971' + cleanOfficeDigits.replace(/^0+/, '');
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
@@ -86,13 +89,13 @@ export const AmrkOutletPage: React.FC = () => {
 
               {/* Office WhatsApp */}
               <a
-                href={`https://wa.me/${officePhone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hello AMRK Typing Services, I would like to inquire about typing services.')}`}
+                href={`https://wa.me/${officePhoneIntl}?text=${encodeURIComponent('Hello AMRK Typing Services, I would like to inquire about typing services.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="whitespace-nowrap px-3.5 py-2 rounded-full bg-[#00a859] hover:bg-[#00924d] text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition-all flex-shrink-0"
+                className="whitespace-nowrap px-3.5 py-2 rounded-full bg-[#2F3091] hover:bg-[#252677] text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition-all flex-shrink-0"
               >
-                <MessageCircle className="w-3.5 h-3.5 fill-white text-[#00a859]" />
-                <span>Office WhatsApp</span>
+                <MessageCircle className="w-3.5 h-3.5 fill-white text-[#2F3091]" />
+                <span>Office WhatsApp ({officePhone})</span>
               </a>
 
               {/* Additional Phone Numbers (if added from Admin Panel) */}
@@ -271,12 +274,12 @@ export const AmrkOutletPage: React.FC = () => {
             Send your passport copy, Emirates ID, or fine receipt to get an immediate checklist and price calculation from our team.
           </p>
           <a
-            href={`https://wa.me/${officePhoneIntl.replace('+', '')}?text=${encodeURIComponent('Hello AMRK Typing Services, I would like to inquire about visa and government typing services.')}`}
+            href={`https://wa.me/${officePhoneIntl}?text=${encodeURIComponent('Hello AMRK Typing Services, I would like to inquire about visa and government typing services.')}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#00a859] hover:bg-[#00924d] text-white font-bold text-xs uppercase tracking-wider shadow-md hover:scale-105 transition-all"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#2F3091] hover:bg-[#252677] text-white font-bold text-xs uppercase tracking-wider shadow-md hover:scale-105 transition-all"
           >
-            <MessageCircle className="w-4 h-4 fill-white text-[#00a859]" />
+            <MessageCircle className="w-4 h-4 fill-white text-[#2F3091]" />
             <span>Chat on WhatsApp ({officePhone})</span>
           </a>
         </div>

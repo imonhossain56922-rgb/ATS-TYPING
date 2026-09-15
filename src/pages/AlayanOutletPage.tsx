@@ -17,7 +17,7 @@ export const AlayanOutletPage: React.FC = () => {
   const { content } = useSiteContent();
   const dynamicOutlet = content.outlets.alayan;
 
-  const officePhone = dynamicOutlet?.officePhone || staticOutlet.officePhone;
+  const officePhone = dynamicOutlet?.officePhone || staticOutlet.officePhone || '055 614 0043';
   const telephone = dynamicOutlet?.telephone || staticOutlet.telephone || '0556140043';
   const email = dynamicOutlet?.email || staticOutlet.email;
   const logoUrl = dynamicOutlet?.logoUrl || staticOutlet.logoUrl;
@@ -25,7 +25,10 @@ export const AlayanOutletPage: React.FC = () => {
   const googleMapsUrl = dynamicOutlet?.googleMapsUrl || staticOutlet.googleMapsUrl;
   const additionalPhones = (dynamicOutlet?.additionalPhones || []).filter(p => p.trim().length > 0);
   const additionalEmails = (dynamicOutlet?.additionalEmails || []).filter(e => e.trim().length > 0);
-  const officePhoneIntl = dynamicOutlet?.officePhone ? dynamicOutlet.officePhone.replace(/[^0-9]/g, '') : staticOutlet.officePhoneIntl;
+  
+  const rawOfficePhone = dynamicOutlet?.officePhone || staticOutlet.officePhone || '0556140043';
+  const cleanOfficeDigits = rawOfficePhone.replace(/[^0-9]/g, '');
+  const officePhoneIntl = cleanOfficeDigits.startsWith('971') ? cleanOfficeDigits : '971' + cleanOfficeDigits.replace(/^0+/, '');
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
@@ -62,6 +65,18 @@ export const AlayanOutletPage: React.FC = () => {
 
             {/* 5. Direct Contact Buttons */}
             <div className="pt-2 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+              {/* Office WhatsApp */}
+              <a
+                href={`https://wa.me/${officePhoneIntl}?text=${encodeURIComponent('Hello ALAYAN Typing Services, I would like to inquire about typing services.')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="whitespace-nowrap px-4 py-2.5 rounded-full bg-[#006038] hover:bg-[#004d2d] text-white text-xs font-bold flex items-center gap-2 shadow-xs transition-all flex-shrink-0"
+                title={`Office WhatsApp (${officePhone})`}
+              >
+                <MessageCircle className="w-4 h-4 fill-white text-[#006038]" />
+                <span>Office WhatsApp ({officePhone})</span>
+              </a>
+
               {/* Telephone (Call Only - No WhatsApp) */}
               <a
                 href={`tel:${telephone.replace(/\s+/g, '')}`}
@@ -175,7 +190,7 @@ export const AlayanOutletPage: React.FC = () => {
           </div>
 
           <ServiceGridCards 
-            outletWhatsApp="971505372999" 
+            outletWhatsApp={officePhoneIntl} 
             outletName="ALAYAN Typing Services" 
           />
         </div>
@@ -187,19 +202,28 @@ export const AlayanOutletPage: React.FC = () => {
       {/* 10. Direct Telephone & Inquiry CTA Section */}
       <section className="py-14 bg-white border-t border-slate-200">
         <div className="max-w-3xl mx-auto px-4 text-center space-y-5">
-          <div className="w-12 h-12 rounded-full bg-emerald-100 text-[#008751] flex items-center justify-center mx-auto">
-            <PhoneCall className="w-6 h-6 text-[#008751]" />
+          <div className="w-12 h-12 rounded-full bg-emerald-100 text-[#006038] flex items-center justify-center mx-auto">
+            <PhoneCall className="w-6 h-6 text-[#006038]" />
           </div>
           <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0B1B3D] font-display">
             Direct Inquiry with ALAYAN TYPING SERVICES
           </h3>
           <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto font-normal">
-            Call our Central Souq outlet directly on our telephone number for instant document clearances, or connect with management on WhatsApp.
+            Call our Central Souq outlet directly on our telephone number for instant document clearances, or connect with our typing office directly on WhatsApp.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a
+              href={`https://wa.me/${officePhoneIntl}?text=${encodeURIComponent('Hello ALAYAN Typing Services, I would like to inquire about visa and government typing services.')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#006038] hover:bg-[#004d2d] text-white font-bold text-xs uppercase tracking-wider shadow-md hover:scale-105 transition-all"
+            >
+              <MessageCircle className="w-4 h-4 fill-white text-[#006038]" />
+              <span>Office WhatsApp ({officePhone})</span>
+            </a>
+            <a
               href={`tel:${telephone.replace(/\s+/g, '')}`}
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#008751] hover:bg-[#007043] text-white font-bold text-xs uppercase tracking-wider shadow-md hover:scale-105 transition-all"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white hover:bg-slate-50 text-[#0B1B3D] border border-slate-300 font-bold text-xs uppercase tracking-wider shadow-sm hover:scale-105 transition-all"
             >
               <PhoneCall className="w-4 h-4" />
               <span>Call Telephone ({telephone})</span>
@@ -208,7 +232,7 @@ export const AlayanOutletPage: React.FC = () => {
               href="https://wa.me/971505372999?text=Hello%20ALAYAN%20Typing%20Services%2C%20I%20would%20like%20to%20inquire%20about%20visa%20and%20government%20typing%20services."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#0B1B3D] hover:bg-[#15284F] text-white font-bold text-xs uppercase tracking-wider shadow-md hover:scale-105 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#0B1B3D] hover:bg-[#15284F] text-white font-bold text-xs uppercase tracking-wider shadow-sm hover:scale-105 transition-all"
             >
               <MessageCircle className="w-4 h-4 fill-white text-[#0B1B3D]" />
               <span>Manager WhatsApp (0505372999)</span>
