@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { SiteContent, SiteImageItem, ContactInfo, SiteOutletItem, Advertisement } from '../types';
 import { contactData as defaultContact } from '../data/contactData';
-import { uaeSkylineHero, uaeWavingFlag, servicesBgNetwork, outletBgMint, outletBgTeal, outletBgOlive } from '../assets/images';
+import { uaeSkylineHero, uaeWavingFlag, servicesBgNetwork } from '../assets/images';
 
 const STORAGE_KEY = 'uae_typing_site_content_v2';
 const AUTH_KEY = 'uae_typing_admin_auth_status';
@@ -27,7 +27,7 @@ export const initialSiteImages: SiteImageItem[] = [
     id: 'brand-logo',
     name: 'UAE Typing Official Brand Logo',
     section: 'Header & Visiting Card',
-    url: '/logo.jpg',
+    url: '/ats-logo.jpg',
     description: 'Official seal badge and logo used on visiting card & headers',
     recommendedSize: '512 × 512 px (Square)'
   },
@@ -70,22 +70,6 @@ export const initialSiteImages: SiteImageItem[] = [
     url: servicesBgNetwork,
     description: 'Blurred glowing golden digital technology network background on the Our Services section',
     recommendedSize: '1920 × 1080 px (Landscape / Blurred Background)'
-  },
-  {
-    id: 'outlet-amrk-card-bg',
-    name: 'AMRK Branch Card Background (Mint Watercolor Texture)',
-    section: 'Our Outlets - AMRK Card',
-    url: outletBgMint,
-    description: 'Soft pastel mint and seafoam watercolor texture background on the AMRK outlet card',
-    recommendedSize: '800 × 500 px'
-  },
-  {
-    id: 'outlet-alayan-card-bg',
-    name: 'ALAYAN Branch Card Background (Olive Cloud Texture)',
-    section: 'Our Outlets - ALAYAN Card',
-    url: outletBgOlive,
-    description: 'Olive green and chartreuse cloud vapor texture background on the ALAYAN outlet card',
-    recommendedSize: '800 × 500 px'
   }
 ];
 
@@ -93,7 +77,7 @@ export const defaultSiteContent: SiteContent = {
   brand: {
     name: 'UAE TYPING SERVICES',
     subtitle: 'Visa & Government Services in Ajman',
-    logoUrl: '/logo.jpg'
+    logoUrl: '/ats-logo.jpg'
   },
   hero: {
     eyebrow: 'UAE TYPING SERVICES',
@@ -179,11 +163,15 @@ export const SiteContentProvider: React.FC<{ children: React.ReactNode }> = ({ c
         return {
           ...defaultSiteContent,
           ...parsed,
-          brand: { ...defaultSiteContent.brand, ...parsed.brand },
+          brand: {
+            ...defaultSiteContent.brand,
+            ...parsed.brand,
+            logoUrl: (parsed.brand?.logoUrl === '/logo.jpg' || !parsed.brand?.logoUrl) ? '/ats-logo.jpg' : parsed.brand.logoUrl
+          },
           hero: {
             ...defaultSiteContent.hero,
             ...parsed.hero,
-            skylineImg: parsed.hero?.skylineImg === outletBgOlive ? uaeSkylineHero : (parsed.hero?.skylineImg || uaeSkylineHero)
+            skylineImg: parsed.hero?.skylineImg || uaeSkylineHero
           },
           contact: { ...defaultSiteContent.contact, ...parsed.contact },
           outlets: {
@@ -192,13 +180,15 @@ export const SiteContentProvider: React.FC<{ children: React.ReactNode }> = ({ c
           },
           payment: { ...defaultSiteContent.payment, ...parsed.payment },
           images: Array.isArray(parsed.images) && parsed.images.length > 0 
-            ? parsed.images.map((img: SiteImageItem) => {
-                const def = initialSiteImages.find(d => d.id === img.id);
-                if (img.id === 'hero-skyline' && img.url === outletBgOlive) {
-                  return { ...(def || img), url: uaeSkylineHero };
-                }
-                return def ? { ...def, ...img } : img;
-              })
+            ? parsed.images
+                .filter((img: SiteImageItem) => img.id !== 'outlet-amrk-card-bg' && img.id !== 'outlet-alayan-card-bg')
+                .map((img: SiteImageItem) => {
+                  const def = initialSiteImages.find(d => d.id === img.id);
+                  if (img.id === 'brand-logo' && img.url === '/logo.jpg') {
+                    return { ...(def || img), url: '/ats-logo.jpg' };
+                  }
+                  return def ? { ...def, ...img } : img;
+                })
             : initialSiteImages,
           advertisement: parsed.advertisement || null
         };

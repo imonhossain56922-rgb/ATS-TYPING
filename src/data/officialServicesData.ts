@@ -2,8 +2,24 @@ import { ServiceCategoryGroup } from '../types';
 
 export const officialServiceCategories: ServiceCategoryGroup[] = [
   {
-    id: 'immigration-gov',
+    id: 'travel-ticketing',
     letter: '1',
+    title: 'Travel & Ticketing',
+    iconName: 'Plane',
+    description: 'Worldwide air ticket bookings, date modifications, visit visas, Umrah packages, outbound tour packages, and hotel reservations.',
+    services: [
+      'Air Ticket Booking',
+      'Ticket Change and cancellation.',
+      'Visit Visa apply & Extension Services.',
+      'Umrah Package Normal & Multiple visa apply.',
+      'Tour package and visit visa out of UAE.',
+      'Hotel booking & Boarding Pass.',
+      'Extra Baggage add & Seat Selection.'
+    ]
+  },
+  {
+    id: 'immigration-gov',
+    letter: '2',
     title: 'Immigration Services & Government Online Application',
     iconName: 'Building2',
     description: 'ICP Smart & GDRFA services, 10-year Golden Visa, residence and entry permits, status change, family sponsorship, and establishment applications.',
@@ -21,7 +37,7 @@ export const officialServiceCategories: ServiceCategoryGroup[] = [
   },
   {
     id: 'labour-mohre',
-    letter: '2',
+    letter: '3',
     title: 'Ministry of Labour (MOHRE) Application',
     iconName: 'Briefcase',
     description: 'All UAE MOHRE online applications, new job offer approvals, work permits, labour contracts, domestic worker services, and WPS clearance.',
@@ -39,7 +55,7 @@ export const officialServiceCategories: ServiceCategoryGroup[] = [
   },
   {
     id: 'business-company',
-    letter: '3',
+    letter: '4',
     title: 'Business Setup & Company Services',
     iconName: 'Building',
     description: 'Complete UAE company setup, trade licenses, Ejari & Tasdeeq, partnership agreements, PRO, corporate banking, FTA corporate tax, and Civil Defense.',
@@ -61,7 +77,7 @@ export const officialServiceCategories: ServiceCategoryGroup[] = [
   },
   {
     id: 'medical-insurance',
-    letter: '4',
+    letter: '5',
     title: 'Medical & Insurance Services',
     iconName: 'ShieldCheck',
     description: 'Visa purpose medical application, individual and group health insurance, vehicle insurance, travel policies, and ILOE insurance assistance.',
@@ -76,7 +92,7 @@ export const officialServiceCategories: ServiceCategoryGroup[] = [
   },
   {
     id: 'driving-transport',
-    letter: '5',
+    letter: '6',
     title: 'Driving & Transport Services',
     iconName: 'Car',
     description: 'Ajman traffic file opening, UAE & international driving licenses, vehicle/mulkiya registration and renewals, MOI/RTA applications, and fine payments.',
@@ -91,7 +107,7 @@ export const officialServiceCategories: ServiceCategoryGroup[] = [
   },
   {
     id: 'government-utility',
-    letter: '6',
+    letter: '7',
     title: 'Government Utility Services',
     iconName: 'Zap',
     description: 'DEWA, SEWA & FEWA utility connections, police clearance, consulate & MOFA attestation, Indian passport appointment, and fee payments.',
@@ -103,22 +119,6 @@ export const officialServiceCategories: ServiceCategoryGroup[] = [
       'Online transaction fees payment.',
       'Individual certificate & Company Invoice attestation.',
       'Account Closure Deposit/Refund Request.'
-    ]
-  },
-  {
-    id: 'travel-ticketing',
-    letter: '7',
-    title: 'Travel & Ticketing',
-    iconName: 'Plane',
-    description: 'Worldwide air ticket bookings, date modifications, visit visas, Umrah packages, outbound tour packages, and hotel reservations.',
-    services: [
-      'Air Ticket Booking',
-      'Ticket Change and cancellation.',
-      'Visit Visa apply & Extension Services.',
-      'Umrah Package Normal & Multiple visa apply.',
-      'Tour package and visit visa out of UAE.',
-      'Hotel booking & Boarding Pass.',
-      'Extra Baggage add & Seat Selection.'
     ]
   },
   {
