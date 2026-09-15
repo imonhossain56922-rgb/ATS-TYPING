@@ -8,7 +8,6 @@ import {
   Navigation 
 } from 'lucide-react';
 import { ServiceGridCards } from '../components/ServiceGridCards';
-import { WhyChooseUs } from '../components/WhyChooseUs';
 import { getOutletById } from '../data/outletsData';
 import { useSiteContent } from '../context/SiteContentContext';
 
@@ -196,10 +195,7 @@ export const AlayanOutletPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 9. Why Choose Us */}
-      <WhyChooseUs />
-
-      {/* 10. Direct Telephone & Inquiry CTA Section */}
+      {/* Direct Telephone & Inquiry CTA Section */}
       <section className="py-14 bg-white border-t border-slate-200">
         <div className="max-w-3xl mx-auto px-4 text-center space-y-5">
           <div className="w-12 h-12 rounded-full bg-emerald-100 text-[#006038] flex items-center justify-center mx-auto">

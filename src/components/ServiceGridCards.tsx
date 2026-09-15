@@ -198,15 +198,9 @@ export const ServiceGridCards: React.FC<ServiceGridCardsProps> = ({
                   {categoryConfig[selectedCategory.id]?.icon || <Building2 className="w-6 h-6" />}
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-amber-300">
-                    Category {selectedCategory.letter}
-                  </span>
                   <h3 className="text-xl sm:text-2xl font-bold font-display">
                     {selectedCategory.title}
                   </h3>
-                  <p className="text-xs text-slate-300 mt-0.5">
-                    {selectedCategory.description}
-                  </p>
                 </div>
               </div>
 
@@ -221,21 +215,6 @@ export const ServiceGridCards: React.FC<ServiceGridCardsProps> = ({
 
             {/* Modal Subservices List */}
             <div className="p-6 overflow-y-auto space-y-3 flex-1 bg-slate-50">
-              <div className="flex items-center justify-between flex-wrap gap-2 mb-2">
-                <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                  Available Procedures & Typing Services:
-                </p>
-                <div className="flex items-center gap-2 text-[11px] text-slate-500">
-                  <span className="inline-flex items-center gap-1 font-semibold text-[#2F3091]">
-                    <span className="w-2 h-2 rounded-full bg-[#2F3091]" /> AMRK (Ind. 2)
-                  </span>
-                  <span className="text-slate-300">•</span>
-                  <span className="inline-flex items-center gap-1 font-semibold text-[#006038]">
-                    <span className="w-2 h-2 rounded-full bg-[#006038]" /> ALAYAN (Ind. 1)
-                  </span>
-                </div>
-              </div>
-
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {selectedCategory.services.map((service, sIdx) => (
                   <div
@@ -253,7 +232,7 @@ export const ServiceGridCards: React.FC<ServiceGridCardsProps> = ({
                         onClick={(e) => handleWhatsAppInquiry(service, selectedCategory.title, e)}
                         title={`Inquire on WhatsApp with ${outletName || 'Typist'}`}
                         className={`px-2.5 py-1.5 rounded-lg text-white font-bold text-[11px] flex items-center gap-1.5 shadow-xs transition-colors flex-shrink-0 ${
-                          cleanNumber(outletWhatsApp) === ALAYAN_WHATSAPP
+                          outletWhatsApp.replace(/[^0-9]/g, '') === ALAYAN_WHATSAPP
                             ? 'bg-[#006038] hover:bg-[#004d2d]'
                             : 'bg-[#2F3091] hover:bg-[#252677]'
                         }`}
@@ -287,38 +266,13 @@ export const ServiceGridCards: React.FC<ServiceGridCardsProps> = ({
             </div>
 
             {/* Modal Footer */}
-            <div className="p-4 bg-white border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-              <span className="text-slate-500 text-center sm:text-left">
-                Select an outlet to send documents and inquiries on WhatsApp:
-              </span>
-              <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 w-full sm:w-auto">
-                <a
-                  href={`https://wa.me/${AMRK_WHATSAPP}?text=${encodeURIComponent(`Hello AMRK Typing Services, I want to inquire about ${selectedCategory.title}.`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3.5 py-2 rounded-full bg-[#2F3091] hover:bg-[#252677] text-white font-bold flex items-center justify-center gap-1.5 shadow-sm text-xs transition-all"
-                  title="AMRK WhatsApp (+971 56 674 5493)"
-                >
-                  <MessageCircle className="w-3.5 h-3.5" />
-                  <span>AMRK (056 6745493)</span>
-                </a>
-                <a
-                  href={`https://wa.me/${ALAYAN_WHATSAPP}?text=${encodeURIComponent(`Hello ALAYAN Typing Services, I want to inquire about ${selectedCategory.title}.`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3.5 py-2 rounded-full bg-[#006038] hover:bg-[#004d2d] text-white font-bold flex items-center justify-center gap-1.5 shadow-sm text-xs transition-all"
-                  title="ALAYAN WhatsApp (+971 55 614 0043)"
-                >
-                  <MessageCircle className="w-3.5 h-3.5" />
-                  <span>ALAYAN (055 6140043)</span>
-                </a>
-                <button
-                  onClick={handleCloseModal}
-                  className="px-3.5 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium cursor-pointer"
-                >
-                  Close
-                </button>
-              </div>
+            <div className="p-4 bg-white border-t border-slate-200 flex items-center justify-end text-xs">
+              <button
+                onClick={handleCloseModal}
+                className="px-6 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium cursor-pointer transition-colors"
+              >
+                Close
+              </button>
             </div>
 
           </div>
