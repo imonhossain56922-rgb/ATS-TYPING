@@ -158,8 +158,8 @@ export const ContactPage: React.FC = () => {
                         </div>
                       )}
 
-                      {/* Office Desk (For AMRK has WhatsApp; for ALAYAN is same as telephone so omit duplicate) */}
-                      {outlet.id !== 'alayan' && (
+                      {/* Office Desk (WhatsApp) */}
+                      {outlet.officePhone && (
                         <div className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-slate-200">
                           <div>
                             <span className="text-slate-400 block text-[10px] uppercase">Office Desk (WhatsApp)</span>

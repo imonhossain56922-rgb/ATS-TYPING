@@ -39,8 +39,8 @@ export const outletsData: OutletInfo[] = [
       'Opposite Marks & Save Market.'
     ],
     googleMapsUrl: 'https://maps.app.goo.gl/RV4rjfQBcxvuASqR8',
-    telephone: '0556140043',
-    telephoneIntl: '+971556140043',
+    telephone: '065209420',
+    telephoneIntl: '+97165209420',
     officePhone: '0556140043',
     officePhoneIntl: '+971556140043',
     ownerPhone: '0505372999',

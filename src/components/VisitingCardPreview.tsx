@@ -68,8 +68,8 @@ export const VisitingCardPreview: React.FC<{ language: 'en' | 'bn' | 'ar' }> = (
                     <Phone className="w-4 h-4" />
                   </div>
                   <div className="flex items-center gap-2">
-                    <a href="tel:0556140043" className="font-semibold text-slate-200 font-mono hover:text-amber-300">
-                      055 614 0043
+                    <a href="tel:065209420" className="font-semibold text-slate-200 font-mono hover:text-amber-300">
+                      06 520 9420
                     </a>
                     <span className="text-xs text-blue-300 bg-blue-950/60 px-2 py-0.5 rounded-full border border-blue-500/30 font-medium">Telephone (Call Only)</span>
                   </div>

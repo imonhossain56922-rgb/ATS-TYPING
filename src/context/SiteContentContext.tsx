@@ -117,7 +117,7 @@ export const defaultSiteContent: SiteContent = {
       shortName: 'ALAYAN',
       location: 'Ajman Industrial 1',
       address: 'Amman Street - Ajman Industrial - 1, Central Souq - Shop Number 46, Opposite Marks & Save Market.',
-      telephone: '0556140043',
+      telephone: '065209420',
       officePhone: '0556140043',
       ownerPhone: '0505372999',
       additionalPhones: [],
@@ -176,7 +176,13 @@ export const SiteContentProvider: React.FC<{ children: React.ReactNode }> = ({ c
           contact: { ...defaultSiteContent.contact, ...parsed.contact },
           outlets: {
             amrk: { ...defaultSiteContent.outlets.amrk, ...parsed?.outlets?.amrk, telephone: parsed?.outlets?.amrk?.telephone || '065207843' },
-            alayan: { ...defaultSiteContent.outlets.alayan, ...parsed?.outlets?.alayan, telephone: parsed?.outlets?.alayan?.telephone || '0556140043' }
+            alayan: { 
+              ...defaultSiteContent.outlets.alayan, 
+              ...parsed?.outlets?.alayan, 
+              telephone: (parsed?.outlets?.alayan?.telephone === '0556140043' || !parsed?.outlets?.alayan?.telephone) 
+                ? '065209420' 
+                : parsed.outlets.alayan.telephone 
+            }
           },
           payment: { ...defaultSiteContent.payment, ...parsed.payment },
           images: Array.isArray(parsed.images) && parsed.images.length > 0 

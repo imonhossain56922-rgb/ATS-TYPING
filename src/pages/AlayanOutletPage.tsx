@@ -17,7 +17,7 @@ export const AlayanOutletPage: React.FC = () => {
   const dynamicOutlet = content.outlets.alayan;
 
   const officePhone = dynamicOutlet?.officePhone || staticOutlet.officePhone || '055 614 0043';
-  const telephone = dynamicOutlet?.telephone || staticOutlet.telephone || '0556140043';
+  const telephone = dynamicOutlet?.telephone || staticOutlet.telephone || '065209420';
   const email = dynamicOutlet?.email || staticOutlet.email;
   const logoUrl = dynamicOutlet?.logoUrl || staticOutlet.logoUrl;
   const address = dynamicOutlet?.address || staticOutlet.addressLines.join(', ');
